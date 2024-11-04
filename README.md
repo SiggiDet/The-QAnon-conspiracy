@@ -2,8 +2,7 @@
 
 
 **Owners:**
-*Óskar Guðmundur Kristinsson*
-*Sigurður Detlef Jónsson*
+*Óskar Guðmundur Kristinsson* & *Sigurður Detlef Jónsson*
 
 **Course**
 *REI505M*
