@@ -1,0 +1,217 @@
+{
+  "build": "pyhd8ed1ab_0",
+  "build_number": 0,
+  "depends": [
+    "oauthlib >=3.0.0",
+    "python >=3.4",
+    "requests >=2.0.0"
+  ],
+  "license": "ISC",
+  "md5": "87ce3f09ae7e1d3d0f748a1a634ea3b7",
+  "name": "requests-oauthlib",
+  "noarch": "python",
+  "sha256": "3d2b0ad106ad5745445c2eb7e7f90b0ce75dc9f4d8c518eb6fd75aad3c80c2cc",
+  "size": 25739,
+  "subdir": "noarch",
+  "timestamp": 1711290284233,
+  "version": "2.0.0",
+  "fn": "requests-oauthlib-2.0.0-pyhd8ed1ab_0.conda",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/requests-oauthlib-2.0.0-pyhd8ed1ab_0.conda",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/requests-oauthlib-2.0.0-pyhd8ed1ab_0",
+  "files": [
+    "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/INSTALLER",
+    "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/LICENSE",
+    "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/METADATA",
+    "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/RECORD",
+    "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/REQUESTED",
+    "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/WHEEL",
+    "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/direct_url.json",
+    "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/top_level.txt",
+    "lib/python3.9/site-packages/requests_oauthlib/__init__.py",
+    "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/__init__.py",
+    "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/douban.py",
+    "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/ebay.py",
+    "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/facebook.py",
+    "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/fitbit.py",
+    "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/instagram.py",
+    "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/mailchimp.py",
+    "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/plentymarkets.py",
+    "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/slack.py",
+    "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/weibo.py",
+    "lib/python3.9/site-packages/requests_oauthlib/oauth1_auth.py",
+    "lib/python3.9/site-packages/requests_oauthlib/oauth1_session.py",
+    "lib/python3.9/site-packages/requests_oauthlib/oauth2_auth.py",
+    "lib/python3.9/site-packages/requests_oauthlib/oauth2_session.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/LICENSE",
+        "path_type": "hardlink",
+        "sha256": "ae01846afad8a8291fe6a08966f3015af9a8ff675d84b981f9793c122f7876e8",
+        "sha256_in_prefix": "ae01846afad8a8291fe6a08966f3015af9a8ff675d84b981f9793c122f7876e8",
+        "size_in_bytes": 745
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "7d85ea39c166d9f2326f89cee906331d2c80ed2ddea4d31efc020006b47fcaca",
+        "sha256_in_prefix": "7d85ea39c166d9f2326f89cee906331d2c80ed2ddea4d31efc020006b47fcaca",
+        "size_in_bytes": 11133
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "2ed3fbb45536c2cafe8e44798910041fc96c606f9aebe1fd2ce22df44360ad35",
+        "sha256_in_prefix": "2ed3fbb45536c2cafe8e44798910041fc96c606f9aebe1fd2ce22df44360ad35",
+        "size_in_bytes": 3273
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "0d96a30f8a702d6b9eef40807dced86b14f5c0b51c88d06f37f4d372f5e996d1",
+        "sha256_in_prefix": "0d96a30f8a702d6b9eef40807dced86b14f5c0b51c88d06f37f4d372f5e996d1",
+        "size_in_bytes": 110
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "c28fa275825e75d7def0dbbedeb884a8a1cf1f4d1b7eea5ecd18e3de0eaf14e1",
+        "sha256_in_prefix": "c28fa275825e75d7def0dbbedeb884a8a1cf1f4d1b7eea5ecd18e3de0eaf14e1",
+        "size_in_bytes": 113
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib-2.0.0.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "bf1d51e360d604eeb887a8aef06728d05d354d54cf597491581695d46c154534",
+        "sha256_in_prefix": "bf1d51e360d604eeb887a8aef06728d05d354d54cf597491581695d46c154534",
+        "size_in_bytes": 18
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "721bd888809d722786ad173f7b95ad171697aba4ff7ac9a270bfc12d60de9dde",
+        "sha256_in_prefix": "721bd888809d722786ad173f7b95ad171697aba4ff7ac9a270bfc12d60de9dde",
+        "size_in_bytes": 548
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "7b4a9794bd454db7bb9314cb1664d837d8a914d664b3eb201a262a86bc81a1bc",
+        "sha256_in_prefix": "7b4a9794bd454db7bb9314cb1664d837d8a914d664b3eb201a262a86bc81a1bc",
+        "size_in_bytes": 377
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/douban.py",
+        "path_type": "hardlink",
+        "sha256": "f514da7d1bb49d6ca2027f6bf39d3608463acafa3371a9d7576a709ca3d424dc",
+        "sha256_in_prefix": "f514da7d1bb49d6ca2027f6bf39d3608463acafa3371a9d7576a709ca3d424dc",
+        "size_in_bytes": 413
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/ebay.py",
+        "path_type": "hardlink",
+        "sha256": "35153120c29530fd1050bbabf5112eb6cc9922a20ffc0c0e00d8e58e2f598001",
+        "sha256_in_prefix": "35153120c29530fd1050bbabf5112eb6cc9922a20ffc0c0e00d8e58e2f598001",
+        "size_in_bytes": 832
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/facebook.py",
+        "path_type": "hardlink",
+        "sha256": "af26e21fcdfd630cf2635dd288603aefa8870814e1de6a8575a9b9b6ac74e352",
+        "sha256_in_prefix": "af26e21fcdfd630cf2635dd288603aefa8870814e1de6a8575a9b9b6ac74e352",
+        "size_in_bytes": 995
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/fitbit.py",
+        "path_type": "hardlink",
+        "sha256": "708e0f3e94e75c9a59c35498f8df2872c855da956f7a9ebbf5dfe944824f2268",
+        "sha256_in_prefix": "708e0f3e94e75c9a59c35498f8df2872c855da956f7a9ebbf5dfe944824f2268",
+        "size_in_bytes": 846
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/instagram.py",
+        "path_type": "hardlink",
+        "sha256": "604bd758a9a133ac98e24dfbf15da636597854ac8e2646411f47d1bd4e9f0ccd",
+        "sha256_in_prefix": "604bd758a9a133ac98e24dfbf15da636597854ac8e2646411f47d1bd4e9f0ccd",
+        "size_in_bytes": 875
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/mailchimp.py",
+        "path_type": "hardlink",
+        "sha256": "4951509676ee5d908b78abfa626860f5e48149c1c25d5f773d72c75a150f00dd",
+        "sha256_in_prefix": "4951509676ee5d908b78abfa626860f5e48149c1c25d5f773d72c75a150f00dd",
+        "size_in_bytes": 679
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/plentymarkets.py",
+        "path_type": "hardlink",
+        "sha256": "b3b96b4d984835a9222a395b3884937874d25ec364706f307ca704565414328b",
+        "sha256_in_prefix": "b3b96b4d984835a9222a395b3884937874d25ec364706f307ca704565414328b",
+        "size_in_bytes": 737
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/slack.py",
+        "path_type": "hardlink",
+        "sha256": "e19420d67cb4bd4fa17fc3498cac206448201f6381ecddda27d1addafedc55ce",
+        "sha256_in_prefix": "e19420d67cb4bd4fa17fc3498cac206448201f6381ecddda27d1addafedc55ce",
+        "size_in_bytes": 1380
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/compliance_fixes/weibo.py",
+        "path_type": "hardlink",
+        "sha256": "4cbf2ebb85cc0ff321f6d5c828c340f134f580e22b6818a94caa17912a51dac3",
+        "sha256_in_prefix": "4cbf2ebb85cc0ff321f6d5c828c340f134f580e22b6818a94caa17912a51dac3",
+        "size_in_bytes": 385
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/oauth1_auth.py",
+        "path_type": "hardlink",
+        "sha256": "1775df85538357cd279c210f0c7b9e535826ab18618c64e69c31181ad458c097",
+        "sha256_in_prefix": "1775df85538357cd279c210f0c7b9e535826ab18618c64e69c31181ad458c097",
+        "size_in_bytes": 3604
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/oauth1_session.py",
+        "path_type": "hardlink",
+        "sha256": "03a8fb0a043c9f622be009fef14d09f65c9435e63c1f959f7f92393d61f39477",
+        "sha256_in_prefix": "03a8fb0a043c9f622be009fef14d09f65c9435e63c1f959f7f92393d61f39477",
+        "size_in_bytes": 16942
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/oauth2_auth.py",
+        "path_type": "hardlink",
+        "sha256": "317b3cbc86c13a15e3f4d2e2c3ff89db8939e8bfd7449d2d147fc4329b216149",
+        "sha256_in_prefix": "317b3cbc86c13a15e3f4d2e2c3ff89db8939e8bfd7449d2d147fc4329b216149",
+        "size_in_bytes": 1508
+      },
+      {
+        "_path": "lib/python3.9/site-packages/requests_oauthlib/oauth2_session.py",
+        "path_type": "hardlink",
+        "sha256": "2b85ed769353894e83abc26f12c8fc694a4c75abd6482640b9339cff1859701c",
+        "sha256_in_prefix": "2b85ed769353894e83abc26f12c8fc694a4c75abd6482640b9339cff1859701c",
+        "size_in_bytes": 23932
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/requests-oauthlib-2.0.0-pyhd8ed1ab_0",
+    "type": 1
+  }
+}

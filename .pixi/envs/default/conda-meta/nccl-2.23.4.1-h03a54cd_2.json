@@ -1,0 +1,86 @@
+{
+  "build": "h03a54cd_2",
+  "build_number": 2,
+  "depends": [
+    "__glibc >=2.17,<3.0.a0",
+    "cuda-version >=11.0,<12.0a0",
+    "libgcc",
+    "libgcc-ng >=12",
+    "libstdcxx",
+    "libstdcxx-ng >=12"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "a08604ac3f9c3dbd128bb24e089dee5f",
+  "name": "nccl",
+  "sha256": "d5376af5f95272c27ccf64144a87e97c0a21b12284ff4bdf12e6dd07d8bba2cc",
+  "size": 133521553,
+  "subdir": "linux-64",
+  "timestamp": 1730318519726,
+  "version": "2.23.4.1",
+  "fn": "nccl-2.23.4.1-h03a54cd_2.conda",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/nccl-2.23.4.1-h03a54cd_2.conda",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/nccl-2.23.4.1-h03a54cd_2",
+  "files": [
+    "include/nccl.h",
+    "include/nccl_net.h",
+    "lib/libnccl.so",
+    "lib/libnccl.so.2",
+    "lib/libnccl.so.2.23.4",
+    "lib/pkgconfig/nccl.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "include/nccl.h",
+        "path_type": "hardlink",
+        "sha256": "fb19ea0f28269f66263a4616ddb6a48917c8b27bf0500a6d4c9799a0c5ac5dd3",
+        "sha256_in_prefix": "fb19ea0f28269f66263a4616ddb6a48917c8b27bf0500a6d4c9799a0c5ac5dd3",
+        "size_in_bytes": 20225
+      },
+      {
+        "_path": "include/nccl_net.h",
+        "path_type": "hardlink",
+        "sha256": "436c8c119044eae2a45ff9ddb916f74da53ae210b58e338cb2d0b2a5328649d9",
+        "sha256_in_prefix": "436c8c119044eae2a45ff9ddb916f74da53ae210b58e338cb2d0b2a5328649d9",
+        "size_in_bytes": 25896
+      },
+      {
+        "_path": "lib/libnccl.so",
+        "path_type": "softlink",
+        "sha256": "317994962e2e1027c6ff80904deabf7d267cdb843cb067b0f024aa199ad565e6",
+        "sha256_in_prefix": "1f97c4ac4f9e892fabc6673609e6d72437dfec6840f925da0673b5c9c38724af",
+        "size_in_bytes": 266634856
+      },
+      {
+        "_path": "lib/libnccl.so.2",
+        "path_type": "softlink",
+        "sha256": "317994962e2e1027c6ff80904deabf7d267cdb843cb067b0f024aa199ad565e6",
+        "sha256_in_prefix": "1f97c4ac4f9e892fabc6673609e6d72437dfec6840f925da0673b5c9c38724af",
+        "size_in_bytes": 266634856
+      },
+      {
+        "_path": "lib/libnccl.so.2.23.4",
+        "path_type": "hardlink",
+        "sha256": "317994962e2e1027c6ff80904deabf7d267cdb843cb067b0f024aa199ad565e6",
+        "sha256_in_prefix": "317994962e2e1027c6ff80904deabf7d267cdb843cb067b0f024aa199ad565e6",
+        "size_in_bytes": 266634856
+      },
+      {
+        "_path": "lib/pkgconfig/nccl.pc",
+        "path_type": "hardlink",
+        "sha256": "9e95e53b0ddf39fda8dfc1d993f87e5ecd05c60a5f156f271960d4fcf758c3dc",
+        "sha256_in_prefix": "369d66439a9a797df9d592a80fc8817ff20f29cdfb073429fb6d30b3dcd8310a",
+        "size_in_bytes": 305,
+        "file_mode": "text",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/nccl_1730312806622/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh"
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/nccl-2.23.4.1-h03a54cd_2",
+    "type": 1
+  }
+}

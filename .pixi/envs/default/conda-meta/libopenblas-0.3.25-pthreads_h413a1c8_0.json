@@ -1,0 +1,52 @@
+{
+  "build": "pthreads_h413a1c8_0",
+  "build_number": 0,
+  "constrains": [
+    "openblas >=0.3.25,<0.3.26.0a0"
+  ],
+  "depends": [
+    "libgcc-ng >=12",
+    "libgfortran-ng",
+    "libgfortran5 >=12.3.0"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "d172b34a443b95f86089e8229ddc9a17",
+  "name": "libopenblas",
+  "sha256": "628564517895ee1b09cf72c817548bd80ef1acce6a8214a8520d9f7b44c4cfaf",
+  "size": 5545169,
+  "subdir": "linux-64",
+  "timestamp": 1700536004164,
+  "version": "0.3.25",
+  "fn": "libopenblas-0.3.25-pthreads_h413a1c8_0.conda",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/libopenblas-0.3.25-pthreads_h413a1c8_0.conda",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/libopenblas-0.3.25-pthreads_h413a1c8_0",
+  "files": [
+    "lib/libopenblas.so.0",
+    "lib/libopenblasp-r0.3.25.so"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/libopenblas.so.0",
+        "path_type": "softlink",
+        "sha256": "230bbc78d19d3697ed362864b2cfaf59d2b36928039ce1414f7b287b22f76ed6",
+        "sha256_in_prefix": "b47f87ef4b837872611487046b9102455c564dfaa0f66c868d1681e6e55e835f",
+        "size_in_bytes": 36450680
+      },
+      {
+        "_path": "lib/libopenblasp-r0.3.25.so",
+        "path_type": "hardlink",
+        "sha256": "230bbc78d19d3697ed362864b2cfaf59d2b36928039ce1414f7b287b22f76ed6",
+        "sha256_in_prefix": "230bbc78d19d3697ed362864b2cfaf59d2b36928039ce1414f7b287b22f76ed6",
+        "size_in_bytes": 36450680
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/libopenblas-0.3.25-pthreads_h413a1c8_0",
+    "type": 1
+  }
+}

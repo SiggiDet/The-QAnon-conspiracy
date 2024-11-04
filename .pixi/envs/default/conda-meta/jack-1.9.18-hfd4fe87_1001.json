@@ -1,0 +1,787 @@
+{
+  "build": "hfd4fe87_1001",
+  "build_number": 1001,
+  "depends": [
+    "alsa-lib >=1.2.3,<1.2.4.0a0",
+    "libdb >=6.2.32,<6.3.0a0",
+    "libgcc-ng >=9.3.0",
+    "libopus >=1.3.1,<2.0a0",
+    "libsndfile >=1.0.31,<1.1.0a0",
+    "libstdcxx-ng >=9.3.0",
+    "readline >=8.1,<9.0a0"
+  ],
+  "license": "LGPL-2.0-only",
+  "license_family": "LGPL",
+  "md5": "a44a1d690250f6bbb01b7e328ea0c719",
+  "name": "jack",
+  "sha256": "670068f5c48e1bdecbb6300384475b3f3193992b3928c3f9a42fea1e26a33b56",
+  "size": 655037,
+  "subdir": "linux-64",
+  "timestamp": 1620952102171,
+  "version": "1.9.18",
+  "fn": "jack-1.9.18-hfd4fe87_1001.tar.bz2",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/jack-1.9.18-hfd4fe87_1001.tar.bz2",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/jack-1.9.18-hfd4fe87_1001",
+  "files": [
+    "bin/jack_alias",
+    "bin/jack_bufsize",
+    "bin/jack_connect",
+    "bin/jack_control",
+    "bin/jack_cpu",
+    "bin/jack_cpu_load",
+    "bin/jack_disconnect",
+    "bin/jack_evmon",
+    "bin/jack_freewheel",
+    "bin/jack_iodelay",
+    "bin/jack_latent_client",
+    "bin/jack_load",
+    "bin/jack_lsp",
+    "bin/jack_metro",
+    "bin/jack_midi_dump",
+    "bin/jack_midi_latency_test",
+    "bin/jack_midiseq",
+    "bin/jack_midisine",
+    "bin/jack_monitor_client",
+    "bin/jack_multiple_metro",
+    "bin/jack_netsource",
+    "bin/jack_property",
+    "bin/jack_rec",
+    "bin/jack_samplerate",
+    "bin/jack_server_control",
+    "bin/jack_session_notify",
+    "bin/jack_showtime",
+    "bin/jack_simdtests",
+    "bin/jack_simple_client",
+    "bin/jack_simple_session_client",
+    "bin/jack_test",
+    "bin/jack_thru",
+    "bin/jack_transport",
+    "bin/jack_unload",
+    "bin/jack_wait",
+    "bin/jack_zombie",
+    "bin/jackd",
+    "include/jack/control.h",
+    "include/jack/intclient.h",
+    "include/jack/jack.h",
+    "include/jack/jslist.h",
+    "include/jack/metadata.h",
+    "include/jack/midiport.h",
+    "include/jack/net.h",
+    "include/jack/ringbuffer.h",
+    "include/jack/session.h",
+    "include/jack/statistics.h",
+    "include/jack/systemdeps.h",
+    "include/jack/thread.h",
+    "include/jack/transport.h",
+    "include/jack/types.h",
+    "include/jack/uuid.h",
+    "include/jack/weakjack.h",
+    "include/jack/weakmacros.h",
+    "lib/jack/inprocess.so",
+    "lib/jack/jack_alsa.so",
+    "lib/jack/jack_alsarawmidi.so",
+    "lib/jack/jack_dummy.so",
+    "lib/jack/jack_loopback.so",
+    "lib/jack/jack_net.so",
+    "lib/jack/jack_netone.so",
+    "lib/jack/jack_proxy.so",
+    "lib/jack/netmanager.so",
+    "lib/jack/profiler.so",
+    "lib/libjack.so",
+    "lib/libjack.so.0",
+    "lib/libjack.so.0.1.0",
+    "lib/libjackserver.so",
+    "lib/libjackserver.so.0",
+    "lib/libjackserver.so.0.1.0",
+    "lib/pkgconfig/jack.pc",
+    "share/man/man1/alsa_in.1",
+    "share/man/man1/alsa_out.1",
+    "share/man/man1/jack_bufsize.1",
+    "share/man/man1/jack_connect.1",
+    "share/man/man1/jack_disconnect.1",
+    "share/man/man1/jack_freewheel.1",
+    "share/man/man1/jack_impulse_grabber.1",
+    "share/man/man1/jack_iodelay.1",
+    "share/man/man1/jack_load.1",
+    "share/man/man1/jack_lsp.1",
+    "share/man/man1/jack_metro.1",
+    "share/man/man1/jack_monitor_client.1",
+    "share/man/man1/jack_netsource.1",
+    "share/man/man1/jack_property.1",
+    "share/man/man1/jack_samplerate.1",
+    "share/man/man1/jack_showtime.1",
+    "share/man/man1/jack_simple_client.1",
+    "share/man/man1/jack_transport.1",
+    "share/man/man1/jack_unload.1",
+    "share/man/man1/jack_wait.1",
+    "share/man/man1/jackd.1",
+    "share/man/man1/jackrec.1"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "bin/jack_alias",
+        "path_type": "hardlink",
+        "sha256": "2063529996c8900902c3fe9e7bac1cafe857484dac768c4a8543dec668fca8b1",
+        "sha256_in_prefix": "2063529996c8900902c3fe9e7bac1cafe857484dac768c4a8543dec668fca8b1",
+        "size_in_bytes": 17320
+      },
+      {
+        "_path": "bin/jack_bufsize",
+        "path_type": "hardlink",
+        "sha256": "f8226346d579fc971fab857900fc13508fd9e8fe111037dc438b0b9946305f19",
+        "sha256_in_prefix": "f8226346d579fc971fab857900fc13508fd9e8fe111037dc438b0b9946305f19",
+        "size_in_bytes": 17776
+      },
+      {
+        "_path": "bin/jack_connect",
+        "path_type": "hardlink",
+        "sha256": "a917662bdd24995f7330a115c5f1f5bd612b0d37e594b1786736df1b2539b1a6",
+        "sha256_in_prefix": "a917662bdd24995f7330a115c5f1f5bd612b0d37e594b1786736df1b2539b1a6",
+        "size_in_bytes": 18040
+      },
+      {
+        "_path": "bin/jack_control",
+        "path_type": "hardlink",
+        "sha256": "feb3744cdb2aa4c1d9ec3ee8bd1391b2565677869bb722d105f933e662c2123f",
+        "sha256_in_prefix": "feb3744cdb2aa4c1d9ec3ee8bd1391b2565677869bb722d105f933e662c2123f",
+        "size_in_bytes": 15834
+      },
+      {
+        "_path": "bin/jack_cpu",
+        "path_type": "hardlink",
+        "sha256": "2a83b88b81cf83630b4ac7c23a64190fbc7c5eddf3a74d50d8ef9e66e3b8d74e",
+        "sha256_in_prefix": "2a83b88b81cf83630b4ac7c23a64190fbc7c5eddf3a74d50d8ef9e66e3b8d74e",
+        "size_in_bytes": 18400
+      },
+      {
+        "_path": "bin/jack_cpu_load",
+        "path_type": "hardlink",
+        "sha256": "eaa4ef7fd99b9b9f23f6c265bd2427db83a9178aec40f122205d87a3e311ea80",
+        "sha256_in_prefix": "eaa4ef7fd99b9b9f23f6c265bd2427db83a9178aec40f122205d87a3e311ea80",
+        "size_in_bytes": 17304
+      },
+      {
+        "_path": "bin/jack_disconnect",
+        "path_type": "softlink",
+        "sha256": "a917662bdd24995f7330a115c5f1f5bd612b0d37e594b1786736df1b2539b1a6",
+        "sha256_in_prefix": "5b9d8c20c162d7552666a52d6cbe38286fd645e08b562d169946b8a8987455af",
+        "size_in_bytes": 18040
+      },
+      {
+        "_path": "bin/jack_evmon",
+        "path_type": "hardlink",
+        "sha256": "9db3f0d99d27dc27296a139abdb7345f423dd5cc33726011f47f41f041e5c363",
+        "sha256_in_prefix": "9db3f0d99d27dc27296a139abdb7345f423dd5cc33726011f47f41f041e5c363",
+        "size_in_bytes": 17904
+      },
+      {
+        "_path": "bin/jack_freewheel",
+        "path_type": "hardlink",
+        "sha256": "71ff8629e8fbcfee51c92708b50d144dc58bf5da516a5aef264883395aa82640",
+        "sha256_in_prefix": "71ff8629e8fbcfee51c92708b50d144dc58bf5da516a5aef264883395aa82640",
+        "size_in_bytes": 17240
+      },
+      {
+        "_path": "bin/jack_iodelay",
+        "path_type": "hardlink",
+        "sha256": "99b1bcb97172db9b58eb75a41c8387466b391411a33e53846a700b248a92468d",
+        "sha256_in_prefix": "99b1bcb97172db9b58eb75a41c8387466b391411a33e53846a700b248a92468d",
+        "size_in_bytes": 18176
+      },
+      {
+        "_path": "bin/jack_latent_client",
+        "path_type": "hardlink",
+        "sha256": "b87e2559118f940bbc21e8a34bf62bc2fcc84d62b924a9efdc1d1c972081e65a",
+        "sha256_in_prefix": "b87e2559118f940bbc21e8a34bf62bc2fcc84d62b924a9efdc1d1c972081e65a",
+        "size_in_bytes": 18120
+      },
+      {
+        "_path": "bin/jack_load",
+        "path_type": "hardlink",
+        "sha256": "f57cc8959f2fabd59e7c282622bbeaf9736603ea9067627c077f3e164b027aed",
+        "sha256_in_prefix": "f57cc8959f2fabd59e7c282622bbeaf9736603ea9067627c077f3e164b027aed",
+        "size_in_bytes": 18264
+      },
+      {
+        "_path": "bin/jack_lsp",
+        "path_type": "hardlink",
+        "sha256": "eb764443df4b4fe1b693ce47473a2e7e05a8637139ca51bcb7ddfdeded0de05b",
+        "sha256_in_prefix": "eb764443df4b4fe1b693ce47473a2e7e05a8637139ca51bcb7ddfdeded0de05b",
+        "size_in_bytes": 22832
+      },
+      {
+        "_path": "bin/jack_metro",
+        "path_type": "hardlink",
+        "sha256": "2dd9ea3e8c518843e2bfebb403c006172fa1e3401383f5872d1177c0166079a0",
+        "sha256_in_prefix": "2dd9ea3e8c518843e2bfebb403c006172fa1e3401383f5872d1177c0166079a0",
+        "size_in_bytes": 18656
+      },
+      {
+        "_path": "bin/jack_midi_dump",
+        "path_type": "hardlink",
+        "sha256": "ba41fe43c33891d07fe391e153967eab2027b93a23f2ada247a540b08b5b2329",
+        "sha256_in_prefix": "ba41fe43c33891d07fe391e153967eab2027b93a23f2ada247a540b08b5b2329",
+        "size_in_bytes": 22648
+      },
+      {
+        "_path": "bin/jack_midi_latency_test",
+        "path_type": "hardlink",
+        "sha256": "5796237a81e5fc79d4a15b23a5eca13c233a875866962372e9e39305a4ce3ab6",
+        "sha256_in_prefix": "5796237a81e5fc79d4a15b23a5eca13c233a875866962372e9e39305a4ce3ab6",
+        "size_in_bytes": 33760
+      },
+      {
+        "_path": "bin/jack_midiseq",
+        "path_type": "hardlink",
+        "sha256": "8dcba68d68e30c7a9034b153b56270c33a9884631da32bdda6ee3c6bdcde5667",
+        "sha256_in_prefix": "8dcba68d68e30c7a9034b153b56270c33a9884631da32bdda6ee3c6bdcde5667",
+        "size_in_bytes": 17728
+      },
+      {
+        "_path": "bin/jack_midisine",
+        "path_type": "hardlink",
+        "sha256": "c08b3fe8854cb15784b4b85836d4d7ca5858631d55a4bd2c6b9eca9a94f50d1e",
+        "sha256_in_prefix": "c08b3fe8854cb15784b4b85836d4d7ca5858631d55a4bd2c6b9eca9a94f50d1e",
+        "size_in_bytes": 17968
+      },
+      {
+        "_path": "bin/jack_monitor_client",
+        "path_type": "hardlink",
+        "sha256": "436641cc81bb4a86b9bbd136a90cca6d5dd5d008f15dfb346e6e3daf7d5aac3a",
+        "sha256_in_prefix": "436641cc81bb4a86b9bbd136a90cca6d5dd5d008f15dfb346e6e3daf7d5aac3a",
+        "size_in_bytes": 17096
+      },
+      {
+        "_path": "bin/jack_multiple_metro",
+        "path_type": "hardlink",
+        "sha256": "6cd0b4f0fdd8df9d7ed2a89a2bc0c08ec3c67fd069c5dda167e54a7082eeaf8b",
+        "sha256_in_prefix": "6cd0b4f0fdd8df9d7ed2a89a2bc0c08ec3c67fd069c5dda167e54a7082eeaf8b",
+        "size_in_bytes": 23064
+      },
+      {
+        "_path": "bin/jack_netsource",
+        "path_type": "hardlink",
+        "sha256": "38695cd4220237e9bc610bca433ff8d3b9ca8e8c24ea85696549f0b616badfe5",
+        "sha256_in_prefix": "38695cd4220237e9bc610bca433ff8d3b9ca8e8c24ea85696549f0b616badfe5",
+        "size_in_bytes": 43096
+      },
+      {
+        "_path": "bin/jack_property",
+        "path_type": "hardlink",
+        "sha256": "0aa6b93eac885d8d218489acc14933c8b5b29cae30acdb284f43508bc660ca28",
+        "sha256_in_prefix": "0aa6b93eac885d8d218489acc14933c8b5b29cae30acdb284f43508bc660ca28",
+        "size_in_bytes": 18024
+      },
+      {
+        "_path": "bin/jack_rec",
+        "path_type": "hardlink",
+        "sha256": "2e3dce393758658182f739398d1112233545d88d30afca977fba883ff6e4072b",
+        "sha256_in_prefix": "2e3dce393758658182f739398d1112233545d88d30afca977fba883ff6e4072b",
+        "size_in_bytes": 23360
+      },
+      {
+        "_path": "bin/jack_samplerate",
+        "path_type": "hardlink",
+        "sha256": "d8dd01735ce0eb69ecdcfddbe19df53b627c5c58aa8e25545c0087cf1f18fb22",
+        "sha256_in_prefix": "d8dd01735ce0eb69ecdcfddbe19df53b627c5c58aa8e25545c0087cf1f18fb22",
+        "size_in_bytes": 17344
+      },
+      {
+        "_path": "bin/jack_server_control",
+        "path_type": "hardlink",
+        "sha256": "ddf61958cf07cf31f87cd9d12fbc4dc6db4626da4a8803ce426f9bc6a030a373",
+        "sha256_in_prefix": "ddf61958cf07cf31f87cd9d12fbc4dc6db4626da4a8803ce426f9bc6a030a373",
+        "size_in_bytes": 22376
+      },
+      {
+        "_path": "bin/jack_session_notify",
+        "path_type": "hardlink",
+        "sha256": "e686e695a0308f4b0538db3a0694b72159afdfa96bdb3001e2b7cc0ab1c77b8a",
+        "sha256_in_prefix": "e686e695a0308f4b0538db3a0694b72159afdfa96bdb3001e2b7cc0ab1c77b8a",
+        "size_in_bytes": 18328
+      },
+      {
+        "_path": "bin/jack_showtime",
+        "path_type": "hardlink",
+        "sha256": "0f9bdacdf93de5b784831d7b97ead7ac762c6493e5e00167b0f075b9603b0fa5",
+        "sha256_in_prefix": "0f9bdacdf93de5b784831d7b97ead7ac762c6493e5e00167b0f075b9603b0fa5",
+        "size_in_bytes": 17400
+      },
+      {
+        "_path": "bin/jack_simdtests",
+        "path_type": "hardlink",
+        "sha256": "5b04e781b89b51bcdac7193e2b4715f362791587eb780cba070460c1fec14d9b",
+        "sha256_in_prefix": "5b04e781b89b51bcdac7193e2b4715f362791587eb780cba070460c1fec14d9b",
+        "size_in_bytes": 24392
+      },
+      {
+        "_path": "bin/jack_simple_client",
+        "path_type": "hardlink",
+        "sha256": "7b9d68b764f0ef9c1d512bc018866c3b30be860260694a6403a14ead6ea415db",
+        "sha256_in_prefix": "7b9d68b764f0ef9c1d512bc018866c3b30be860260694a6403a14ead6ea415db",
+        "size_in_bytes": 17744
+      },
+      {
+        "_path": "bin/jack_simple_session_client",
+        "path_type": "hardlink",
+        "sha256": "7995c9491dce172a241c3d0a7fd83f6db8ce755422ead8ae9c398beed211fc66",
+        "sha256_in_prefix": "7995c9491dce172a241c3d0a7fd83f6db8ce755422ead8ae9c398beed211fc66",
+        "size_in_bytes": 18120
+      },
+      {
+        "_path": "bin/jack_test",
+        "path_type": "hardlink",
+        "sha256": "53b014ba91359623e0de69a8cd8a656d27970aa3c290ec06803f32deafcc993d",
+        "sha256_in_prefix": "53b014ba91359623e0de69a8cd8a656d27970aa3c290ec06803f32deafcc993d",
+        "size_in_bytes": 65712
+      },
+      {
+        "_path": "bin/jack_thru",
+        "path_type": "hardlink",
+        "sha256": "4d7e5122ecc02cbe29c0415c45f4ae192d9e880ffd797c087c03c1800f627bf7",
+        "sha256_in_prefix": "4d7e5122ecc02cbe29c0415c45f4ae192d9e880ffd797c087c03c1800f627bf7",
+        "size_in_bytes": 17848
+      },
+      {
+        "_path": "bin/jack_transport",
+        "path_type": "hardlink",
+        "sha256": "c1c45397c1e5968204cdd9338acc66d4a09b5b9f651f345be3af84ca9451584b",
+        "sha256_in_prefix": "c1c45397c1e5968204cdd9338acc66d4a09b5b9f651f345be3af84ca9451584b",
+        "size_in_bytes": 23752
+      },
+      {
+        "_path": "bin/jack_unload",
+        "path_type": "hardlink",
+        "sha256": "6e4d48e23017ea58a319cf92da930f1ba13af2e190ce1930aedc3d1cb30ae0d9",
+        "sha256_in_prefix": "6e4d48e23017ea58a319cf92da930f1ba13af2e190ce1930aedc3d1cb30ae0d9",
+        "size_in_bytes": 17184
+      },
+      {
+        "_path": "bin/jack_wait",
+        "path_type": "hardlink",
+        "sha256": "4956119706c98010fb51c80dc7b83415988628f0d556e66919f736c00c744ffc",
+        "sha256_in_prefix": "4956119706c98010fb51c80dc7b83415988628f0d556e66919f736c00c744ffc",
+        "size_in_bytes": 17456
+      },
+      {
+        "_path": "bin/jack_zombie",
+        "path_type": "hardlink",
+        "sha256": "783cae50ccec8e28e38a2a3ff6c6676905c9d096e2309d7234a896e1c76e2f7c",
+        "sha256_in_prefix": "783cae50ccec8e28e38a2a3ff6c6676905c9d096e2309d7234a896e1c76e2f7c",
+        "size_in_bytes": 17400
+      },
+      {
+        "_path": "bin/jackd",
+        "path_type": "hardlink",
+        "sha256": "71c8348d09eff3d1577c6821e3f9790d0f0ae6d81c29a8665ce887b293ed6ea0",
+        "sha256_in_prefix": "71c8348d09eff3d1577c6821e3f9790d0f0ae6d81c29a8665ce887b293ed6ea0",
+        "size_in_bytes": 32392
+      },
+      {
+        "_path": "include/jack/control.h",
+        "path_type": "hardlink",
+        "sha256": "2725be598a94c6645b6aa53cd54b27c26df740c637120b7f37acca0b40b48994",
+        "sha256_in_prefix": "2725be598a94c6645b6aa53cd54b27c26df740c637120b7f37acca0b40b48994",
+        "size_in_bytes": 17474
+      },
+      {
+        "_path": "include/jack/intclient.h",
+        "path_type": "hardlink",
+        "sha256": "a691d3260b40df4fb9a10a4fa5b5ae5174f2b673f1cb94d7f638bd346654598d",
+        "sha256_in_prefix": "a691d3260b40df4fb9a10a4fa5b5ae5174f2b673f1cb94d7f638bd346654598d",
+        "size_in_bytes": 4828
+      },
+      {
+        "_path": "include/jack/jack.h",
+        "path_type": "hardlink",
+        "sha256": "d1853e72724fc8e7f8a8b97868b48289fc1fb793f6fd57f4b44074a40ad15e8c",
+        "sha256_in_prefix": "d1853e72724fc8e7f8a8b97868b48289fc1fb793f6fd57f4b44074a40ad15e8c",
+        "size_in_bytes": 56052
+      },
+      {
+        "_path": "include/jack/jslist.h",
+        "path_type": "hardlink",
+        "sha256": "e3344969fa0f5a72516c42606b1f8a8ae8220a676f0f5c9d4df9593fb238d631",
+        "sha256_in_prefix": "e3344969fa0f5a72516c42606b1f8a8ae8220a676f0f5c9d4df9593fb238d631",
+        "size_in_bytes": 5534
+      },
+      {
+        "_path": "include/jack/metadata.h",
+        "path_type": "hardlink",
+        "sha256": "f1d28264fcf02584565b5bab389f8991c761ea7b2d0b572320864edc5c8934c9",
+        "sha256_in_prefix": "f1d28264fcf02584565b5bab389f8991c761ea7b2d0b572320864edc5c8934c9",
+        "size_in_bytes": 11258
+      },
+      {
+        "_path": "include/jack/midiport.h",
+        "path_type": "hardlink",
+        "sha256": "dc74250d632b7dd1b2799bbf0b0f595b19faf6b57bc5fad2b505ac708fd1747e",
+        "sha256_in_prefix": "dc74250d632b7dd1b2799bbf0b0f595b19faf6b57bc5fad2b505ac708fd1747e",
+        "size_in_bytes": 6848
+      },
+      {
+        "_path": "include/jack/net.h",
+        "path_type": "hardlink",
+        "sha256": "ce5c5dc4b19a918f35bc04a56b0816c4f49faa00df5ca2d244f3d3c9102a1d61",
+        "sha256_in_prefix": "ce5c5dc4b19a918f35bc04a56b0816c4f49faa00df5ca2d244f3d3c9102a1d61",
+        "size_in_bytes": 15331
+      },
+      {
+        "_path": "include/jack/ringbuffer.h",
+        "path_type": "hardlink",
+        "sha256": "392bf0f689614c912c12079c8a201d9515e336eb6bd7a48adf7ab23deb07c323",
+        "sha256_in_prefix": "392bf0f689614c912c12079c8a201d9515e336eb6bd7a48adf7ab23deb07c323",
+        "size_in_bytes": 7970
+      },
+      {
+        "_path": "include/jack/session.h",
+        "path_type": "hardlink",
+        "sha256": "6f202a7c60ffc70b01e9aa0d91a5bb53845bdc01115e6f9b9cad46289eac1f00",
+        "sha256_in_prefix": "6f202a7c60ffc70b01e9aa0d91a5bb53845bdc01115e6f9b9cad46289eac1f00",
+        "size_in_bytes": 9704
+      },
+      {
+        "_path": "include/jack/statistics.h",
+        "path_type": "hardlink",
+        "sha256": "c29a6f943111bec263718c3a48687fdc1bae41aeaff0e01061b8ccd143ebadb9",
+        "sha256_in_prefix": "c29a6f943111bec263718c3a48687fdc1bae41aeaff0e01061b8ccd143ebadb9",
+        "size_in_bytes": 1836
+      },
+      {
+        "_path": "include/jack/systemdeps.h",
+        "path_type": "hardlink",
+        "sha256": "ea56f3cb5bd9ded9e1b91511eb796171d7647f77862557ccccb636afa9f4fcbe",
+        "sha256_in_prefix": "ea56f3cb5bd9ded9e1b91511eb796171d7647f77862557ccccb636afa9f4fcbe",
+        "size_in_bytes": 4999
+      },
+      {
+        "_path": "include/jack/thread.h",
+        "path_type": "hardlink",
+        "sha256": "4cdb998700e8a6d4e88dd0d47e2199f76a282af17226dd912a324bb5ba0eac6a",
+        "sha256_in_prefix": "4cdb998700e8a6d4e88dd0d47e2199f76a282af17226dd912a324bb5ba0eac6a",
+        "size_in_bytes": 5206
+      },
+      {
+        "_path": "include/jack/transport.h",
+        "path_type": "hardlink",
+        "sha256": "e87f893e014669d68c1fbbd8494c8bfda0798b2e054d43b4fadba692630fa103",
+        "sha256_in_prefix": "e87f893e014669d68c1fbbd8494c8bfda0798b2e054d43b4fadba692630fa103",
+        "size_in_bytes": 8644
+      },
+      {
+        "_path": "include/jack/types.h",
+        "path_type": "hardlink",
+        "sha256": "5794632abf3c1a3a67d2549288d0ecfaf209d100a34d698be846d7e1688758c1",
+        "sha256_in_prefix": "5794632abf3c1a3a67d2549288d0ecfaf209d100a34d698be846d7e1688758c1",
+        "size_in_bytes": 24498
+      },
+      {
+        "_path": "include/jack/uuid.h",
+        "path_type": "hardlink",
+        "sha256": "7425ca34744557f8da91289160dd978eb0f8a0f27221eecbd1ab65c7cab1c2b4",
+        "sha256_in_prefix": "7425ca34744557f8da91289160dd978eb0f8a0f27221eecbd1ab65c7cab1c2b4",
+        "size_in_bytes": 1645
+      },
+      {
+        "_path": "include/jack/weakjack.h",
+        "path_type": "hardlink",
+        "sha256": "d64aa15206c7958c2c3b386304142fdbfbdb47a1eab84e8b42431620ea8fd13e",
+        "sha256_in_prefix": "d64aa15206c7958c2c3b386304142fdbfbdb47a1eab84e8b42431620ea8fd13e",
+        "size_in_bytes": 5363
+      },
+      {
+        "_path": "include/jack/weakmacros.h",
+        "path_type": "hardlink",
+        "sha256": "496adc70aad32784cd3130571238ceedc88da9e4891f0fa7d0558ee0d8ba4cab",
+        "sha256_in_prefix": "496adc70aad32784cd3130571238ceedc88da9e4891f0fa7d0558ee0d8ba4cab",
+        "size_in_bytes": 2762
+      },
+      {
+        "_path": "lib/jack/inprocess.so",
+        "path_type": "hardlink",
+        "sha256": "6d5a8fbccb32a5e4aa1a1ae6921e0766cce7e402e3f62b874322710e4e72d6c4",
+        "sha256_in_prefix": "6d5a8fbccb32a5e4aa1a1ae6921e0766cce7e402e3f62b874322710e4e72d6c4",
+        "size_in_bytes": 16688
+      },
+      {
+        "_path": "lib/jack/jack_alsa.so",
+        "path_type": "hardlink",
+        "sha256": "9c5fd2ba51b6829de3b1c692fe9bdf7109a37c931151ccd29f6b9d433ba7d52d",
+        "sha256_in_prefix": "9c5fd2ba51b6829de3b1c692fe9bdf7109a37c931151ccd29f6b9d433ba7d52d",
+        "size_in_bytes": 150592
+      },
+      {
+        "_path": "lib/jack/jack_alsarawmidi.so",
+        "path_type": "hardlink",
+        "sha256": "490ee2c80340e2e3a255275802a908f97a78805ab49bb1fb03c5a5a9084f20ea",
+        "sha256_in_prefix": "490ee2c80340e2e3a255275802a908f97a78805ab49bb1fb03c5a5a9084f20ea",
+        "size_in_bytes": 83280
+      },
+      {
+        "_path": "lib/jack/jack_dummy.so",
+        "path_type": "hardlink",
+        "sha256": "99f11e3839fd8eb35a9f02c9546f7f9b18ace8ee7d6aeda604ad138524457389",
+        "sha256_in_prefix": "99f11e3839fd8eb35a9f02c9546f7f9b18ace8ee7d6aeda604ad138524457389",
+        "size_in_bytes": 29240
+      },
+      {
+        "_path": "lib/jack/jack_loopback.so",
+        "path_type": "hardlink",
+        "sha256": "1ac6d85fd0a376e188666fd562e3278d9ef61c0b1bb499ac2ac19c04d8e6745a",
+        "sha256_in_prefix": "1ac6d85fd0a376e188666fd562e3278d9ef61c0b1bb499ac2ac19c04d8e6745a",
+        "size_in_bytes": 24936
+      },
+      {
+        "_path": "lib/jack/jack_net.so",
+        "path_type": "hardlink",
+        "sha256": "397516d730f5b5905e890a2778ea2330d369b5c881f087af0a01d18d26936772",
+        "sha256_in_prefix": "397516d730f5b5905e890a2778ea2330d369b5c881f087af0a01d18d26936772",
+        "size_in_bytes": 61288
+      },
+      {
+        "_path": "lib/jack/jack_netone.so",
+        "path_type": "hardlink",
+        "sha256": "2900d564e306aee5444174ca5a0ed13473e6bfc3f6503e5648e9a410427d2195",
+        "sha256_in_prefix": "2900d564e306aee5444174ca5a0ed13473e6bfc3f6503e5648e9a410427d2195",
+        "size_in_bytes": 78840
+      },
+      {
+        "_path": "lib/jack/jack_proxy.so",
+        "path_type": "hardlink",
+        "sha256": "2114afe953cf586eb1951427af59c2e767a3a2d257c0957a27f4b26792e24d2b",
+        "sha256_in_prefix": "2114afe953cf586eb1951427af59c2e767a3a2d257c0957a27f4b26792e24d2b",
+        "size_in_bytes": 44696
+      },
+      {
+        "_path": "lib/jack/netmanager.so",
+        "path_type": "hardlink",
+        "sha256": "c9f48ee4ddf02cbcb2ccdaa1023ff316c39dd28e8effbf698bff6e061c4b34a2",
+        "sha256_in_prefix": "c9f48ee4ddf02cbcb2ccdaa1023ff316c39dd28e8effbf698bff6e061c4b34a2",
+        "size_in_bytes": 65800
+      },
+      {
+        "_path": "lib/jack/profiler.so",
+        "path_type": "hardlink",
+        "sha256": "d7e4df821e290adc09d1e4a61be4b4c4a49b3904eb9fe1ea9f169de154a2e687",
+        "sha256_in_prefix": "d7e4df821e290adc09d1e4a61be4b4c4a49b3904eb9fe1ea9f169de154a2e687",
+        "size_in_bytes": 23032
+      },
+      {
+        "_path": "lib/libjack.so",
+        "path_type": "softlink",
+        "sha256": "6b084f7390afd50fa107b80228cc86200e299d833f5e3841e3c1d8500e17601e",
+        "sha256_in_prefix": "922004db93cec42695a57739567d10c990663538c49efbb75507981b04ee8ec1",
+        "size_in_bytes": 338872
+      },
+      {
+        "_path": "lib/libjack.so.0",
+        "path_type": "softlink",
+        "sha256": "6b084f7390afd50fa107b80228cc86200e299d833f5e3841e3c1d8500e17601e",
+        "sha256_in_prefix": "922004db93cec42695a57739567d10c990663538c49efbb75507981b04ee8ec1",
+        "size_in_bytes": 338872
+      },
+      {
+        "_path": "lib/libjack.so.0.1.0",
+        "path_type": "hardlink",
+        "sha256": "6b084f7390afd50fa107b80228cc86200e299d833f5e3841e3c1d8500e17601e",
+        "sha256_in_prefix": "cdb846af42154ba810f2af896d64d85f91b6aff648fdd269a755cfeca809ecf2",
+        "size_in_bytes": 338872,
+        "file_mode": "binary",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/jack_1620951849025/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh"
+      },
+      {
+        "_path": "lib/libjackserver.so",
+        "path_type": "softlink",
+        "sha256": "53c76f94e79547116cfaa52352bde475fd6e62742cd3f792686654b1449fcb6e",
+        "sha256_in_prefix": "9835e11435d49258bfbe6181643bbd4031b30e4604ded146a212a01e0ceb8783",
+        "size_in_bytes": 796432
+      },
+      {
+        "_path": "lib/libjackserver.so.0",
+        "path_type": "softlink",
+        "sha256": "53c76f94e79547116cfaa52352bde475fd6e62742cd3f792686654b1449fcb6e",
+        "sha256_in_prefix": "9835e11435d49258bfbe6181643bbd4031b30e4604ded146a212a01e0ceb8783",
+        "size_in_bytes": 796432
+      },
+      {
+        "_path": "lib/libjackserver.so.0.1.0",
+        "path_type": "hardlink",
+        "sha256": "53c76f94e79547116cfaa52352bde475fd6e62742cd3f792686654b1449fcb6e",
+        "sha256_in_prefix": "94ed2e6c3b09dcb1a1238c44271ead7a7e4b159e7636741fc0b62c7282377380",
+        "size_in_bytes": 796432,
+        "file_mode": "binary",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/jack_1620951849025/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh"
+      },
+      {
+        "_path": "lib/pkgconfig/jack.pc",
+        "path_type": "hardlink",
+        "sha256": "285b6d681a6ae8c0c001f25f2d2c3f2ea1a64d60519f827970240123cd855830",
+        "sha256_in_prefix": "b58676a25b28ec45a512d2de3553a86cd36944c062f3c5db8e4e21bdad07d43f",
+        "size_in_bytes": 740,
+        "file_mode": "text",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/jack_1620951849025/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh"
+      },
+      {
+        "_path": "share/man/man1/alsa_in.1",
+        "path_type": "hardlink",
+        "sha256": "b0b39eb867315368a64c088075d95b6f9b971c9cbd3cd1f3bcab719db5e2eead",
+        "sha256_in_prefix": "b0b39eb867315368a64c088075d95b6f9b971c9cbd3cd1f3bcab719db5e2eead",
+        "size_in_bytes": 3670
+      },
+      {
+        "_path": "share/man/man1/alsa_out.1",
+        "path_type": "hardlink",
+        "sha256": "1c36fa159f90325441743540709af59dadb7fba5dbc1d2431d5b75e7ad2665a8",
+        "sha256_in_prefix": "1c36fa159f90325441743540709af59dadb7fba5dbc1d2431d5b75e7ad2665a8",
+        "size_in_bytes": 19
+      },
+      {
+        "_path": "share/man/man1/jack_bufsize.1",
+        "path_type": "hardlink",
+        "sha256": "ad71e1b46d63e771fb0c5a56548a5ba67032ff71d3feccb6f93355fcade4de3c",
+        "sha256_in_prefix": "ad71e1b46d63e771fb0c5a56548a5ba67032ff71d3feccb6f93355fcade4de3c",
+        "size_in_bytes": 434
+      },
+      {
+        "_path": "share/man/man1/jack_connect.1",
+        "path_type": "hardlink",
+        "sha256": "75ff5bc892ea13f7a28d146a21d044f634b96028ca07cc1776b319751f7f3ac0",
+        "sha256_in_prefix": "75ff5bc892ea13f7a28d146a21d044f634b96028ca07cc1776b319751f7f3ac0",
+        "size_in_bytes": 553
+      },
+      {
+        "_path": "share/man/man1/jack_disconnect.1",
+        "path_type": "hardlink",
+        "sha256": "4192d83858c0cba76e08eb9ac7983baa5623c7791500d33f6420a9f69812da02",
+        "sha256_in_prefix": "4192d83858c0cba76e08eb9ac7983baa5623c7791500d33f6420a9f69812da02",
+        "size_in_bytes": 24
+      },
+      {
+        "_path": "share/man/man1/jack_freewheel.1",
+        "path_type": "hardlink",
+        "sha256": "68c016c46374208b6787a1ed1fa06e1f8fceda4d78fff39aa7b9f7d9d4805553",
+        "sha256_in_prefix": "68c016c46374208b6787a1ed1fa06e1f8fceda4d78fff39aa7b9f7d9d4805553",
+        "size_in_bytes": 639
+      },
+      {
+        "_path": "share/man/man1/jack_impulse_grabber.1",
+        "path_type": "hardlink",
+        "sha256": "845e0b8718bdec3a07cd7c526a7c6dfd01da216cd0df4081649bcc140bd9af1b",
+        "sha256_in_prefix": "845e0b8718bdec3a07cd7c526a7c6dfd01da216cd0df4081649bcc140bd9af1b",
+        "size_in_bytes": 342
+      },
+      {
+        "_path": "share/man/man1/jack_iodelay.1",
+        "path_type": "hardlink",
+        "sha256": "6882a929f708cac6464447f4d404c25f58b5999787ad4d98a2492654e578173b",
+        "sha256_in_prefix": "6882a929f708cac6464447f4d404c25f58b5999787ad4d98a2492654e578173b",
+        "size_in_bytes": 2946
+      },
+      {
+        "_path": "share/man/man1/jack_load.1",
+        "path_type": "hardlink",
+        "sha256": "2c8bf935be40467ccb8aeb77d71bdf2c749e9e94690570bbc7f762ad7d8f652d",
+        "sha256_in_prefix": "2c8bf935be40467ccb8aeb77d71bdf2c749e9e94690570bbc7f762ad7d8f652d",
+        "size_in_bytes": 913
+      },
+      {
+        "_path": "share/man/man1/jack_lsp.1",
+        "path_type": "hardlink",
+        "sha256": "7932b3e18d333d7792cb91c4cbee377cb08e1be7266babe11e168867d9a6c38f",
+        "sha256_in_prefix": "7932b3e18d333d7792cb91c4cbee377cb08e1be7266babe11e168867d9a6c38f",
+        "size_in_bytes": 1067
+      },
+      {
+        "_path": "share/man/man1/jack_metro.1",
+        "path_type": "hardlink",
+        "sha256": "0c76ce38f480886c49388928fcc9cfdcf75d0722a8eae9e3efaa50ca18451440",
+        "sha256_in_prefix": "0c76ce38f480886c49388928fcc9cfdcf75d0722a8eae9e3efaa50ca18451440",
+        "size_in_bytes": 1092
+      },
+      {
+        "_path": "share/man/man1/jack_monitor_client.1",
+        "path_type": "hardlink",
+        "sha256": "414f042e7d3770ee2679254ca2002244be62655454c5e29f4ea41657ba83e7d0",
+        "sha256_in_prefix": "414f042e7d3770ee2679254ca2002244be62655454c5e29f4ea41657ba83e7d0",
+        "size_in_bytes": 510
+      },
+      {
+        "_path": "share/man/man1/jack_netsource.1",
+        "path_type": "hardlink",
+        "sha256": "ce5ca0e85838c84d49e127864b5d7835f2eabdbc422bc48133b7f91fad652663",
+        "sha256_in_prefix": "ce5ca0e85838c84d49e127864b5d7835f2eabdbc422bc48133b7f91fad652663",
+        "size_in_bytes": 2374
+      },
+      {
+        "_path": "share/man/man1/jack_property.1",
+        "path_type": "hardlink",
+        "sha256": "018f98278ba3aab699b74c9cfed5e66a35e4257e589f0a745f09faa21134f885",
+        "sha256_in_prefix": "018f98278ba3aab699b74c9cfed5e66a35e4257e589f0a745f09faa21134f885",
+        "size_in_bytes": 2404
+      },
+      {
+        "_path": "share/man/man1/jack_samplerate.1",
+        "path_type": "hardlink",
+        "sha256": "fb7cc944a6c5225c4641c95fd16b8cfa139a21e1d83285e8018e6e8427bf32f3",
+        "sha256_in_prefix": "fb7cc944a6c5225c4641c95fd16b8cfa139a21e1d83285e8018e6e8427bf32f3",
+        "size_in_bytes": 231
+      },
+      {
+        "_path": "share/man/man1/jack_showtime.1",
+        "path_type": "hardlink",
+        "sha256": "32bf6c29afdcfe71bce696aac6847f0f272420d1907bd7fa1a942c1b2b682365",
+        "sha256_in_prefix": "32bf6c29afdcfe71bce696aac6847f0f272420d1907bd7fa1a942c1b2b682365",
+        "size_in_bytes": 317
+      },
+      {
+        "_path": "share/man/man1/jack_simple_client.1",
+        "path_type": "hardlink",
+        "sha256": "16c3737029e637da79e5fc7eaa66653bdb732bf3688bb455aa683231eb1a8f5a",
+        "sha256_in_prefix": "16c3737029e637da79e5fc7eaa66653bdb732bf3688bb455aa683231eb1a8f5a",
+        "size_in_bytes": 558
+      },
+      {
+        "_path": "share/man/man1/jack_transport.1",
+        "path_type": "hardlink",
+        "sha256": "2dacaeab0d2da351ecbcef503a825c1664c0936f7d91bfe04557d27e1ccd38fd",
+        "sha256_in_prefix": "2dacaeab0d2da351ecbcef503a825c1664c0936f7d91bfe04557d27e1ccd38fd",
+        "size_in_bytes": 397
+      },
+      {
+        "_path": "share/man/man1/jack_unload.1",
+        "path_type": "hardlink",
+        "sha256": "212636a3d3ddf5ce03037607bf3ea5f6794ead0fe2788f6c7d6c4454f1e0c3da",
+        "sha256_in_prefix": "212636a3d3ddf5ce03037607bf3ea5f6794ead0fe2788f6c7d6c4454f1e0c3da",
+        "size_in_bytes": 475
+      },
+      {
+        "_path": "share/man/man1/jack_wait.1",
+        "path_type": "hardlink",
+        "sha256": "ddbb35679c1b1223a28141abc2a8ae6993730ac695045b7e8ff47b3a31254f03",
+        "sha256_in_prefix": "ddbb35679c1b1223a28141abc2a8ae6993730ac695045b7e8ff47b3a31254f03",
+        "size_in_bytes": 1023
+      },
+      {
+        "_path": "share/man/man1/jackd.1",
+        "path_type": "hardlink",
+        "sha256": "baf08efe3b62104b7f23c939d6bc7ee5f0fa42982df0b1fb3166fe381df2157d",
+        "sha256_in_prefix": "baf08efe3b62104b7f23c939d6bc7ee5f0fa42982df0b1fb3166fe381df2157d",
+        "size_in_bytes": 25095
+      },
+      {
+        "_path": "share/man/man1/jackrec.1",
+        "path_type": "hardlink",
+        "sha256": "1ded5751b512a33042a41144c49d5589c2d59a9ca4d3fac1fa1d6caa8319c21f",
+        "sha256_in_prefix": "1ded5751b512a33042a41144c49d5589c2d59a9ca4d3fac1fa1d6caa8319c21f",
+        "size_in_bytes": 1038
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/jack-1.9.18-hfd4fe87_1001",
+    "type": 1
+  }
+}

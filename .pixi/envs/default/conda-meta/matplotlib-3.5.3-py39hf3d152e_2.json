@@ -1,0 +1,33 @@
+{
+  "build": "py39hf3d152e_2",
+  "build_number": 2,
+  "depends": [
+    "matplotlib-base >=3.5.3,<3.5.4.0a0",
+    "pyqt",
+    "python >=3.9,<3.10.0a0",
+    "python_abi 3.9.* *_cp39",
+    "tornado"
+  ],
+  "license": "LicenseRef-PSF-based",
+  "license_family": "PSF",
+  "md5": "98bf9bdfbac2ac73bbd1dc12a61519eb",
+  "name": "matplotlib",
+  "sha256": "c85f7b724aa964789a983c61241b888871ea15c94ec433ea1306b660dc21460e",
+  "size": 7196,
+  "subdir": "linux-64",
+  "timestamp": 1661440727969,
+  "version": "3.5.3",
+  "fn": "matplotlib-3.5.3-py39hf3d152e_2.tar.bz2",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/matplotlib-3.5.3-py39hf3d152e_2.tar.bz2",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/matplotlib-3.5.3-py39hf3d152e_2",
+  "files": [],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/matplotlib-3.5.3-py39hf3d152e_2",
+    "type": 1
+  }
+}

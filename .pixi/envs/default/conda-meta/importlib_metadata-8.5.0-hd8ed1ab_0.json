@@ -1,0 +1,30 @@
+{
+  "build": "hd8ed1ab_0",
+  "build_number": 0,
+  "depends": [
+    "importlib-metadata >=8.5.0,<8.5.1.0a0"
+  ],
+  "license": "Apache-2.0",
+  "license_family": "APACHE",
+  "md5": "2a92e152208121afadf85a5e1f3a5f4d",
+  "name": "importlib_metadata",
+  "noarch": "generic",
+  "sha256": "313b8a05211bacd6b15ab2621cb73d7f41ea5c6cae98db53367d47833f03fef1",
+  "size": 9385,
+  "subdir": "noarch",
+  "timestamp": 1726082930346,
+  "version": "8.5.0",
+  "fn": "importlib_metadata-8.5.0-hd8ed1ab_0.conda",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/importlib_metadata-8.5.0-hd8ed1ab_0.conda",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/importlib_metadata-8.5.0-hd8ed1ab_0",
+  "files": [],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/importlib_metadata-8.5.0-hd8ed1ab_0",
+    "type": 1
+  }
+}

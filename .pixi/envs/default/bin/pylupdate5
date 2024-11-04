@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /home/siggidet/nam/Gervigreind/The-QAnon-conspiracy/.pixi/envs/default/bin/python -m PyQt5.pylupdate_main ${1+"$@"}

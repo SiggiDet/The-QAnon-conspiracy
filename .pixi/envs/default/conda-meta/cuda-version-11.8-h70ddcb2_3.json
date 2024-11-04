@@ -1,0 +1,31 @@
+{
+  "build": "h70ddcb2_3",
+  "build_number": 3,
+  "constrains": [
+    "cudatoolkit 11.8|11.8.*",
+    "__cuda >=11"
+  ],
+  "depends": [],
+  "license": "LicenseRef-NVIDIA-End-User-License-Agreement",
+  "md5": "670f0e1593b8c1d84f57ad5fe5256799",
+  "name": "cuda-version",
+  "noarch": "generic",
+  "sha256": "53e0ffc14ea2f2b8c12320fd2aa38b01112763eba851336ff5953b436ae61259",
+  "size": 21043,
+  "subdir": "noarch",
+  "timestamp": 1709765911943,
+  "version": "11.8",
+  "fn": "cuda-version-11.8-h70ddcb2_3.conda",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/cuda-version-11.8-h70ddcb2_3.conda",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/cuda-version-11.8-h70ddcb2_3",
+  "files": [],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/cuda-version-11.8-h70ddcb2_3",
+    "type": 1
+  }
+}

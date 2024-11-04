@@ -1,0 +1,104 @@
+{
+  "build": "pyhd8ed1ab_3",
+  "build_number": 3,
+  "depends": [
+    "python >=3.6"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "2a28d2137388d7c6a903f29319f262bc",
+  "name": "termcolor",
+  "noarch": "python",
+  "sha256": "3fb90b405a557c03cf02d77684ee305f21f27f9ff127ae9f099c1c29e8e975be",
+  "size": 8526,
+  "subdir": "noarch",
+  "timestamp": 1657118298526,
+  "version": "1.1.0",
+  "fn": "termcolor-1.1.0-pyhd8ed1ab_3.tar.bz2",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/termcolor-1.1.0-pyhd8ed1ab_3.tar.bz2",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/termcolor-1.1.0-pyhd8ed1ab_3",
+  "files": [
+    "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/COPYING.txt",
+    "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/INSTALLER",
+    "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/METADATA",
+    "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/RECORD",
+    "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/REQUESTED",
+    "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/WHEEL",
+    "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/direct_url.json",
+    "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/top_level.txt",
+    "lib/python3.9/site-packages/termcolor.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/COPYING.txt",
+        "path_type": "hardlink",
+        "sha256": "497b3272b67b94a7aa58fa3748d21b62b29ccb783b1cda816f594e3932590bbf",
+        "sha256_in_prefix": "497b3272b67b94a7aa58fa3748d21b62b29ccb783b1cda816f594e3932590bbf",
+        "size_in_bytes": 1073
+      },
+      {
+        "_path": "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "3f21ad4b8f08b1a712b3c64f0b040a10b839c4d85e0f57835b0aecf27f9ba63e",
+        "sha256_in_prefix": "3f21ad4b8f08b1a712b3c64f0b040a10b839c4d85e0f57835b0aecf27f9ba63e",
+        "size_in_bytes": 3064
+      },
+      {
+        "_path": "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "908d9100769fe067254ff7d2406b7080e5df25554c860f4638f6f8dc64baefc8",
+        "sha256_in_prefix": "908d9100769fe067254ff7d2406b7080e5df25554c860f4638f6f8dc64baefc8",
+        "size_in_bytes": 794
+      },
+      {
+        "_path": "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "1b5e87e00dc87a84269cead8578b9e6462928e18a95f1f3373c9eef451a5bcc0",
+        "sha256_in_prefix": "1b5e87e00dc87a84269cead8578b9e6462928e18a95f1f3373c9eef451a5bcc0",
+        "size_in_bytes": 92
+      },
+      {
+        "_path": "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "bbe0022be3252543045fa467e821759c4c3216cc55973b9a12975bf51570e022",
+        "sha256_in_prefix": "bbe0022be3252543045fa467e821759c4c3216cc55973b9a12975bf51570e022",
+        "size_in_bytes": 105
+      },
+      {
+        "_path": "lib/python3.9/site-packages/termcolor-1.1.0.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "f65d62862343b6cd54e8b05696deecc864ecbaaf2d3746c299e2f494bc835185",
+        "sha256_in_prefix": "f65d62862343b6cd54e8b05696deecc864ecbaaf2d3746c299e2f494bc835185",
+        "size_in_bytes": 10
+      },
+      {
+        "_path": "lib/python3.9/site-packages/termcolor.py",
+        "path_type": "hardlink",
+        "sha256": "3906256065402b158eb6fec9c4889212ffaf26fe450846badf7153ccc7ab63b2",
+        "sha256_in_prefix": "3906256065402b158eb6fec9c4889212ffaf26fe450846badf7153ccc7ab63b2",
+        "size_in_bytes": 5044
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/termcolor-1.1.0-pyhd8ed1ab_3",
+    "type": 1
+  }
+}

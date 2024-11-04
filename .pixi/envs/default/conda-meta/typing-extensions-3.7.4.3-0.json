@@ -1,0 +1,30 @@
+{
+  "build": "0",
+  "build_number": 0,
+  "depends": [
+    "typing_extensions 3.7.4.3 py_0"
+  ],
+  "license": "PSF-2.0",
+  "license_family": "PSF",
+  "md5": "36bdcdb4c2bf1efb987f2e9e80f4c9a6",
+  "name": "typing-extensions",
+  "noarch": "python",
+  "sha256": "d097c8c456aa2b357d08aca0b1cde0f94428870342003978ae31ca4aca49506f",
+  "size": 7768,
+  "subdir": "noarch",
+  "timestamp": 1602702525381,
+  "version": "3.7.4.3",
+  "fn": "typing-extensions-3.7.4.3-0.tar.bz2",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/typing-extensions-3.7.4.3-0.tar.bz2",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/typing-extensions-3.7.4.3-0",
+  "files": [],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/typing-extensions-3.7.4.3-0",
+    "type": 1
+  }
+}

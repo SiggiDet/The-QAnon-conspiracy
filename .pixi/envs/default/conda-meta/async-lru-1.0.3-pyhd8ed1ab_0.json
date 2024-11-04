@@ -1,0 +1,104 @@
+{
+  "build": "pyhd8ed1ab_0",
+  "build_number": 0,
+  "depends": [
+    "python >=3.4"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "de5ca3618b46dfafe421f0d7a194fcd7",
+  "name": "async-lru",
+  "noarch": "python",
+  "sha256": "2e67c186c9eaf5a68a7960b26040bede70cc45ddb38afd41d3126d37ced831f6",
+  "size": 8288,
+  "subdir": "noarch",
+  "timestamp": 1652100174341,
+  "version": "1.0.3",
+  "fn": "async-lru-1.0.3-pyhd8ed1ab_0.tar.bz2",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/async-lru-1.0.3-pyhd8ed1ab_0.tar.bz2",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/async-lru-1.0.3-pyhd8ed1ab_0",
+  "files": [
+    "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/INSTALLER",
+    "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/LICENSE",
+    "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/METADATA",
+    "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/RECORD",
+    "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/REQUESTED",
+    "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/WHEEL",
+    "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/direct_url.json",
+    "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/top_level.txt",
+    "lib/python3.9/site-packages/async_lru.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/LICENSE",
+        "path_type": "hardlink",
+        "sha256": "ea65975679bc2093be925d520358e41096bd96fddedee3e929160a5faadcf573",
+        "sha256_in_prefix": "ea65975679bc2093be925d520358e41096bd96fddedee3e929160a5faadcf573",
+        "size_in_bytes": 1226
+      },
+      {
+        "_path": "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "cf2af35d1e3060e23131c21e8fe86cd38af1a707865f5c1f8051cac53e7ec4af",
+        "sha256_in_prefix": "cf2af35d1e3060e23131c21e8fe86cd38af1a707865f5c1f8051cac53e7ec4af",
+        "size_in_bytes": 2534
+      },
+      {
+        "_path": "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "2099e9ecbea440e5f9443703be7917553deb120584fd87389c95f0f1c6990ac4",
+        "sha256_in_prefix": "2099e9ecbea440e5f9443703be7917553deb120584fd87389c95f0f1c6990ac4",
+        "size_in_bytes": 790
+      },
+      {
+        "_path": "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "1b5e87e00dc87a84269cead8578b9e6462928e18a95f1f3373c9eef451a5bcc0",
+        "sha256_in_prefix": "1b5e87e00dc87a84269cead8578b9e6462928e18a95f1f3373c9eef451a5bcc0",
+        "size_in_bytes": 92
+      },
+      {
+        "_path": "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "b3f9ed934b419ddb3c07bae3d98454f2faa5b83e1975f83e0b7bed567f20482b",
+        "sha256_in_prefix": "b3f9ed934b419ddb3c07bae3d98454f2faa5b83e1975f83e0b7bed567f20482b",
+        "size_in_bytes": 105
+      },
+      {
+        "_path": "lib/python3.9/site-packages/async_lru-1.0.3.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "9d4cbe176b6afe07f462c40a206a879a44bf5c9c54fdd42520db976480074ec9",
+        "sha256_in_prefix": "9d4cbe176b6afe07f462c40a206a879a44bf5c9c54fdd42520db976480074ec9",
+        "size_in_bytes": 10
+      },
+      {
+        "_path": "lib/python3.9/site-packages/async_lru.py",
+        "path_type": "hardlink",
+        "sha256": "a67d6434c1291e9d672c5b534abfdd69c3bfd6133723fca33b2e9f03d7ca4547",
+        "sha256_in_prefix": "a67d6434c1291e9d672c5b534abfdd69c3bfd6133723fca33b2e9f03d7ca4547",
+        "size_in_bytes": 4728
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/async-lru-1.0.3-pyhd8ed1ab_0",
+    "type": 1
+  }
+}

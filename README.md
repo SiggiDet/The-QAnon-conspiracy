@@ -74,3 +74,16 @@ Link: https://dl.acm.org/doi/pdf/10.1145/3512900
 
 - [2] Lillian Ma and Stephanie Vezich. Student project in CS230.
 Link: http://cs230.stanford.edu/projects_fall_2022/reports/22.pdf
+
+
+
+## Requirements
+The following Project Requires the following
+
+-Pixi: ackage management tool for developers, available  [here](https://pixi.sh/dev/)
+
+## Setup Dev environment
+```bash
+ pixi install
+```
+

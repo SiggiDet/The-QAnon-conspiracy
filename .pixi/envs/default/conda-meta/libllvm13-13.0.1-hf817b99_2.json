@@ -1,0 +1,57 @@
+{
+  "build": "hf817b99_2",
+  "build_number": 2,
+  "depends": [
+    "libgcc-ng >=9.4.0",
+    "libstdcxx-ng >=9.4.0",
+    "libzlib >=1.2.11,<2.0.0a0"
+  ],
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "license_family": "Apache",
+  "md5": "47da3ce0d8b2e65ccb226c186dd91eba",
+  "name": "libllvm13",
+  "sha256": "3ea3734d75265e4ad86b4e4a30b9cae9866f831556228514915708fe233b5c2a",
+  "size": 35205038,
+  "subdir": "linux-64",
+  "timestamp": 1645604533984,
+  "version": "13.0.1",
+  "fn": "libllvm13-13.0.1-hf817b99_2.tar.bz2",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/libllvm13-13.0.1-hf817b99_2.tar.bz2",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/libllvm13-13.0.1-hf817b99_2",
+  "files": [
+    "lib/libLLVM-13.so",
+    "lib/libLTO.so.13",
+    "lib/libRemarks.so.13"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/libLLVM-13.so",
+        "path_type": "hardlink",
+        "sha256": "3266cf99bad76b6648d3db31e318a8f8296dc9243d5b4e162c41003c67bc4cd3",
+        "sha256_in_prefix": "3266cf99bad76b6648d3db31e318a8f8296dc9243d5b4e162c41003c67bc4cd3",
+        "size_in_bytes": 124084512
+      },
+      {
+        "_path": "lib/libLTO.so.13",
+        "path_type": "hardlink",
+        "sha256": "793a0ace0f405d4eccd55d0f7ad7e65ec336f8b4e3513adbea34a0e74a80d06b",
+        "sha256_in_prefix": "793a0ace0f405d4eccd55d0f7ad7e65ec336f8b4e3513adbea34a0e74a80d06b",
+        "size_in_bytes": 105016
+      },
+      {
+        "_path": "lib/libRemarks.so.13",
+        "path_type": "hardlink",
+        "sha256": "2adb426593867835ccf24985a372f04af88453d4a3605721f56a78d57ecc2299",
+        "sha256_in_prefix": "2adb426593867835ccf24985a372f04af88453d4a3605721f56a78d57ecc2299",
+        "size_in_bytes": 15240
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/libllvm13-13.0.1-hf817b99_2",
+    "type": 1
+  }
+}

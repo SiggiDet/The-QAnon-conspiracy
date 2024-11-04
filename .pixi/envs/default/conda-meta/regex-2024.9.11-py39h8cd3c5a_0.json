@@ -1,0 +1,170 @@
+{
+  "build": "py39h8cd3c5a_0",
+  "build_number": 0,
+  "depends": [
+    "__glibc >=2.17,<3.0.a0",
+    "libgcc >=13",
+    "python >=3.9,<3.10.0a0",
+    "python_abi 3.9.* *_cp39"
+  ],
+  "license": "Python-2.0",
+  "license_family": "PSF",
+  "md5": "965e4167d4ab42d07c93b6d36bdf3b3f",
+  "name": "regex",
+  "sha256": "9ec266ea9eb1d3d7400691368411a2f7be396f70aca9fe39d5b77bd27824b112",
+  "size": 349398,
+  "subdir": "linux-64",
+  "timestamp": 1726095697800,
+  "version": "2024.9.11",
+  "fn": "regex-2024.9.11-py39h8cd3c5a_0.conda",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/regex-2024.9.11-py39h8cd3c5a_0.conda",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/regex-2024.9.11-py39h8cd3c5a_0",
+  "files": [
+    "lib/python3.9/site-packages/regex-2024.9.11.dist-info/INSTALLER",
+    "lib/python3.9/site-packages/regex-2024.9.11.dist-info/LICENSE.txt",
+    "lib/python3.9/site-packages/regex-2024.9.11.dist-info/METADATA",
+    "lib/python3.9/site-packages/regex-2024.9.11.dist-info/RECORD",
+    "lib/python3.9/site-packages/regex-2024.9.11.dist-info/REQUESTED",
+    "lib/python3.9/site-packages/regex-2024.9.11.dist-info/WHEEL",
+    "lib/python3.9/site-packages/regex-2024.9.11.dist-info/direct_url.json",
+    "lib/python3.9/site-packages/regex-2024.9.11.dist-info/top_level.txt",
+    "lib/python3.9/site-packages/regex/__init__.py",
+    "lib/python3.9/site-packages/regex/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/regex/__pycache__/_regex_core.cpython-39.pyc",
+    "lib/python3.9/site-packages/regex/__pycache__/regex.cpython-39.pyc",
+    "lib/python3.9/site-packages/regex/__pycache__/test_regex.cpython-39.pyc",
+    "lib/python3.9/site-packages/regex/_regex.cpython-39-x86_64-linux-gnu.so",
+    "lib/python3.9/site-packages/regex/_regex_core.py",
+    "lib/python3.9/site-packages/regex/regex.py",
+    "lib/python3.9/site-packages/regex/test_regex.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/python3.9/site-packages/regex-2024.9.11.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex-2024.9.11.dist-info/LICENSE.txt",
+        "path_type": "hardlink",
+        "sha256": "bff55ef4cdcc8c14ce259f8e8ab60e264418440d6335f4dc138273fbd506144d",
+        "sha256_in_prefix": "bff55ef4cdcc8c14ce259f8e8ab60e264418440d6335f4dc138273fbd506144d",
+        "size_in_bytes": 11584
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex-2024.9.11.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "14485598d4b18c63f8ec7c40c1eddd540a4d9ccb74f753f79bc3263ca76f49c7",
+        "sha256_in_prefix": "14485598d4b18c63f8ec7c40c1eddd540a4d9ccb74f753f79bc3263ca76f49c7",
+        "size_in_bytes": 40487
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex-2024.9.11.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "68a31a8c32b3d3cbebbfc2c682a5584ec63860220bd064ef5c4444e0746006c5",
+        "sha256_in_prefix": "68a31a8c32b3d3cbebbfc2c682a5584ec63860220bd064ef5c4444e0746006c5",
+        "size_in_bytes": 1275
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex-2024.9.11.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex-2024.9.11.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "adb835c71baf0559d3d5fd0261ab1c3df2e536575848107a7005bd8aab61dc1b",
+        "sha256_in_prefix": "adb835c71baf0559d3d5fd0261ab1c3df2e536575848107a7005bd8aab61dc1b",
+        "size_in_bytes": 102
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex-2024.9.11.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "bc52ccc27a35c78ee7a93c5da36d0efeb2f9f6a1fc4a828c149107fcc23ff84c",
+        "sha256_in_prefix": "bc52ccc27a35c78ee7a93c5da36d0efeb2f9f6a1fc4a828c149107fcc23ff84c",
+        "size_in_bytes": 101
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex-2024.9.11.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "6909a20cc84d4c5dba7022b8ffb0fea9a56f85bc42946d30c824e7121933601b",
+        "sha256_in_prefix": "6909a20cc84d4c5dba7022b8ffb0fea9a56f85bc42946d30c824e7121933601b",
+        "size_in_bytes": 6
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "f6c94d4046f848267d2e770dcdc42faa6932c5795c38017b4300308a0c568ecc",
+        "sha256_in_prefix": "f6c94d4046f848267d2e770dcdc42faa6932c5795c38017b4300308a0c568ecc",
+        "size_in_bytes": 65
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "hardlink",
+        "sha256": "56ed52461d602f2aa109b4a268d060abe432aa493cc711d924a2af52b4ff205c",
+        "sha256_in_prefix": "56ed52461d602f2aa109b4a268d060abe432aa493cc711d924a2af52b4ff205c",
+        "size_in_bytes": 198
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex/__pycache__/_regex_core.cpython-39.pyc",
+        "path_type": "hardlink",
+        "sha256": "91662a66ddbada0d20873ac1eba52d911b33309480e406aae0403daf59ddc957",
+        "sha256_in_prefix": "91662a66ddbada0d20873ac1eba52d911b33309480e406aae0403daf59ddc957",
+        "size_in_bytes": 112870
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex/__pycache__/regex.cpython-39.pyc",
+        "path_type": "hardlink",
+        "sha256": "818b0fa355e2110a8b9ba237e4c753e08c3ce7502aa5395129149c666f69e981",
+        "sha256_in_prefix": "818b0fa355e2110a8b9ba237e4c753e08c3ce7502aa5395129149c666f69e981",
+        "size_in_bytes": 25773
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex/__pycache__/test_regex.cpython-39.pyc",
+        "path_type": "hardlink",
+        "sha256": "36593b4090673f3dcd1f5cbe2c8d2df97368b60af4c49da21eb04020c7774875",
+        "sha256_in_prefix": "36593b4090673f3dcd1f5cbe2c8d2df97368b60af4c49da21eb04020c7774875",
+        "size_in_bytes": 137042
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex/_regex.cpython-39-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "9748a5071a089f22e83f47a63cb8daaa69cc9c86f954e2bda2cba192a0c8e10b",
+        "sha256_in_prefix": "9748a5071a089f22e83f47a63cb8daaa69cc9c86f954e2bda2cba192a0c8e10b",
+        "size_in_bytes": 872824
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex/_regex_core.py",
+        "path_type": "hardlink",
+        "sha256": "308f27cc4ee00445130c3adaa3c68e1e0eff421843cc4d3b56828597f592c423",
+        "sha256_in_prefix": "308f27cc4ee00445130c3adaa3c68e1e0eff421843cc4d3b56828597f592c423",
+        "size_in_bytes": 141028
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex/regex.py",
+        "path_type": "hardlink",
+        "sha256": "80aec54207bbea6e156d516c1f48c9f00987de66b2d4c0f0d633b823460b9272",
+        "sha256_in_prefix": "80aec54207bbea6e156d516c1f48c9f00987de66b2d4c0f0d633b823460b9272",
+        "size_in_bytes": 32683
+      },
+      {
+        "_path": "lib/python3.9/site-packages/regex/test_regex.py",
+        "path_type": "hardlink",
+        "sha256": "303653eab467020dc98703422fb7c76542081b1cde7e49c20497a707b09bdace",
+        "sha256_in_prefix": "303653eab467020dc98703422fb7c76542081b1cde7e49c20497a707b09bdace",
+        "size_in_bytes": 221054
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/regex-2024.9.11-py39h8cd3c5a_0",
+    "type": 1
+  }
+}

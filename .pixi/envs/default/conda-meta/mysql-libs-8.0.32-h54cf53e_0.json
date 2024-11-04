@@ -1,0 +1,60 @@
+{
+  "build": "h54cf53e_0",
+  "build_number": 0,
+  "depends": [
+    "libgcc-ng >=12",
+    "libstdcxx-ng >=12",
+    "libzlib >=1.2.13,<2.0.0a0",
+    "mysql-common 8.0.32 h14678bc_0",
+    "openssl >=1.1.1s,<1.1.2a",
+    "zstd >=1.5.2,<1.6.0a0"
+  ],
+  "md5": "de25cc32a88d37a753a729fda6629d95",
+  "name": "mysql-libs",
+  "sha256": "4fe0aa148dc570f1eebfe7c4910b07e08227d02d06110902979e3d304df3341c",
+  "size": 1523789,
+  "subdir": "linux-64",
+  "timestamp": 1674172815939,
+  "version": "8.0.32",
+  "fn": "mysql-libs-8.0.32-h54cf53e_0.conda",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/mysql-libs-8.0.32-h54cf53e_0.conda",
+  "channel": "https://conda.anaconda.org/conda-forge",
+  "extracted_package_dir": "/home/siggidet/.cache/rattler/cache/pkgs/mysql-libs-8.0.32-h54cf53e_0",
+  "files": [
+    "lib/libmysqlclient.so",
+    "lib/libmysqlclient.so.21",
+    "lib/libmysqlclient.so.21.2.32"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/libmysqlclient.so",
+        "path_type": "softlink",
+        "sha256": "bcacc2f00b24831f98269d059e2a5c7b87534c08472f204e23008edc69ee82ea",
+        "sha256_in_prefix": "3986d6c3fe17c51a7ce93b77a15404bac7c9f2e03783ff8b271d5df2ad53f64d",
+        "size_in_bytes": 6957568
+      },
+      {
+        "_path": "lib/libmysqlclient.so.21",
+        "path_type": "softlink",
+        "sha256": "bcacc2f00b24831f98269d059e2a5c7b87534c08472f204e23008edc69ee82ea",
+        "sha256_in_prefix": "3986d6c3fe17c51a7ce93b77a15404bac7c9f2e03783ff8b271d5df2ad53f64d",
+        "size_in_bytes": 6957568
+      },
+      {
+        "_path": "lib/libmysqlclient.so.21.2.32",
+        "path_type": "hardlink",
+        "sha256": "bcacc2f00b24831f98269d059e2a5c7b87534c08472f204e23008edc69ee82ea",
+        "sha256_in_prefix": "c41591f56228206d30164a4a24e0f643b85a4178879a3ef5dd69720509284c40",
+        "size_in_bytes": 6957568,
+        "file_mode": "binary",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/mysql-suite_1674169591948/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold"
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/siggidet/.cache/rattler/cache/pkgs/mysql-libs-8.0.32-h54cf53e_0",
+    "type": 1
+  }
+}
