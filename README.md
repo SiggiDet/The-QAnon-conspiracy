@@ -80,10 +80,19 @@ Link: http://cs230.stanford.edu/projects_fall_2022/reports/22.pdf
 ## Requirements
 The following Project Requires the following
 
--Pixi: ackage management tool for developers, available  [here](https://pixi.sh/dev/)
+-Pixi: Package management tool for developers, available  [here](https://pixi.sh/dev/)
 
-## Setup Dev environment
+### Set up environment
+
 ```bash
- pixi install
+cd hbv505m_sdj29 # Navigate to Project Directory
+
+pixi install
+
+# To Run in Pixi's environment you can type the following commands
+pixi shell
+# or
+pixi run <command>
 ```
+
 
