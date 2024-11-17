@@ -41,8 +41,8 @@ def precision_m(y_true, y_pred):
 
 def f1_m(y_true, y_pred):
     y_pred = tf.math.sigmoid(y_pred)
-    precision = precision_m(y_true, y_pred)
-    recall = recall_m(y_true, y_pred)
+    precision = tf.keras.metrics.Precision(y_true, y_pred)
+    recall = tf.keras.metrics.Recall(y_true, y_pred)
     return 2*((precision*recall)/(precision+recall+K.epsilon()))
 
 def word_mlp_model(params, vectorize_layer=None):
@@ -126,7 +126,7 @@ def model_fn(inputs, params):
     model.compile(loss=BinaryCrossentropy(from_logits=False),
                   optimizer=tf.keras.optimizers.Adam(learning_rate=params.learning_rate, clipnorm=1.0),
                   metrics=[tf.metrics.BinaryAccuracy(),
-                           f1_m,
+                           #tf.keras.metrics.F1Score(threshold=0.5),
                            tf.keras.metrics.Precision(),
                            tf.keras.metrics.Recall(),
                            ])
