@@ -32,7 +32,12 @@ def custom_standardization(input_data):
                                     '[%s]' % re.escape(string.punctuation),
                                     '')
 
-
+def precision_m(y_true, y_pred):
+    y_pred = tf.math.sigmoid(y_pred)
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    precision = true_positives / (predicted_positives + K.epsilon())
+    return precision
 
 def f1_m(y_true, y_pred):
     y_pred = tf.math.sigmoid(y_pred)

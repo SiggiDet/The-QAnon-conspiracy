@@ -12,12 +12,13 @@ from model.visualize import metrics_to_plot
 
 if __name__ == '__main__':
     # Load the parameters from the experiment params.json file in model_dir
-    json_path = os.path.join('./', 'params.json')
+    model_dir = './expirements/mlp/'
+    json_path = os.path.join(model_dir, 'params.json')
     assert os.path.isfile(json_path), "No json configuration file found at {}".format(json_path)
     params = Params(json_path)
 
     # Set the logger
-    set_logger('train.log')
+    set_logger(os.path.join(model_dir,'train.log'))
 
     pos_dataset = os.path.join('./data/', 'Users_isQ_words.csv')
     msg = "{} file not found. Make sure you have the right dataset"

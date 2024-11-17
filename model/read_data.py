@@ -70,6 +70,13 @@ def input_fn(f_path, params, embeddings_path=None):
         'test': [words_test, labels_test],
     }
 
+    inputs['train'].append(tf.data.Dataset.from_tensor_slices((words_train, labels_train)) \
+        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+    inputs['val'].append(tf.data.Dataset.from_tensor_slices((words_val, labels_val)) \
+        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+    inputs['test'].append(tf.data.Dataset.from_tensor_slices((words_test, labels_test)) \
+        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+
     print("Done reading in data")
 
     return inputs
