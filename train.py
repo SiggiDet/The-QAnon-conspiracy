@@ -7,6 +7,7 @@ from model.utils import set_logger
 from model.training import train_and_evaluate
 from model.read_data import input_fn
 from model.model_fn import model_fn
+from model.visualize import metrics_to_plot
 
 
 if __name__ == '__main__':

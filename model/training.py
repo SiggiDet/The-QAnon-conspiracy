@@ -22,7 +22,8 @@ def train_and_evaluate(inputs, model, params):
                                  f"{params.l2_reg_lambda}_"
                                  f"{params.learning_rate}_"
                                  f"{params.batch_size}_"
-                                 f"{params.dropout_rate}", monitor='val_loss',
+                                 f"{params.dropout_rate}"
+                                 f".keras", monitor='val_loss',
                         save_best_only=True),
         TensorBoard(logdir, histogram_freq=0)  # https://github.com/keras-team/keras/issues/15163
     ]
