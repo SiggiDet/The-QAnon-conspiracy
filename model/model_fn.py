@@ -33,6 +33,13 @@ def custom_standardization(input_data):
                                     '')
 
 
+
+def f1_m(y_true, y_pred):
+    y_pred = tf.math.sigmoid(y_pred)
+    precision = precision_m(y_true, y_pred)
+    recall = recall_m(y_true, y_pred)
+    return 2*((precision*recall)/(precision+recall+K.epsilon()))
+
 def word_mlp_model(params, vectorize_layer=None):
     print('no params.embeddings: model fn mlp model - 99')
     inputs = Input(shape=(), dtype='string')
