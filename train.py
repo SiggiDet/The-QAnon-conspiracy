@@ -40,8 +40,6 @@ def get_parser():
     
     # Check the validity of the provided path
     check_path(args.path)
-    check_path(args.data)
-
     
     return args
 
