@@ -2,6 +2,7 @@ import argparse
 import logging
 import os
 import sys
+import keras
 
 from model.utils import Params
 from model.utils import set_logger
@@ -45,6 +46,8 @@ def get_parser():
 
 
 if __name__ == '__main__':
+    policy = keras.mixed_precision.Policy("float64")
+    keras.mixed_precision.set_global_policy(policy)
     # Load the parameters from the experiment params.json file in model_dir
     args = get_parser()
     #model_dir = './expirements/mlp/'
