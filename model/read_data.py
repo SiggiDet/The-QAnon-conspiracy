@@ -49,7 +49,7 @@ def input_fn(f_path, params, embeddings_path=None):
 
     # split into train/dev/test
     np.random.seed(0)
-    indices = np.random.choice(a=[0, 1, 2], size=len(df), p=[.6, .2, .2])
+    indices = np.random.choice(a=[0, 1, 2, 3], size=len(df), p=[.3, .1, .1, .5])
 
     print("Splitting data into train dev test")
     train_df = df[indices == 0]
