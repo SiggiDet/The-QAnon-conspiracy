@@ -3,6 +3,7 @@ import logging
 import os
 import sys
 import keras
+import tensorflow as tf
 
 from model.utils import Params
 from model.utils import set_logger
@@ -46,6 +47,8 @@ def get_parser():
 
 
 if __name__ == '__main__':
+    #tf.config.threading.set_inter_op_parallelism_threads(112)
+    tf.device('/cpu:0') #use all cores
     policy = keras.mixed_precision.Policy("float64")
     keras.mixed_precision.set_global_policy(policy)
     # Load the parameters from the experiment params.json file in model_dir

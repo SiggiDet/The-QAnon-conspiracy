@@ -50,11 +50,12 @@ def train_and_evaluate(inputs, model_path, model, params):
                 epochs=params.num_epochs)
         loss, accuracy, f1, precision, recall = model.evaluate(test_ds)
     else:
-        history = model.fit(
-            train_ds,
-            validation_data=val_ds,
-            callbacks=callbacks,
-            epochs=params.num_epochs)
+        with tf.device('/cpu:0'):
+            history = model.fit(
+                train_ds,
+                validation_data=val_ds,
+                callbacks=callbacks,
+                epochs=params.num_epochs)
         loss, accuracy, f1, precision, recall = model.evaluate(test_ds)
 
     test_history = {"loss": loss, "binary_accuracy": accuracy, "f1_m": f1, "precision_m": precision, "recall_m": recall}
