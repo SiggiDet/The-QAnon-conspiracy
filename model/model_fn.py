@@ -114,30 +114,6 @@ def log_reg_classifier(params, vectorize_layer=None):
     return model
 
 
-
-def word_decoder(words):
-    # Decode bytes to strings
-    decoded_words = [word.decode('utf-8') if isinstance(word, bytes) else word for word in words]
-    return decoded_words
-
-def normalise_excessive_spaces(words):
-    # Fix excessive spacing and tokenization
-    normalized_words = [re.sub(r'\s+', ' ', word) for word in words]
-    return normalized_words
-
-def filter_non_textual_data(words):
-    # Remove URLs and non-informative strings
-    filtered_words = [
-        word for word in words 
-        if len(word.strip()) > 3 and not re.match(r'https?://', word)
-    ]
-
-    return filtered_words
-
-def debug_words(words):
-    print("Cleaned Words Sample:", words[:10])
-
-
 def model_fn(inputs, params):
     """Compute logits of the model (output distribution)
 
