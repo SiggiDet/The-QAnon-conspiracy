@@ -8,9 +8,9 @@ assert os.path.isfile('./data/Hashed_Q_Comments_Raw_Combined.csv')
 assert os.path.isfile('./data/Hashed_allAuthorStatus.csv')
 
 path = "./data"
-df_posts = pd.read_csv(os.path.join(path,'Hashed_Q_Submissions_Raw_Combined.csv'))
-df_comments = pd.read_csv(os.path.join(path,'Hashed_Q_Comments_Raw_Combined.csv'))
-df_authors = pd.read_csv(os.path.join(path,'Hashed_allAuthorStatus.csv'))
+df_posts = pd.read_csv(os.path.join(path,'Hashed_Q_Submissions_Raw_Combined.csv'),dtype={'subreddit':str,'id':str,'score':int,'numReplies':int,'author':str,'title':str,'text':str})
+df_comments = pd.read_csv(os.path.join(path,'Hashed_Q_Comments_Raw_Combined.csv'),dtype={'id':str,'link_id':str,'parent_id':str,'author':str,'subreddit':str,'body':str})
+df_authors = pd.read_csv(os.path.join(path,'Hashed_allAuthorStatus.csv'),dtype={'QAuthor':str,'isUQ':int,'status':str})
 df_posts.dropna(subset=['author'], inplace=True)
 def do_join(xs):
     if type(xs) == str or type(xs) == list:
@@ -28,4 +28,5 @@ df.dropna(subset=['words', 'isUQ'], inplace=True)
 print(df['isUQ'].value_counts())
 print(df["words"].head())
 print(df.head())
+df.dropna(subset=['author','words','isUQ'], inplace=True)
 df.to_csv('data/Users_isQ_words.csv', index=False)
