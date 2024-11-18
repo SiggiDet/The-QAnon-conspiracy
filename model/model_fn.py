@@ -121,11 +121,8 @@ def log_reg_classifier(params, vectorize_layer=None):
     # Reduce sequence dimension
     X_inp = layers.GlobalAveragePooling1D(name="pooling_layer")(X_inp)
 
-
-    # Logistic regression: A single Dense layer with sigmoid activation
     outputs = Dense(1, activation='sigmoid',name="output_layer")(X_inp)
 
-    # Build and compile the model
     model = Model(inputs=inputs, outputs=outputs, name="log_Reg_model")
 
     return model
