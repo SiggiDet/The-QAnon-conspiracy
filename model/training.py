@@ -4,7 +4,7 @@ import tensorflow as tf
 
 from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
 
-def train_and_evaluate(inputs, model, params):
+def train_and_evaluate(inputs, model_path, model, params):
     """Evaluate the model
 
     Args:
@@ -13,10 +13,11 @@ def train_and_evaluate(inputs, model, params):
         params: (Params) contains hyperparameters of the model.
                 Must define: num_epochs, train_size, batch_size, eval_size, save_summary_steps
     """
-    logdir = os.path.join("logs")
+    logdir = os.path.join(model_path+"/logs")
     callbacks = [
         EarlyStopping(monitor='val_loss', patience=params.early_stopping_patience),
-        ModelCheckpoint(filepath=f"best_model_"
+        ModelCheckpoint(filepath=f"{model_path}/"
+                                 f"best_model_"
                                  f"{params.model_version}_"
                                  f"embeddings:{params.embeddings}_"
                                  f"{params.l2_reg_lambda}_"
@@ -49,16 +50,18 @@ def train_and_evaluate(inputs, model, params):
                 epochs=params.num_epochs)
         loss, accuracy, f1, precision, recall = model.evaluate(test_ds)
     else:
-        history = model.fit(
-            train_ds,
-            validation_data=val_ds,
-            callbacks=callbacks,
-            epochs=params.num_epochs)
+        with tf.device('/cpu:0'):
+            history = model.fit(
+                train_ds,
+                validation_data=val_ds,
+                callbacks=callbacks,
+                epochs=params.num_epochs)
         loss, accuracy, f1, precision, recall = model.evaluate(test_ds)
 
     test_history = {"loss": loss, "binary_accuracy": accuracy, "f1_m": f1, "precision_m": precision, "recall_m": recall}
     json.dump(test_history,
-              open(f"test_history_model:{params.model_version}_"
+              open(f"{model_path}/"
+                   f"test_history_model:{params.model_version}_"
                    f"embeddings:{params.embeddings}_"
                    f"h1units:{params.h1_units}_"
                    f"h2units:{params.h2_units}_"

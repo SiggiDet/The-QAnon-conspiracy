@@ -4,10 +4,11 @@ import math
 import matplotlib.pyplot as plt
 
 
-def metrics_to_plot(history, params):
+def metrics_to_plot(history, params, model_path):
     # grab evaluation metrics on dev set over course of training
     history_dict = history.history
-    json.dump(history_dict, open(f"history_model:{params.model_version}_"
+    json.dump(history_dict, open(f"{model_path}/"
+                                 f"history_model:{params.model_version}_"
                                  f"embeddings:{params.embeddings}_"
                                  f"h1units:{params.h1_units}_"
                                  f"h2units:{params.h2_units}_"
@@ -39,7 +40,8 @@ def metrics_to_plot(history, params):
             y += 1
             x = 0
 
-    plt.savefig(f"plt_model:{params.model_version}_"
+    plt.savefig(f"{model_path}/"
+                f"plt_model:{params.model_version}_"
                 f"embeddings:{params.embeddings}_"
                 f"h1units:{params.h1_units}_"
                 f"h2units:{params.h2_units}_"

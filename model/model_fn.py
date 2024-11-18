@@ -47,10 +47,21 @@ def custom_standardization(input_data):
                                     '')
     return return_val
 
+##
+## TYPE ERRORS GALOR BELLOW
+##
+# define evaluation metrics                                                                                                                    
+def recall_m(y_true, y_pred):                                                                                                                  
+    y_pred = tf.math.sigmoid(y_pred)                                                                                                           
+    true_positives = tf.math.cumsum(tf.math.round(tf.clip_by_value(tf.math.multiply(y_true, y_pred), 0, 1)))
+    possible_positives = tf.math.cumsum(tf.math.round(tf.clip_by_value(y_true, 0, 1)))
+    recall = true_positives / (possible_positives + K.epsilon())                                                                               
+    return recall
+
 def precision_m(y_true, y_pred):
     y_pred = tf.math.sigmoid(y_pred)
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    true_positives = tf.math.cumsum(tf.math.round(tf.clip_by_value(tf.math.multiply(y_true, y_pred), 0, 1)))
+    predicted_positives = tf.math.cumsum(tf.math.round(tf.clip_by_value(y_pred, 0, 1)))
     precision = true_positives / (predicted_positives + K.epsilon())
     return precision
 
@@ -128,34 +139,12 @@ def model_fn(inputs, params):
     # set up model architecture
     if params.model_version == 'mlp':
         print('model version is mlp: model_fn - 159')
-    #    if params.embeddings == 'GloVe':
-    #        # Force glove embedding size to be 50
-    #        params.embedding_size = 50
-    #        model = word_mlp_model(params)
-    #    elif params.embeddings == 'None':
-    # instantiate embedding layer
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = word_mlp_model(params, vectorize_layer=vectorize_layer)
-    #    else:
-    #        raise NotImplementedError("invalid embedding type")
-
     elif params.model_version == 'rnn':
-    #    if params.embeddings == 'GloVe':
-    #        # Force glove embedding size to be 50
-    #        params.embedding_size = 50
-    #        model = word_rnn_model(params, inputs['word_to_vec_map'], inputs['words_to_index'])
-    #    elif params.embeddings == 'None':
-        # instantiate embedding layer
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = word_rnn_model(params, vectorize_layer=vectorize_layer)
-        #else:
-        #    raise NotImplementedError("invalid embedding type")
-
     elif params.model_version == 'lstm':
-        #if params.embeddings == 'GloVe':
-        #    model = word_lstm_model(params, inputs['word_to_vec_map'], inputs['words_to_index'])
-        #elif params.embeddings == 'None':
-        # instantiate embedding layer
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = word_lstm_model(params, vectorize_layer=vectorize_layer)
         #else:
