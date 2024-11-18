@@ -1,7 +1,7 @@
 import tensorflow as tf
 from keras import layers
-from keras.layers import Embedding, Input, Layer, TextVectorization
-from keras.models import Model
+from keras.layers import Embedding, Input, Layer, TextVectorization, Dense
+from keras.models import Model, Sequential
 import string
 from nltk.corpus import stopwords
 import re
@@ -9,28 +9,43 @@ import numpy as np
 
 from keras import backend as K
 from keras.losses import BinaryCrossentropy
+from keras.optimizers import Adam
 
+# def create_vectorized_layer(words, max_features):
+#     vectorize_layer = TextVectorization(
+#         standardize=custom_standardization,
+#         max_tokens=max_features,
+#         output_mode='int')
+#     vectorize_layer.adapt(words)
+#     return vectorize_layer
 
-def create_vectorized_layer(words, max_features):
+def create_vectorized_layer(words, max_features,out_mode='int'):
+    """
+    Creates and adapts a TextVectorization layer based on input words.
+    """
     vectorize_layer = TextVectorization(
-        standardize=custom_standardization,
-        max_tokens=max_features,
-        output_mode='int')
+        standardize=custom_standardization,  # Optional custom standardization
+        max_tokens=max_features,             # Set the max vocabulary size
+        output_mode=out_mode                 # Output as integer sequences (indices)
+    )
+    
     vectorize_layer.adapt(words)
     return vectorize_layer
 
 # clean up junk from string
 def custom_standardization(input_data):
     cachedStopWords = stopwords.words("english")
-
     lowercase = tf.strings.lower(input_data)
+
     for word in cachedStopWords:
         lowercase = tf.strings.regex_replace(lowercase, word, '')
+
     lowercase = tf.strings.regex_replace(lowercase, 'nan', '')
     stripped_html = tf.strings.regex_replace(lowercase, '<br />', ' ')
-    return tf.strings.regex_replace(stripped_html,
+    return_val = tf.strings.regex_replace(stripped_html,
                                     '[%s]' % re.escape(string.punctuation),
                                     '')
+    return return_val
 
 def precision_m(y_true, y_pred):
     y_pred = tf.math.sigmoid(y_pred)
@@ -69,6 +84,60 @@ def word_mlp_model(params, vectorize_layer=None):
     model = Model(inputs, outputs)
     return model
 
+
+# Example of preprocessing
+def preprocess_text(text):
+    return text.decode('utf-8')  # Ensure it's decoded correctly
+
+def log_reg_classifier(params, vectorize_layer=None):
+    """
+    Implement a logistic regression classifier for data stored in Keras.
+    """
+    # Define the input layer for text data
+    inputs = Input(shape=(), dtype='string')  # Input is raw text strings
+
+    # Apply the vectorization layer
+    X_inp = vectorize_layer(inputs)
+
+    # Logistic regression: A single Dense layer with sigmoid activation
+    outputs = Dense(1, activation='sigmoid')(X_inp)
+
+    # Build and compile the model
+    print("printing vectorize layer...")
+    print(vectorize_layer)
+    print("finished")
+    model = Model(inputs=inputs, outputs=outputs)
+    model.compile(optimizer=params.get("optimizer", "adam"),
+                  loss=params.get("loss", "binary_crossentropy"),  # Fixed typo here
+                  metrics=params.get("metrics", ["accuracy"]))
+    
+    return model
+
+
+
+def word_decoder(words):
+    # Decode bytes to strings
+    decoded_words = [word.decode('utf-8') if isinstance(word, bytes) else word for word in words]
+    return decoded_words
+
+def normalise_excessive_spaces(words):
+    # Fix excessive spacing and tokenization
+    normalized_words = [re.sub(r'\s+', ' ', word) for word in words]
+    return normalized_words
+
+def filter_non_textual_data(words):
+    # Remove URLs and non-informative strings
+    filtered_words = [
+        word for word in words 
+        if len(word.strip()) > 3 and not re.match(r'https?://', word)
+    ]
+
+    return filtered_words
+
+def debug_words(words):
+    print("Cleaned Words Sample:", words[:10])
+
+
 def model_fn(inputs, params):
     """Compute logits of the model (output distribution)
 
@@ -93,6 +162,7 @@ def model_fn(inputs, params):
         model = word_mlp_model(params, vectorize_layer=vectorize_layer)
     #    else:
     #        raise NotImplementedError("invalid embedding type")
+
     elif params.model_version == 'rnn':
     #    if params.embeddings == 'GloVe':
     #        # Force glove embedding size to be 50
@@ -104,6 +174,7 @@ def model_fn(inputs, params):
         model = word_rnn_model(params, vectorize_layer=vectorize_layer)
         #else:
         #    raise NotImplementedError("invalid embedding type")
+
     elif params.model_version == 'lstm':
         #if params.embeddings == 'GloVe':
         #    model = word_lstm_model(params, inputs['word_to_vec_map'], inputs['words_to_index'])
@@ -113,6 +184,21 @@ def model_fn(inputs, params):
         model = word_lstm_model(params, vectorize_layer=vectorize_layer)
         #else:
         #    raise NotImplementedError("invalid embedding type")
+    
+    elif params.model_version == 'log_reg':
+        print("creating log_reg classifier")
+
+
+        # words = word_decoder(inputs['train'][0])
+        # words = normalise_excessive_spaces(words)
+        # words = filter_non_textual_data(words)
+        # words = debug_words(words)
+
+        vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
+        model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
+
+
+
     elif params.model_version == 'BERT_LSTM':
         model = bert_to_lstm_model(params)
     elif params.model_version == 'BERT_RNN':
