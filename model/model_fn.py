@@ -105,23 +105,29 @@ def log_reg_classifier(params, vectorize_layer=None):
     Implement a logistic regression classifier for data stored in Keras.
     """
     # Define the input layer for text data
-    inputs = Input(shape=(), dtype='string')  # Input is raw text strings
+    inputs = Input(shape=(), dtype='string', name="text_input")  # Input is raw text strings
 
     # Apply the vectorization layer
     X_inp = vectorize_layer(inputs)
 
+    X_inp = layers.Embedding(
+        input_dim=len(vectorize_layer.get_vocabulary()),
+        output_dim=params.embedding_size,
+        # Use masking to handle the variable sequence lengths
+        mask_zero=True,
+        name="embedding_layer"
+        )(X_inp)
+
+    # Reduce sequence dimension
+    X_inp = layers.GlobalAveragePooling1D(name="pooling_layer")(X_inp)
+
+
     # Logistic regression: A single Dense layer with sigmoid activation
-    outputs = Dense(1, activation='sigmoid')(X_inp)
+    outputs = Dense(1, activation='sigmoid',name="output_layer")(X_inp)
 
     # Build and compile the model
-    print("printing vectorize layer...")
-    print(vectorize_layer)
-    print("finished")
-    model = Model(inputs=inputs, outputs=outputs)
-    model.compile(optimizer=params.get("optimizer", "adam"),
-                  loss=params.get("loss", "binary_crossentropy"),  # Fixed typo here
-                  metrics=params.get("metrics", ["accuracy"]))
-    
+    model = Model(inputs=inputs, outputs=outputs, name="log_Reg_model")
+
     return model
 
 
@@ -152,12 +158,6 @@ def model_fn(inputs, params):
     
     elif params.model_version == 'log_reg':
         print("creating log_reg classifier")
-
-
-        # words = word_decoder(inputs['train'][0])
-        # words = normalise_excessive_spaces(words)
-        # words = filter_non_textual_data(words)
-        # words = debug_words(words)
 
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
