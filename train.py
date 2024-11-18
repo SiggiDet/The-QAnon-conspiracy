@@ -29,11 +29,19 @@ def get_parser():
         required=True    # Make this argument mandatory
     )
     
+    parser.add_argument(
+        '-d', '--data',  # Short and long version of the argument
+        help="Path to the data in csv format defaults to ./data/Users_isQ_words.csv",
+        required=False    # Make this argument mandatory
+    )
+
     # Parse the arguments
     args = parser.parse_args()
     
     # Check the validity of the provided path
     check_path(args.path)
+    check_path(args.data)
+
     
     return args
 
@@ -51,7 +59,10 @@ if __name__ == '__main__':
     # Set the logger
     set_logger(os.path.join(model_dir,'train.log'))
 
-    pos_dataset = os.path.join('./data/', 'Users_isQ_words.csv')
+    if args.data is not None:
+        pos_dataset = args.data
+    else:
+        pos_dataset = os.path.join('./data/', 'Users_isQ_words.csv')
     msg = "{} file not found. Make sure you have the right dataset"
     assert os.path.isfile(pos_dataset), msg.format(pos_dataset)
 
@@ -70,5 +81,5 @@ if __name__ == '__main__':
 
     # Train the model
     logging.info("Starting training for {} epoch(s)".format(params.num_epochs))
-    history = train_and_evaluate(inputs, train_model, params)
-    metrics_to_plot(history, params)
+    history = train_and_evaluate(inputs, model_dir, train_model, params)
+    metrics_to_plot(history, params, model_dir)

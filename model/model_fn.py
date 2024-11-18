@@ -32,6 +32,9 @@ def custom_standardization(input_data):
                                     '[%s]' % re.escape(string.punctuation),
                                     '')
 
+##
+## TYPE ERRORS GALOR BELLOW
+##
 def precision_m(y_true, y_pred):
     y_pred = tf.math.sigmoid(y_pred)
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))

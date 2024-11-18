@@ -39,5 +39,5 @@ if __name__ == '__main__':
 
     # Train the model
     logging.info("Starting training for {} epoch(s)".format(params.num_epochs))
-    history = train_and_evaluate(inputs, train_model, params)
-    metrics_to_plot(history, params)
+    history = train_and_evaluate(inputs, model_dir, train_model, params)
+    metrics_to_plot(history, params, model_dir)
