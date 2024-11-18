@@ -13,7 +13,7 @@ def train_and_evaluate(inputs, model_path, model, params):
         params: (Params) contains hyperparameters of the model.
                 Must define: num_epochs, train_size, batch_size, eval_size, save_summary_steps
     """
-    logdir = os.path.join("logs")
+    logdir = os.path.join(model_path+"/logs")
     callbacks = [
         EarlyStopping(monitor='val_loss', patience=params.early_stopping_patience),
         ModelCheckpoint(filepath=f"{model_path}/"
