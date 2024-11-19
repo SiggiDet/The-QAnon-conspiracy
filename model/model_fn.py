@@ -6,10 +6,12 @@ import string
 from nltk.corpus import stopwords
 import re
 import numpy as np
+import keras
 
 from keras import backend as K
 from keras.losses import BinaryCrossentropy
 from keras.optimizers import Adam
+from keras.metrics import BinaryAccuracy
 
 # def create_vectorized_layer(words, max_features):
 #     vectorize_layer = TextVectorization(
@@ -47,15 +49,11 @@ def custom_standardization(input_data):
                                     '')
     return return_val
 
-##
-## TYPE ERRORS GALOR BELLOW
-##
-# define evaluation metrics                                                                                                                    
-def recall_m(y_true, y_pred):                                                                                                                  
-    y_pred = tf.math.sigmoid(y_pred)                                                                                                           
+def recall_m(y_true, y_pred):
+    y_pred = tf.math.sigmoid(y_pred)
     true_positives = tf.math.cumsum(tf.math.round(tf.clip_by_value(tf.math.multiply(y_true, y_pred), 0, 1)))
     possible_positives = tf.math.cumsum(tf.math.round(tf.clip_by_value(y_true, 0, 1)))
-    recall = true_positives / (possible_positives + K.epsilon())                                                                               
+    recall = true_positives / (possible_positives + K.epsilon())
     return recall
 
 def precision_m(y_true, y_pred):
@@ -69,9 +67,19 @@ def f1_m(y_true, y_pred):
     y_pred = tf.math.sigmoid(y_pred)
     precision = precision_m(y_true, y_pred)
     recall = recall_m(y_true, y_pred)
-    return 2*((precision*recall)/(precision+recall+K.epsilon()))
+    return tf.math.multiply(tf.cast(2.0,"float64"),tf.math.divide(tf.math.multiply(precision,recall),tf.math.add(precision,tf.math.add(recall,K.epsilon()))))
 
-def word_mlp_model(params, vectorize_layer=None):
+def oskarlogreg(params, vectorize_layer=None):
+    print('no params.embeddings: model fn logreg model - 69420')
+    inputs = Input(shape=(), dtype='string')
+    vec_layer = vectorize_layer(inputs)
+    Em = layers.Embedding(input_dim=len(vectorize_layer.get_vocabulary()), output_dim=params.embedding_size,mask_zero=True)(vec_layer)
+    flat = layers.GlobalAveragePooling1D()(Em)
+    outputs = layers.Dense(1, activation='sigmoid')(flat)
+    model = Model(inputs, outputs)
+    return model
+
+def word_mlp_model(params, vectorize_layer=None, dropout=False):
     print('no params.embeddings: model fn mlp model - 99')
     inputs = Input(shape=(), dtype='string')
     X_inp = vectorize_layer(inputs)
@@ -79,18 +87,24 @@ def word_mlp_model(params, vectorize_layer=None):
         input_dim=len(vectorize_layer.get_vocabulary()),
         output_dim=params.embedding_size,
         # Use masking to handle the variable sequence lengths
-        mask_zero=True)(X_inp)
+        mask_zero=False)(X_inp)
     X_inp = layers.GlobalAveragePooling1D()(X_inp)
+    if dropout:
+        X_inp = layers.Dropout(0.1)(X_inp)
     X = layers.Dense(params.h1_units,
                            activation='relu',
                            kernel_regularizer=tf.keras.regularizers.L2(params.l2_reg_lambda),
                            kernel_initializer=tf.keras.initializers.HeUniform())(X_inp)
     X = layers.BatchNormalization()(X)
+    if dropout:
+        X = layers.Dropout(0.1)(X)
     X = layers.Dense(params.h2_units,
                            activation='relu',
                            kernel_regularizer=tf.keras.regularizers.L2(params.l2_reg_lambda),
                            kernel_initializer=tf.keras.initializers.HeUniform())(X)
     X = layers.BatchNormalization()(X)
+    if dropout:
+        X = layers.Dropout(0.1)(X)
     outputs = layers.Dense(1, activation='sigmoid')(X)
     model = Model(inputs, outputs)
     return model
@@ -143,7 +157,10 @@ def model_fn(inputs, params):
     if params.model_version == 'mlp':
         print('model version is mlp: model_fn - 159')
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
-        model = word_mlp_model(params, vectorize_layer=vectorize_layer)
+        model = word_mlp_model(params, vectorize_layer=vectorize_layer, dropout=params.dropout)
+    elif params.model_version == 'oskarlogreg':
+        vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
+        model = oskarlogreg(params, vectorize_layer=vectorize_layer)
     elif params.model_version == 'rnn':
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = word_rnn_model(params, vectorize_layer=vectorize_layer)
@@ -172,11 +189,11 @@ def model_fn(inputs, params):
 
     # compile model
     model.compile(loss=BinaryCrossentropy(from_logits=False),
-                  optimizer=tf.keras.optimizers.Adam(learning_rate=params.learning_rate, clipnorm=1.0),
-                  metrics=[tf.metrics.BinaryAccuracy(),
-                           f1_m,
-                           tf.keras.metrics.Precision(),
-                           tf.keras.metrics.Recall(),
+                  optimizer=tf.keras.optimizers.Adam(learning_rate=params.learning_rate), #, clipnorm=1.0),
+                  metrics=[BinaryAccuracy(threshold=0.5, dtype=None),
+                            f1_m,
+                            keras.metrics.Precision(thresholds=0.5),
+                            keras.metrics.Recall(thresholds=0.5),
                            ])
     print(model.summary())
 

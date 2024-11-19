@@ -83,6 +83,8 @@ if __name__ == '__main__':
     train_model, inputs = model_fn(inputs, params)
     logging.info("- done.")
 
+    print(inputs["val"][2])
+
     # Train the model
     logging.info("Starting training for {} epoch(s)".format(params.num_epochs))
     history = train_and_evaluate(inputs, model_dir, train_model, params)

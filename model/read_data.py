@@ -49,7 +49,7 @@ def input_fn(f_path, params, embeddings_path=None):
 
     # split into train/dev/test
     np.random.seed(0)
-    indices = np.random.choice(a=[0, 1, 2, 3], size=len(df), p=[.3, .1, .1, .5])
+    indices = np.random.choice(a=[0, 1, 2], size=len(df), p=[.6, .2, .2])
 
     print("Splitting data into train dev test")
     train_df = df[indices == 0]
@@ -63,6 +63,10 @@ def input_fn(f_path, params, embeddings_path=None):
     labels_train = tf.convert_to_tensor(train_df["isUQ"])
     labels_val = tf.convert_to_tensor(val_df["isUQ"])
     labels_test = tf.convert_to_tensor(test_df["isUQ"])
+
+    print(val_df["isUQ"].value_counts())
+    print(train_df["isUQ"].value_counts())
+    print(test_df["isUQ"].value_counts())
 
     inputs = {
         'train': [words_train, labels_train],
