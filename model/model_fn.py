@@ -106,22 +106,6 @@ def word_mlp_model(params, vectorize_layer=None, dropout=False):
     model = Model(inputs, outputs)
     return model
 
-def setup_glove_embedding(params, glove_path,vectorize_layer=None):
-    """
-    Gather GloVe embeddings  and create an Matrix.
-    Returns Matrix which is aligned with the vocabulary
-    """
-
-    embeddings_idx = {}
-    with open(glove_path, 'r', encoding='utf-8') as f:
-        for line in f:
-            word, coefs = line.split(maxsplit=1)
-            coefs = np.fromstring(coefs, "f", sep=" ")
-            embeddings_idx[word] = coefs
-
-    print("Found %s word vectors." % len(embeddings_idx))
-
-
 # Example of preprocessinghttps://github.com/stanfordnlp/GloVe
 def preprocess_text(text):
     return text.decode('utf-8')  # Ensure it's decoded correctly
@@ -130,22 +114,33 @@ def log_reg_classifier(params, vectorize_layer=None):
     """
     Implement a logistic regression classifier for data stored in Keras.
     """
-    # Define the input layer for text data
-    inputs = Input(shape=(), dtype='string', name="text_input")  # Input is raw text strings
 
-    # Apply the vectorization layer
-    X_inp = vectorize_layer(inputs)
+    if vectorize_layer is None:
+        
+        # We replace float64 since GloVe replaces everything with float64
+        inputs = Input(shape=(params.max_word_length,), dtype='float64', name="text_input")  # Input is raw text strings
+        X_inp = inputs
 
-    X_inp = layers.Embedding(
-        input_dim=len(vectorize_layer.get_vocabulary()),
-        output_dim=params.embedding_size,
-        # Use masking to handle the variable sequence lengths
-        mask_zero=True,
-        name="embedding_layer"
-        )(X_inp)
+    else:
 
-    # Reduce sequence dimension
-    X_inp = layers.GlobalAveragePooling1D(name="pooling_layer")(X_inp)
+        # Define the input layer for text data
+        inputs = Input(shape=(), dtype='string', name="text_input")  # Input is raw text strings
+
+        # Apply the vectorization layer
+        X_inp = vectorize_layer(inputs)
+
+        X_inp = layers.Embedding(
+            input_dim=len(vectorize_layer.get_vocabulary()),
+            output_dim=params.embedding_size,
+            # Use masking to handle the variable sequence lengths
+            mask_zero=True,
+            name="embedding_layer"
+            )(X_inp)
+
+        # Reduce sequence dimension
+        #X_inp = layers.GlobalAveragePooling1D(name="pooling_layer")(X_inp)
+
+    X_inp = layers.Flatten()(X_inp)
 
     outputs = Dense(1, activation='sigmoid',name="output_layer")(X_inp)
 
@@ -173,6 +168,7 @@ def model_fn(inputs, params):
             print('model version is mlp: model_fn - 159')
             vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
             model = word_mlp_model(params, vectorize_layer=vectorize_layer, dropout=params.dropout)
+
     elif params.model_version == 'oskarlogreg':
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = oskarlogreg(params, vectorize_layer=vectorize_layer)
@@ -181,11 +177,11 @@ def model_fn(inputs, params):
 
         # Implement Pre-trained word embeddings
         if params.embeddings == "GloVe":
-            #params.embedding_size = 50
-            params.embedding_size = 50
-
-        # vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
-        # model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
+            print("executing GloVe")
+            model = log_reg_classifier(params)
+        else:
+            vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
+            model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
 
     # compile model
     model.compile(loss=BinaryCrossentropy(from_logits=False),
