@@ -72,7 +72,7 @@ if __name__ == '__main__':
 
     logging.info("Creating the datasets...")
     print(f'Embeddings == {params.embeddings}: train')
-    embeddings_path = None
+    embeddings_path = './data/glove.6B.50d.txt'
 
     # Create the input tensors from the datasets
     inputs = input_fn(pos_dataset, params, embeddings_path)
