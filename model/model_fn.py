@@ -11,14 +11,6 @@ from keras import backend as K
 from keras.losses import BinaryCrossentropy
 from keras.optimizers import Adam
 
-# def create_vectorized_layer(words, max_features):
-#     vectorize_layer = TextVectorization(
-#         standardize=custom_standardization,
-#         max_tokens=max_features,
-#         output_mode='int')
-#     vectorize_layer.adapt(words)
-#     return vectorize_layer
-
 def create_vectorized_layer(words, max_features,out_mode='int'):
     """
     Creates and adapts a TextVectorization layer based on input words.
@@ -144,6 +136,7 @@ def model_fn(inputs, params):
         print('model version is mlp: model_fn - 159')
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = word_mlp_model(params, vectorize_layer=vectorize_layer)
+
     elif params.model_version == 'rnn':
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = word_rnn_model(params, vectorize_layer=vectorize_layer)
@@ -155,6 +148,13 @@ def model_fn(inputs, params):
     
     elif params.model_version == 'log_reg':
         print("creating log_reg classifier")
+
+        # Implement Pre-trained word embeddings
+        if params.embeddings == "GloVe":
+            #params.embedding_size = 50
+            params.embedding_size = 50
+            
+            pass
 
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
