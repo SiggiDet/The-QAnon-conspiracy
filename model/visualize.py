@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 def metrics_to_plot(history, params, model_path):
     # grab evaluation metrics on dev set over course of training
     history_dict = history.history
+    print(history_dict)
     json.dump(history_dict, open(f"{model_path}/"
                                  f"history_model:{params.model_version}_"
                                  f"embeddings:{params.embeddings}_"
