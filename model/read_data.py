@@ -3,6 +3,8 @@ import os
 import numpy as np
 import tensorflow as tf
 
+from model.utils import read_glove_vecs, sentence_to_avg, sentences_to_indices
+
 def load_data_to_df(path,zipped=False):
     ##
     ##  ==> data/Hashed_Q_Submissions_Raw_Combined.csv <==
@@ -36,6 +38,55 @@ def load_data_to_df(path,zipped=False):
 
     return df
     
+def prepare_sequence_word_embeddings(inputs, params, embeddings_path):
+    maxLen = params.max_word_length
+    words_to_index, index_to_words, word_to_vec_map = read_glove_vecs(embeddings_path)
+    inputs['train'][0] = sentences_to_indices(inputs['train'][0], words_to_index, maxLen)
+    print('finished sentences_to_indices for train')
+    inputs['val'][0] = sentences_to_indices(inputs['val'][0], words_to_index, maxLen)
+    print('finished sentences_to_indices for val')
+    inputs['test'][0] = sentences_to_indices(inputs['test'][0], words_to_index, maxLen)
+    print('finished sentences_to_indices for test')
+    inputs['train'].append(tf.data.Dataset.from_tensor_slices((inputs['train'][0], inputs['train'][1])) \
+        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+    inputs['val'].append(tf.data.Dataset.from_tensor_slices((inputs['val'][0], inputs['val'][1])) \
+        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+    inputs['test'].append(tf.data.Dataset.from_tensor_slices((inputs['test'][0], inputs['test'][1])) \
+        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+    inputs['word_to_vec_map'] = word_to_vec_map
+    inputs['words_to_index'] = words_to_index
+    return inputs
+
+def prepare_average_word_embeddings(inputs, params, embeddings_path):
+    words_to_index, index_to_words, word_to_vec_map = read_glove_vecs(embeddings_path)
+    # Get a valid word contained in the word_to_vec_map.
+    str_feat_train = []
+    str_feat_val = []
+    str_feat_test = []
+    # inputs['train'][0] is words_train, a 1D string tensor, 1 string per author / label
+    # inputs['train'][0].shape[0] is (n,) for dataset with n examples
+    for i in range(inputs['train'][0].shape[0]):  # for each example:
+        author_text = inputs['train'][0][i]
+        str_feat_train.append(sentence_to_avg(author_text, word_to_vec_map))
+    print('finished sentence_to_avg for train')
+    for i in range(inputs['val'][0].shape[0]):
+        str_feat_val.append(sentence_to_avg(inputs['val'][0][i], word_to_vec_map))
+    print('finished sentence_to_avg for val')
+    for i in range(inputs['test'][0].shape[0]):
+        str_feat_test.append(sentence_to_avg(inputs['test'][0][i], word_to_vec_map))
+    print('finished sentence_to_avg for test')
+    inputs['train'][0] = tf.cast(tf.stack(str_feat_train), 'float64')
+    inputs['val'][0] = tf.cast(tf.stack(str_feat_val), 'float64')
+    inputs['test'][0] = tf.cast(tf.stack(str_feat_test), 'float64')
+    inputs['train'].append(tf.data.Dataset.from_tensor_slices((inputs['train'][0], inputs['train'][1])) \
+        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+    inputs['val'].append(tf.data.Dataset.from_tensor_slices((inputs['val'][0], inputs['val'][1])) \
+        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+    inputs['test'].append(tf.data.Dataset.from_tensor_slices((inputs['test'][0], inputs['test'][1])) \
+        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+    inputs['word_to_vec_map'] = word_to_vec_map
+    inputs['words_to_index'] = words_to_index
+    return inputs
 
 def input_fn(f_path, params, embeddings_path=None):
     """
@@ -74,12 +125,19 @@ def input_fn(f_path, params, embeddings_path=None):
         'test': [words_test, labels_test],
     }
 
-    inputs['train'].append(tf.data.Dataset.from_tensor_slices((words_train, labels_train)) \
-        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
-    inputs['val'].append(tf.data.Dataset.from_tensor_slices((words_val, labels_val)) \
-        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
-    inputs['test'].append(tf.data.Dataset.from_tensor_slices((words_test, labels_test)) \
-        .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+    if params.embeddings == 'GloVe':
+        print("preparing word embeddings")
+        if params.model_version == 'mlp':
+            inputs = prepare_average_word_embeddings(inputs, params, embeddings_path)
+        else:
+            inputs = prepare_sequence_word_embeddings(inputs, params, embeddings_path)
+    else:
+        inputs['train'].append(tf.data.Dataset.from_tensor_slices((words_train, labels_train)) \
+            .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+        inputs['val'].append(tf.data.Dataset.from_tensor_slices((words_val, labels_val)) \
+            .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+        inputs['test'].append(tf.data.Dataset.from_tensor_slices((words_test, labels_test)) \
+            .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
 
     print("Done reading in data")
 

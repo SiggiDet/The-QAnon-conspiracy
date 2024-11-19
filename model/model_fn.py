@@ -80,15 +80,20 @@ def oskarlogreg(params, vectorize_layer=None):
     return model
 
 def word_mlp_model(params, vectorize_layer=None, dropout=False):
-    print('no params.embeddings: model fn mlp model - 99')
-    inputs = Input(shape=(), dtype='string')
-    X_inp = vectorize_layer(inputs)
-    X_inp = layers.Embedding(
-        input_dim=len(vectorize_layer.get_vocabulary()),
-        output_dim=params.embedding_size,
-        # Use masking to handle the variable sequence lengths
-        mask_zero=False)(X_inp)
-    X_inp = layers.GlobalAveragePooling1D()(X_inp)
+    if params.embeddings == 'GloVe':
+        print('params.embeddings: model fn mlp model')
+        inputs = Input(shape=(params.embedding_size,), dtype='float64')
+        X_inp = inputs
+    else:
+        print('no params.embeddings: model fn mlp model - 99')
+        inputs = Input(shape=(), dtype='string')
+        X_inp = vectorize_layer(inputs)
+        X_inp = layers.Embedding(
+            input_dim=len(vectorize_layer.get_vocabulary()),
+            output_dim=params.embedding_size,
+            # Use masking to handle the variable sequence lengths
+            mask_zero=False)(X_inp)
+        X_inp = layers.GlobalAveragePooling1D()(X_inp)
     if dropout:
         X_inp = layers.Dropout(0.1)(X_inp)
     X = layers.Dense(params.h1_units,
@@ -155,37 +160,20 @@ def model_fn(inputs, params):
 
     # set up model architecture
     if params.model_version == 'mlp':
-        print('model version is mlp: model_fn - 159')
-        vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
-        model = word_mlp_model(params, vectorize_layer=vectorize_layer, dropout=params.dropout)
+        if params.embeddings == 'GloVe':
+            params.embedding_size = 50
+            model = word_mlp_model(params, dropout=params.dropout)
+        else:
+            print('model version is mlp: model_fn - 159')
+            vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
+            model = word_mlp_model(params, vectorize_layer=vectorize_layer, dropout=params.dropout)
     elif params.model_version == 'oskarlogreg':
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = oskarlogreg(params, vectorize_layer=vectorize_layer)
-    elif params.model_version == 'rnn':
-        vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
-        model = word_rnn_model(params, vectorize_layer=vectorize_layer)
-    elif params.model_version == 'lstm':
-        vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
-        model = word_lstm_model(params, vectorize_layer=vectorize_layer)
-        #else:
-        #    raise NotImplementedError("invalid embedding type")
-    
     elif params.model_version == 'log_reg':
         print("creating log_reg classifier")
-
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
-
-
-
-    elif params.model_version == 'BERT_LSTM':
-        model = bert_to_lstm_model(params)
-    elif params.model_version == 'BERT_RNN':
-        model = bert_to_rnn_model(params)
-    elif params.model_version == 'BERT_MLP':
-        model = bert_to_mlp_model(params)
-    else:
-        raise NotImplementedError("Unknown model version: {}".format(params.model_version))
 
     # compile model
     model.compile(loss=BinaryCrossentropy(from_logits=False),
