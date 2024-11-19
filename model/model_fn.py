@@ -22,7 +22,7 @@ def create_vectorized_layer(words, max_features,out_mode='int'):
         max_tokens=max_features,             # Set the max vocabulary size
         output_mode=out_mode                 # Output as integer sequences (indices)
     )
-    
+
     vectorize_layer.adapt(words)
     return vectorize_layer
 
@@ -101,8 +101,23 @@ def word_mlp_model(params, vectorize_layer=None, dropout=False):
     model = Model(inputs, outputs)
     return model
 
+def setup_glove_embedding(params, glove_path,vectorize_layer=None):
+    """
+    Gather GloVe embeddings  and create an Matrix.
+    Returns Matrix which is aligned with the vocabulary
+    """
 
-# Example of preprocessing
+    embeddings_idx = {}
+    with open(glove_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            word, coefs = line.split(maxsplit=1)
+            coefs = np.fromstring(coefs, "f", sep=" ")
+            embeddings_idx[word] = coefs
+
+    print("Found %s word vectors." % len(embeddings_idx))
+
+
+# Example of preprocessinghttps://github.com/stanfordnlp/GloVe
 def preprocess_text(text):
     return text.decode('utf-8')  # Ensure it's decoded correctly
 
@@ -133,7 +148,6 @@ def log_reg_classifier(params, vectorize_layer=None):
 
     return model
 
-
 def model_fn(inputs, params):
     """Compute logits of the model (output distribution)
 
@@ -149,15 +163,10 @@ def model_fn(inputs, params):
     if params.model_version == 'mlp':
         print('model version is mlp: model_fn - 159')
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
-<<<<<<< HEAD
-        model = word_mlp_model(params, vectorize_layer=vectorize_layer)
-
-=======
         model = word_mlp_model(params, vectorize_layer=vectorize_layer, dropout=params.dropout)
     elif params.model_version == 'oskarlogreg':
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = oskarlogreg(params, vectorize_layer=vectorize_layer)
->>>>>>> 0119c7f47aa632a073513cdd24921f2b2649eb9c
     elif params.model_version == 'rnn':
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = word_rnn_model(params, vectorize_layer=vectorize_layer)
@@ -166,7 +175,7 @@ def model_fn(inputs, params):
         model = word_lstm_model(params, vectorize_layer=vectorize_layer)
         #else:
         #    raise NotImplementedError("invalid embedding type")
-    
+
     elif params.model_version == 'log_reg':
         print("creating log_reg classifier")
 
@@ -174,11 +183,9 @@ def model_fn(inputs, params):
         if params.embeddings == "GloVe":
             #params.embedding_size = 50
             params.embedding_size = 50
-            
-            pass
 
-        vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
-        model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
+        # vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
+        # model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
 
 
 
