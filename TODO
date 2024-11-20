@@ -1,0 +1,42 @@
+Undersampling the majority class
+
+Oversampling the minority class
+
+
+2. Class Weights Adjustment
+
+Logistic regression models can be modified to account for class imbalance by adjusting the class_weight parameter. Setting class_weight='balanced' in LogisticRegression automatically adjusts the weight inversely proportional to class frequencies, giving more importance to the minority class.
+https://datascience.stackexchange.com/questions/13490/how-to-set-class-weights-for-imbalanced-classes-in-keras
+
+
+One hot encoder???
+
+
+check if loss function is relevent for the given model
+
+
+this is good I remember from few years ago:
+	7. Cross-Validation with Stratified Sampling
+
+	When performing cross-validation, use Stratified K-Folds to ensure that each fold maintains the same proportion of classes as the original dataset. This avoids the situation where some folds might have no samples from the minority class.
+
+	Example:
+
+
+I kinda remeber this from some assignment:
+	5. Ensemble Methods
+
+	If you're still facing poor performance after trying the above methods, consider using ensemble techniques like Random Forests or Gradient Boosting (e.g., XGBoost, LightGBM) which naturally handle class imbalance better than logistic regression.
+
+
+
+try moving the threshold of the models from 0.5 to a vlue matching the class imbalance
+this is a pretty weak idea imo
+	4. Threshold Moving
+
+	Logistic regression models output probabilities (not hard class labels). The default decision threshold for classification is 0.5, but in an imbalanced dataset, you may want to adjust this threshold.
+
+	    Decrease the threshold for predicting the minority class: For example, instead of predicting class 1 when the probability exceeds 0.5, you could lower the threshold to 0.3 or 0.4 to increase the recall of the minority class.
+
+	Example of threshold adjustment:
+
