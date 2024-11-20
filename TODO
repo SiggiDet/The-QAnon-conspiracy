@@ -1,8 +1,3 @@
-Undersampling the majority class
-
-Oversampling the minority class
-
-
 2. Class Weights Adjustment
 
 Logistic regression models can be modified to account for class imbalance by adjusting the class_weight parameter. Setting class_weight='balanced' in LogisticRegression automatically adjusts the weight inversely proportional to class frequencies, giving more importance to the minority class.

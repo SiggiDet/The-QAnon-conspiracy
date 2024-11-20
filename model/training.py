@@ -40,6 +40,15 @@ def train_and_evaluate(inputs, model_path, model, params):
     print(f"features_test shape: {features_test.shape}")
     print(f"labels_test shape: {labels_test.shape}")
 
+    print(f"features type: {type(features_train)}")
+    print(f"labels type: {type(labels_train)}")
+    print(f"ds type: {type(train_ds)}")
+
+    if params.class_weight_balance is False:
+        class_weight = {0: 0.5, 1:0.5}
+    else:
+        class_weight = params.class_weight_balance
+
     if params.model_version.startswith('BERT'):
         # Ragged tensors cannot be run on GPU
         with tf.device('/cpu:0'):
@@ -47,7 +56,8 @@ def train_and_evaluate(inputs, model_path, model, params):
                 train_ds,
                 validation_data=val_ds,
                 callbacks=callbacks,
-                epochs=params.num_epochs)
+                epochs=params.num_epochs,
+                class_weight=class_weight)
         loss, accuracy, f1, r_m, p_m, precision, recall = model.evaluate(test_ds)
     else:
         with tf.device('/cpu:0'):
@@ -55,7 +65,8 @@ def train_and_evaluate(inputs, model_path, model, params):
                 train_ds,
                 validation_data=val_ds,
                 callbacks=callbacks,
-                epochs=params.num_epochs)
+                epochs=params.num_epochs,
+                class_weight=class_weight)
         loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
         #loss, accuracy, f1_m, precision, recall = model.evaluate(test_ds)
 
