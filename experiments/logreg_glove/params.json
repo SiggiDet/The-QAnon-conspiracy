@@ -15,5 +15,6 @@
     "max_word_length": 60000,
     "embeddings": "GloVe",
     "oversample": false,
-    "undersample": false
+    "undersample": false,
+    "class_weight_balance": false
 }

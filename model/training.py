@@ -2,9 +2,9 @@ import json
 import os
 import tensorflow as tf
 from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
-from sklearn.model_selection import StratifiedKFold,
+from sklearn.model_selection import StratifiedKFold
 
-def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks):
+def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,class_weight):
 
     if params.model_version.startswith('BERT'):
         # Ragged tensors cannot be run on GPU
@@ -13,7 +13,8 @@ def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks):
                 train_ds,
                 validation_data=val_ds,
                 callbacks=callbacks,
-                epochs=params.num_epochs)
+                epochs=params.num_epochs,
+                class_weight=class_weight)
         loss, accuracy, f1, r_m, p_m, precision, recall = model.evaluate(test_ds)
 
     else:
@@ -22,13 +23,14 @@ def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks):
                 train_ds,
                 validation_data=val_ds,
                 callbacks=callbacks,
+                class_weight=class_weight,
                 epochs=params.num_epochs)
         loss, accuracy, f1, r_m, p_m, precision, recall = model.evaluate(test_ds)
     
     return loss,accuracy,f1,r_m,p_m,precision, recall, history
 
 
-def perform_cross_validation(features_train, labels_train, model, params,callbacks):
+def perform_cross_validation(features_train, labels_train, model, params,callbacks,class_weight):
  
     kfold = StratifiedKFold(n_splits=params.kfold, shuffle=True, random_state=42)
 
@@ -59,7 +61,7 @@ def perform_cross_validation(features_train, labels_train, model, params,callbac
         val_ds = tf.data.Dataset.from_tensor_slices((X_val_fold, y_val_fold)).batch(params.batch_size)
 
         loss, accuracy, f1, r_m, p_m, precision, recall, history = train_and_evaluate_assist(
-            params, model, train_ds, val_ds, val_ds, callbacks 
+            params, model, train_ds, val_ds, val_ds, callbacks,class_weight
         )
 
         histories.append(history)
@@ -114,9 +116,13 @@ def train_and_evaluate(inputs, model_path, model, params):
     print(f"features_test shape: {features_test.shape}")
     print(f"labels_test shape: {labels_test.shape}")
 
+    if params.class_weight_balance is False:
+        class_weight = {0: 0.5, 1:0.5}
+    else:
+        class_weight = params.class_weight_balance
 
     if params.kfold != False: # Perform Cross Validation
-        metrics,history = perform_cross_validation(features_train, labels_train, model, params,callbacks)
+        metrics,history = perform_cross_validation(features_train, labels_train, model, params,callbacks,class_weight)
     else: 
 
         if params.model_version.startswith('BERT'):
@@ -126,7 +132,8 @@ def train_and_evaluate(inputs, model_path, model, params):
                     train_ds,
                     validation_data=val_ds,
                     callbacks=callbacks,
-                    epochs=params.num_epochs)
+                    epochs=params.num_epochs,
+                    class_weight=class_weight)
             loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
 
         else:
@@ -135,7 +142,9 @@ def train_and_evaluate(inputs, model_path, model, params):
                     train_ds,
                     validation_data=val_ds,
                     callbacks=callbacks,
-                    epochs=params.num_epochs)
+                    epochs=params.num_epochs,
+                    class_weight=class_weight)
+                
             loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
             #loss, accuracy, f1_m, precision, recall = model.evaluate(test_ds)
 

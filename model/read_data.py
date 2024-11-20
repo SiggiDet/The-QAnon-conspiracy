@@ -112,6 +112,9 @@ def input_fn(f_path, params, embeddings_path=None):
         # shuffle the data
         df = df.sample(frac=1).reset_index(drop=True)
 
+    if params.class_weight_balance:
+        params.class_weight_balance = {0: len(df[df['isUQ'] == 0]),1: len(df[df['isUQ'] == 1])}
+
     # split into train/dev/test
     np.random.seed(0)
     indices = np.random.choice(a=[0, 1, 2], size=len(df), p=[.6, .2, .2])
