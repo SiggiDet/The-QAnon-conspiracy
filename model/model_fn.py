@@ -188,6 +188,8 @@ def model_fn(inputs, params):
                   optimizer=tf.keras.optimizers.Adam(learning_rate=params.learning_rate), #, clipnorm=1.0),
                   metrics=[BinaryAccuracy(threshold=0.5, dtype=None),
                             f1_m,
+                            recall_m,
+                            precision_m,
                             keras.metrics.Precision(thresholds=0.5),
                             keras.metrics.Recall(thresholds=0.5),
                            ])

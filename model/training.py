@@ -56,10 +56,11 @@ def train_and_evaluate(inputs, model_path, model, params):
                 validation_data=val_ds,
                 callbacks=callbacks,
                 epochs=params.num_epochs)
-        loss, accuracy, f1_m, precision, recall = model.evaluate(test_ds)
+        loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
+        #loss, accuracy, f1_m, precision, recall = model.evaluate(test_ds)
 
-    #test_history = {"loss": loss, "binary_accuracy": accuracy, "f1_m": f1, "precision_m": precision, "recall_m": recall}
-    test_history = {"loss": loss, "binary_accuracy": accuracy, "f1_m": f1_m, "recall": recall, "percision":precision}
+   # test_history = {"loss": loss, "binary_accuracy": accuracy, "f1_m": f1, "precision_m": precision, "recall_m": recall}
+    test_history = {"loss": loss, "binary_accuracy": accuracy, "f1_m": f1_m, "r_m": r_m, "p_m":p_m, "recall": recall, "percision":precision}
     json.dump(test_history,
               open(f"{model_path}/"
                    f"test_history_model:{params.model_version}_"

@@ -98,6 +98,20 @@ def input_fn(f_path, params, embeddings_path=None):
     # Load the dataset into mem
     df = pd.read_csv(f_path)
 
+    if params.oversample or params.undersample:
+        minor = df[df['isUQ'] == 1]
+        major = df[df['isUQ'] == 0]
+        len_ma = len(major)
+        len_mi = len(minor)
+
+        if params.oversample:
+            minor = minor.sample(n=len_ma, replace=True, random_state = 10)
+        if params.undersample:
+            major = major.sample(n=len_mi, replace=True, random_state = 10) 
+        df = pd.concat([major, minor])
+        # shuffle the data
+        df = df.sample(frac=1).reset_index(drop=True)
+
     # split into train/dev/test
     np.random.seed(0)
     indices = np.random.choice(a=[0, 1, 2], size=len(df), p=[.6, .2, .2])
