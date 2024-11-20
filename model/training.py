@@ -1,8 +1,82 @@
 import json
 import os
 import tensorflow as tf
-
 from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
+from sklearn.model_selection import StratifiedKFold,
+
+def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks):
+
+    if params.model_version.startswith('BERT'):
+        # Ragged tensors cannot be run on GPU
+        with tf.device('/cpu:0'):
+            history = model.fit(
+                train_ds,
+                validation_data=val_ds,
+                callbacks=callbacks,
+                epochs=params.num_epochs)
+        loss, accuracy, f1, r_m, p_m, precision, recall = model.evaluate(test_ds)
+
+    else:
+        with tf.device('/cpu:0'):
+            history = model.fit(
+                train_ds,
+                validation_data=val_ds,
+                callbacks=callbacks,
+                epochs=params.num_epochs)
+        loss, accuracy, f1, r_m, p_m, precision, recall = model.evaluate(test_ds)
+    
+    return loss,accuracy,f1,r_m,p_m,precision, recall, history
+
+
+def perform_cross_validation(features_train, labels_train, model, params,callbacks):
+ 
+    kfold = StratifiedKFold(n_splits=params.kfold, shuffle=True, random_state=42)
+
+    histories = []
+    init_weights = model.get_weights()
+
+    fold_num = 1
+    metrics = {
+        "loss": [],
+        "accuracy": [],
+        "f1_m": [],
+        "precision": [],
+        "recall": [],
+        "r_m": [],
+        "p_m": [],
+    }
+
+    for train_idx, val_idx in kfold.split(features_train, labels_train):
+        model.set_weights(init_weights)
+
+        # Creating  training and validation sets with tf.gather
+        X_train_fold = tf.gather(features_train, train_idx)
+        X_val_fold = tf.gather(features_train, val_idx)
+        y_train_fold = tf.gather(labels_train, train_idx)
+        y_val_fold = tf.gather(labels_train, val_idx)
+
+        train_ds = tf.data.Dataset.from_tensor_slices((X_train_fold, y_train_fold)).batch(params.batch_size)
+        val_ds = tf.data.Dataset.from_tensor_slices((X_val_fold, y_val_fold)).batch(params.batch_size)
+
+        loss, accuracy, f1, r_m, p_m, precision, recall, history = train_and_evaluate_assist(
+            params, model, train_ds, val_ds, val_ds, callbacks 
+        )
+
+        histories.append(history)
+        
+        # Append metrics for later analysis
+        metrics["loss"].append(loss)
+        metrics["accuracy"].append(accuracy)
+        metrics["f1_m"].append(f1)
+        metrics["r_m"].append(r_m)
+        metrics["p_m"].append(p_m)
+        metrics["precision"].append(precision)
+        metrics["recall"].append(recall)
+
+        fold_num += 1
+
+    return metrics, histories
+    
 
 def train_and_evaluate(inputs, model_path, model, params):
     """Evaluate the model
@@ -40,43 +114,49 @@ def train_and_evaluate(inputs, model_path, model, params):
     print(f"features_test shape: {features_test.shape}")
     print(f"labels_test shape: {labels_test.shape}")
 
-    if params.model_version.startswith('BERT'):
-        # Ragged tensors cannot be run on GPU
-        with tf.device('/cpu:0'):
-            history = model.fit(
-                train_ds,
-                validation_data=val_ds,
-                callbacks=callbacks,
-                epochs=params.num_epochs)
-        loss, accuracy, f1, r_m, p_m, precision, recall = model.evaluate(test_ds)
-    else:
-        with tf.device('/cpu:0'):
-            history = model.fit(
-                train_ds,
-                validation_data=val_ds,
-                callbacks=callbacks,
-                epochs=params.num_epochs)
-        loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
-        #loss, accuracy, f1_m, precision, recall = model.evaluate(test_ds)
 
-   # test_history = {"loss": loss, "binary_accuracy": accuracy, "f1_m": f1, "precision_m": precision, "recall_m": recall}
-    test_history = {"loss": loss, "binary_accuracy": accuracy, "f1_m": f1_m, "r_m": r_m, "p_m":p_m, "recall": recall, "percision":precision}
-    json.dump(test_history,
-              open(f"{model_path}/"
-                   f"test_history_model:{params.model_version}_"
-                   f"embeddings:{params.embeddings}_"
-                   f"h1units:{params.h1_units}_"
-                   f"h2units:{params.h2_units}_"
-                   f"l2reglambda:{params.l2_reg_lambda}_"
-                   f"lr:{params.learning_rate}_"
-                   f"batchsize:{params.batch_size}_"
-                   f"dropout:{params.dropout_rate}.json", 'w'))
+    if params.kfold != False: # Perform Cross Validation
+        metrics,history = perform_cross_validation(features_train, labels_train, model, params,callbacks)
+    else: 
 
-    print("Loss: ", loss)
-    print("Accuracy: ", accuracy)
-    print("Precision: ", precision)
-    print("Recall: ", recall)
-    print("f1_m: ", f1_m)
-#     print("AUC: ", auc)
+        if params.model_version.startswith('BERT'):
+            # Ragged tensors cannot be run on GPU
+            with tf.device('/cpu:0'):
+                history = model.fit(
+                    train_ds,
+                    validation_data=val_ds,
+                    callbacks=callbacks,
+                    epochs=params.num_epochs)
+            loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
+
+        else:
+            with tf.device('/cpu:0'):
+                history = model.fit(
+                    train_ds,
+                    validation_data=val_ds,
+                    callbacks=callbacks,
+                    epochs=params.num_epochs)
+            loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
+            #loss, accuracy, f1_m, precision, recall = model.evaluate(test_ds)
+
+    for i in range(0,len(metrics["p_m"])):
+        test_history = {"loss": metrics["loss"][i], "binary_accuracy": metrics["accuracy"][i], "f1_m": metrics["f1_m"][i], "r_m": metrics["r_m"][i], "p_m":metrics["p_m"][i], "recall": metrics["recall"][i], "percision":metrics["precision"][i]}
+   
+        json.dump(test_history,
+                  open(f"{model_path}/{i}"
+                       f"test_history_model:{params.model_version}_"
+                       f"embeddings:{params.embeddings}_"
+                       f"h1units:{params.h1_units}_"
+                       f"h2units:{params.h2_units}_"
+                       f"l2reglambda:{params.l2_reg_lambda}_"
+                       f"lr:{params.learning_rate}_"
+                       f"batchsize:{params.batch_size}_"
+                       f"dropout:{params.dropout_rate}.json", 'w'))
+
+        print("Loss: ", metrics["loss"][i])
+        print("accuracy: ", metrics["accuracy"][i])
+        print("precision: ", metrics["precision"][i])
+        print("recall: ", metrics["recall"][i])
+        print("f1_m: ", metrics["f1_m"][i])
 
     return history
