@@ -65,7 +65,7 @@ def oskarlogreg(params, vectorize_layer=None):
     print('no params.embeddings: model fn logreg model - 69420')
     inputs = Input(shape=(), dtype='string')
     vec_layer = vectorize_layer(inputs)
-    Em = layers.Embedding(input_dim=len(vectorize_layer.get_vocabulary()), output_dim=params.embedding_size,mask_zero=True)(vec_layer)
+    Em = layers.Embedding(input_dim=len(vectorize_layer.get_vocabulary()), output_dim=params.embedding_size,mask_zero=False)(vec_layer)
     flat = layers.GlobalAveragePooling1D()(Em)
     outputs = layers.Dense(1, activation='sigmoid')(flat)
     model = Model(inputs, outputs)
@@ -133,7 +133,7 @@ def log_reg_classifier(params, vectorize_layer=None):
             input_dim=len(vectorize_layer.get_vocabulary()),
             output_dim=params.embedding_size,
             # Use masking to handle the variable sequence lengths
-            mask_zero=True,
+            mask_zero=False,
             name="embedding_layer"
             )(X_inp)
 
