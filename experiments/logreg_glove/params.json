@@ -8,10 +8,12 @@
     "embedding_size": 50,
     "learning_rate": 0.001,
     "batch_size": 32,
-    "num_epochs": 2,
-    "early_stopping_patience": 10,
+    "num_epochs": 10,
+    "early_stopping_patience": 5,
     "dropout_rate": 0.1,
     "sample_rate": 1.0,
     "max_word_length": 60000,
-    "embeddings": "GloVe"
+    "embeddings": "GloVe",
+    "oversample": false,
+    "undersample": false
 }
