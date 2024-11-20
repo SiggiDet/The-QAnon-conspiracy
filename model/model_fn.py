@@ -138,9 +138,9 @@ def log_reg_classifier(params, vectorize_layer=None):
             )(X_inp)
 
         # Reduce sequence dimension
-        #X_inp = layers.GlobalAveragePooling1D(name="pooling_layer")(X_inp)
+    X_inp = layers.GlobalAveragePooling1D(name="pooling_layer")(X_inp)
 
-    X_inp = layers.Flatten()(X_inp)
+    #X_inp = layers.Flatten()(X_inp)
 
     outputs = Dense(1, activation='sigmoid',name="output_layer")(X_inp)
 
