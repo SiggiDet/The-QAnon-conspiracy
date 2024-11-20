@@ -106,6 +106,8 @@ def word_mlp_model(params, vectorize_layer=None, dropout=False):
     model = Model(inputs, outputs)
     return model
 
+def 
+
 # Example of preprocessinghttps://github.com/stanfordnlp/GloVe
 def preprocess_text(text):
     return text.decode('utf-8')  # Ensure it's decoded correctly
@@ -148,6 +150,26 @@ def log_reg_classifier(params, vectorize_layer=None):
 
     return model
 
+
+def create_model(params, vectorize_layer=None):
+    
+    if vectorize_layer is None:
+        inputs = Input(shape=(params.max_word_length,) dtype='float64', name="bagging")
+        X_inp = inputs
+    
+    else:
+        inputs = Input(shape=()m dtype='string', name="text_input")
+        X_inp = vectorize_layer(inputs)
+
+        X_inp = layers.Embedding(
+            input_dim=len(vectorize_layer.get_vocabulary()),
+            output_dim=params.embedding_size,
+            # Use masking to handle the variable sequence lengths
+            mask_zero=False,
+            name="embedding_layer"
+            )(X_inp)
+
+
 def model_fn(inputs, params):
     """Compute logits of the model (output distribution)
 
@@ -174,7 +196,7 @@ def model_fn(inputs, params):
         model = oskarlogreg(params, vectorize_layer=vectorize_layer)
     elif params.model_version == 'log_reg':
         print("creating log_reg classifier")
-
+    
         # Implement Pre-trained word embeddings
         if params.embeddings == "GloVe":
             print("executing GloVe")
@@ -182,6 +204,8 @@ def model_fn(inputs, params):
         else:
             vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
             model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
+
+    elif params.model_version == 'Bagging':
 
     # compile model
     model.compile(loss=BinaryCrossentropy(from_logits=False),
