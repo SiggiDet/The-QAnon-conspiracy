@@ -5,6 +5,7 @@ import tensorflow as tf
 from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
 from sklearn.model_selection import StratifiedKFold
 import numpy as np
+import random
 
 from model.utils import read_glove_vecs, sentences_to_indices
 from model.read_data import prepare_average_word_embeddings, prepare_sequence_word_embeddings
@@ -14,9 +15,7 @@ def f1_m(recall,precision):
 
 
 def get_months_val(params,month_fpath):
-    df = pd.read_csv(month_fpath)
-    indices = np.random.choice(a=[0, 1], size=len(df), p=[.95, .05])
-    df = df[indices == 1]
+    df = pd.read_csv(month_fpath,skiprows=lambda i: i>0 and random.random() > 0.05)
     words_test = tf.convert_to_tensor(df["words"], dtype=tf.string)
     labels_test = tf.convert_to_tensor(df["isUQ"])
     
@@ -57,6 +56,7 @@ def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,cla
                 callbacks=callbacks,
                 epochs=params.num_epochs,
                 class_weight=class_weight)
+        loss,accuracy,precision, recall, history = model.evaluate(test_ds)
 
     else:
         with tf.device('/cpu:0'):
@@ -66,13 +66,8 @@ def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,cla
                 callbacks=callbacks,
                 class_weight=class_weight,
                 epochs=params.num_epochs)
+        loss,accuracy,precision, recall, history = model.evaluate(test_ds)
     
-    if isinstance(test_ds,list):
-        eval_arr = []
-        for d in test_ds:
-            loss, accuracy, precision, recall = model.evaluate(d)
-            eval_arr.append([loss, accuracy, precision, recall])
-        return eval_arr, history
     return loss,accuracy,precision, recall, history
 
 def retrieve_all_months(submissions_data_dir:str,curr_month=None):
@@ -94,40 +89,34 @@ def perform_months_evaluation(params,model,train_ds,val_ds,test_ds,callbacks,cla
     metrics = {
         "loss": [],
         "accuracy": [],
-        "f1_m": [],
+        "f1": [],
         "precision": [],
         "recall": [],
-        "r_m": [],
-        "p_m": [],
     }
+
+    history = model.fit(
+        train_ds,
+        validation_data=val_ds,
+        callbacks=callbacks,
+        epochs=params.num_epochs,
+        class_weight=class_weight)
 
     month_test_dataset = None # Initialising
     
     month_ds_arr = []
     # iterate all months 
     for m in all_months:
-
         m_file_path = submissions_data_dir + m
         month_features_test, month_label_test, month_test_dataset = get_months_val(params,m_file_path)
-        month_ds_arr.append(month_test_dataset)
-        
-    eval_arr, history =  train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,class_weight)
-    for m in range(0,len(all_months)):
-        # Or model.evaluate
-        loss = eval_arr[m][0]
-        accuracy = eval_arr[m][1]
-        precision = eval_arr[m][2]
-        recall = eval_arr[m][3]
+        loss, accuracy, precision, recall = model.evaluate(month_test_dataset)
         metrics["loss"].append(loss)
         metrics["accuracy"].append(accuracy)
         metrics["precision"].append(precision)
         metrics["recall"].append(recall)
         metrics["f1"].append(f1_m(recall,precision))
 
-        histories.append(history)
-
-    
-    return metrics, histories
+    print(metrics)
+    return metrics, history
     
     
 def perform_cross_validation(features_train, labels_train, model, params,callbacks,class_weight):
@@ -141,11 +130,9 @@ def perform_cross_validation(features_train, labels_train, model, params,callbac
     metrics = {
         "loss": [],
         "accuracy": [],
-        "f1_m": [],
+        "f1": [],
         "precision": [],
         "recall": [],
-        "r_m": [],
-        "p_m": [],
     }
     
     
