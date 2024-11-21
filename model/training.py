@@ -6,12 +6,11 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
 from sklearn.model_selection import StratifiedKFold
 import numpy as np
 
-from model.utils import sentences_to_indices, read_glove_vecs
+from model.utils import read_glove_vecs, sentences_to_indices
 from model.read_data import prepare_average_word_embeddings, prepare_sequence_word_embeddings
 
 def f1_m(recall,precision):
     return 2*((precision*recall)/(precision+recall+(0.000000001)))
-
 
 
 def get_months_val(params,month_fpath):
@@ -20,7 +19,7 @@ def get_months_val(params,month_fpath):
     df = df[indices == 1]
     words_test = tf.convert_to_tensor(df["words"], dtype=tf.string)
     labels_test = tf.convert_to_tensor(df["isUQ"])
-
+    
 
     embeddings_path = './data/glove.6B.'+str(params.embedding_size)+'d.txt'
     if params.embeddings == 'GloVe':
@@ -29,10 +28,10 @@ def get_months_val(params,month_fpath):
             inputs = {
                 'test': [words_test, labels_test],
                 # just an empty sender does not use this variables for this case
-                'train': [words_test,labels_test],
+                'train': [words_test,labels_test], 
                 'val': [words_test,labels_test]
             }
-            inputs = prepare_average_word_embeddings(inputs, params, embeddings_path)
+            inputs = prepare_average_word_embeddings(inputs, params, './data/glove.6B.'+str(params.embedding_size)+'d.txt')
         else:
             inputs = {'test': [words_test, labels_test]}
             maxLen = params.max_word_length
@@ -58,7 +57,6 @@ def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,cla
                 callbacks=callbacks,
                 epochs=params.num_epochs,
                 class_weight=class_weight)
-        loss, accuracy, precision, recall = model.evaluate(test_ds)
 
     else:
         with tf.device('/cpu:0'):
@@ -68,8 +66,13 @@ def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,cla
                 callbacks=callbacks,
                 class_weight=class_weight,
                 epochs=params.num_epochs)
-        loss, accuracy, precision, recall = model.evaluate(test_ds)
     
+    if isinstance(test_ds,list):
+        eval_arr = []
+        for d in test_ds:
+            loss, accuracy, precision, recall = model.evaluate(d)
+            eval_arr.append([loss, accuracy, precision, recall])
+        return eval_arr, history
     return loss,accuracy,precision, recall, history
 
 def retrieve_all_months(submissions_data_dir:str,curr_month=None):
@@ -99,16 +102,22 @@ def perform_months_evaluation(params,model,train_ds,val_ds,test_ds,callbacks,cla
     }
 
     month_test_dataset = None # Initialising
-    loss,accuracy,precision, recall, history =  train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,class_weight)
     
+    month_ds_arr = []
     # iterate all months 
     for m in all_months:
 
         m_file_path = submissions_data_dir + m
         month_features_test, month_label_test, month_test_dataset = get_months_val(params,m_file_path)
+        month_ds_arr.append(month_test_dataset)
         
+    eval_arr, history =  train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,class_weight)
+    for m in range(0,len(all_months)):
         # Or model.evaluate
-        loss, accuracy, precision, recall = history.evalute(month_test_dataset)
+        loss = eval_arr[m][0]
+        accuracy = eval_arr[m][1]
+        precision = eval_arr[m][2]
+        recall = eval_arr[m][3]
         metrics["loss"].append(loss)
         metrics["accuracy"].append(accuracy)
         metrics["precision"].append(precision)
