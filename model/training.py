@@ -47,6 +47,7 @@ def perform_cross_validation(features_train, labels_train, model, params,callbac
         "r_m": [],
         "p_m": [],
     }
+    
 
     for train_idx, val_idx in kfold.split(features_train, labels_train):
         model.set_weights(init_weights)

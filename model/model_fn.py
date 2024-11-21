@@ -1,5 +1,5 @@
 import tensorflow as tf
-from keras import layers
+from keras import layers,regularizers
 from keras.layers import Embedding, Input, Layer, TextVectorization, Dense
 from keras.models import Model, Sequential
 import string
@@ -12,6 +12,8 @@ from keras import backend as K
 from keras.losses import BinaryCrossentropy
 from keras.optimizers import Adam
 from keras.metrics import BinaryAccuracy
+
+from sklearn.model_selection import StratifiedKFold
 
 def create_vectorized_layer(words, max_features,out_mode='int'):
     """
@@ -106,8 +108,6 @@ def word_mlp_model(params, vectorize_layer=None, dropout=False):
     model = Model(inputs, outputs)
     return model
 
-def 
-
 # Example of preprocessinghttps://github.com/stanfordnlp/GloVe
 def preprocess_text(text):
     return text.decode('utf-8')  # Ensure it's decoded correctly
@@ -131,7 +131,7 @@ def log_reg_classifier(params, vectorize_layer=None):
         # Apply the vectorization layer
         X_inp = vectorize_layer(inputs)
 
-        X_inp = layers.Embedding(
+        X_inp = Embedding(
             input_dim=len(vectorize_layer.get_vocabulary()),
             output_dim=params.embedding_size,
             # Use masking to handle the variable sequence lengths
@@ -151,17 +151,21 @@ def log_reg_classifier(params, vectorize_layer=None):
     return model
 
 
-def create_model(params, vectorize_layer=None):
-    
+def create_model(params, vectorize_layer= None):
     if vectorize_layer is None:
-        inputs = Input(shape=(params.max_word_length,) dtype='float64', name="bagging")
+        
+        inputs = Input(shape=(params.max_word_length,), dtype='float64', name="text_input")  # Input is raw text strings
         X_inp = inputs
-    
+
     else:
-        inputs = Input(shape=()m dtype='string', name="text_input")
+
+        # Define the input layer for text data
+        inputs = Input(shape=(), dtype='string', name="text_input")  # Input is raw text strings
+
+        # Apply the vectorization layer
         X_inp = vectorize_layer(inputs)
 
-        X_inp = layers.Embedding(
+        X_inp = Embedding(
             input_dim=len(vectorize_layer.get_vocabulary()),
             output_dim=params.embedding_size,
             # Use masking to handle the variable sequence lengths
@@ -169,6 +173,28 @@ def create_model(params, vectorize_layer=None):
             name="embedding_layer"
             )(X_inp)
 
+        # Reduce sequence dimension
+   
+    X_inp = layers.GlobalAveragePooling1D(name="pooling_layer")(X_inp)
+
+    #X_inp = layers.Flatten()(X_inp)
+
+    outputs = Dense(1, activation='sigmoid',name="output_layer")(X_inp)
+
+    model = Model(inputs=inputs, outputs=outputs, name="Model")
+
+    return model
+
+#https://github.com/christianversloot/machine-learning-articles/blob/main/how-to-use-k-fold-cross-validation-with-keras.md
+def cross_validation(params, vectorize_layer=None):
+
+
+    # Define the K-fold Cross Validator
+    kfold = KFold(n_splits=params.kfold, shuffle=True,random_state=42)
+    
+    model = create_model(params,vectorize_layer)
+
+    return model
 
 def model_fn(inputs, params):
     """Compute logits of the model (output distribution)
@@ -194,6 +220,7 @@ def model_fn(inputs, params):
     elif params.model_version == 'oskarlogreg':
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = oskarlogreg(params, vectorize_layer=vectorize_layer)
+
     elif params.model_version == 'log_reg':
         print("creating log_reg classifier")
     
@@ -205,7 +232,6 @@ def model_fn(inputs, params):
             vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
             model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
 
-    elif params.model_version == 'Bagging':
 
     # compile model
     model.compile(loss=BinaryCrossentropy(from_logits=False),

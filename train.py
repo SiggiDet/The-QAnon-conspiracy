@@ -88,4 +88,8 @@ if __name__ == '__main__':
     # Train the model
     logging.info("Starting training for {} epoch(s)".format(params.num_epochs))
     history = train_and_evaluate(inputs, model_dir, train_model, params)
-    metrics_to_plot(history, params, model_dir)
+    if not params.kfold:
+        metrics_to_plot(history, params, model_dir)
+    else:
+        for i, h in enumerate(history):
+            metrics_to_plot(h, params, model_dir, kfold=i)
