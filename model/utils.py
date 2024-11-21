@@ -37,6 +37,21 @@ class Params():
         """Gives dict-like access to Params instance by `params.dict['learning_rate']`"""
         return self.__dict__
 
+    def __iter__(self):
+        """Allows iteration over the keys and values of the Params instance"""
+        for key, value in self.__dict__.items():
+            yield key, value
+
+
+def add_hyper_param(v,name):
+    if isinstance(v[0],float):
+        return hp.Float(name, min_value=v[0], max_value=v[1], sampling="linear")
+    if isinstance(v[0],int):
+        return hp.Int(name, min_value=v[0], max_value=v[1], sampling="linear")
+    if isinstance(v[0],bool):
+        return hp.Boolean(name)
+    if isinstance(v[0],str):
+        return hp.Choice(name, v)
 
 # from https://github.com/cs230-stanford/cs230-code-examples/blob/master/tensorflow/nlp/model/utils.py
 def set_logger(log_path):

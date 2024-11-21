@@ -4,6 +4,9 @@ import tensorflow as tf
 from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
 from sklearn.model_selection import StratifiedKFold
 
+def f1_m(recall,precision):
+    return 2*((precision*recall)/(precision+recall+(0.000000001)))
+
 def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,class_weight):
 
     if params.model_version.startswith('BERT'):
@@ -15,7 +18,7 @@ def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,cla
                 callbacks=callbacks,
                 epochs=params.num_epochs,
                 class_weight=class_weight)
-        loss, accuracy, f1, r_m, p_m, precision, recall = model.evaluate(test_ds)
+        loss, accuracy, precision, recall = model.evaluate(test_ds)
 
     else:
         with tf.device('/cpu:0'):
@@ -25,10 +28,9 @@ def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,cla
                 callbacks=callbacks,
                 class_weight=class_weight,
                 epochs=params.num_epochs)
-        loss, accuracy, f1, r_m, p_m, precision, recall = model.evaluate(test_ds)
+        loss, accuracy, precision, recall = model.evaluate(test_ds)
     
-    return loss,accuracy,f1,r_m,p_m,precision, recall, history
-
+    return loss,accuracy,precision, recall, history
 
 def perform_cross_validation(features_train, labels_train, model, params,callbacks,class_weight):
  
@@ -38,15 +40,6 @@ def perform_cross_validation(features_train, labels_train, model, params,callbac
     init_weights = model.get_weights()
 
     fold_num = 1
-    metrics = {
-        "loss": [],
-        "accuracy": [],
-        "f1_m": [],
-        "precision": [],
-        "recall": [],
-        "r_m": [],
-        "p_m": [],
-    }
 
     for train_idx, val_idx in kfold.split(features_train, labels_train):
         model.set_weights(init_weights)
@@ -60,7 +53,7 @@ def perform_cross_validation(features_train, labels_train, model, params,callbac
         train_ds = tf.data.Dataset.from_tensor_slices((X_train_fold, y_train_fold)).batch(params.batch_size)
         val_ds = tf.data.Dataset.from_tensor_slices((X_val_fold, y_val_fold)).batch(params.batch_size)
 
-        loss, accuracy, f1, r_m, p_m, precision, recall, history = train_and_evaluate_assist(
+        loss, accuracy, precision, recall, history = train_and_evaluate_assist(
             params, model, train_ds, val_ds, val_ds, callbacks,class_weight
         )
 
@@ -69,17 +62,14 @@ def perform_cross_validation(features_train, labels_train, model, params,callbac
         # Append metrics for later analysis
         metrics["loss"].append(loss)
         metrics["accuracy"].append(accuracy)
-        metrics["f1_m"].append(f1)
-        metrics["r_m"].append(r_m)
-        metrics["p_m"].append(p_m)
         metrics["precision"].append(precision)
         metrics["recall"].append(recall)
+        metrics["f1"].append(f1_m(recall,precision))
 
         fold_num += 1
 
     return metrics, histories
     
-
 def train_and_evaluate(inputs, model_path, model, params):
     """Evaluate the model
 
@@ -89,6 +79,14 @@ def train_and_evaluate(inputs, model_path, model, params):
         params: (Params) contains hyperparameters of the model.
                 Must define: num_epochs, train_size, batch_size, eval_size, save_summary_steps
     """
+    metrics = {
+        "loss": [],
+        "accuracy": [],
+        "precision": [],
+        "recall": [],
+        "f1": [],
+    }
+
     logdir = os.path.join(model_path+"/logs")
     callbacks = [
         EarlyStopping(monitor='val_loss', patience=params.early_stopping_patience),
@@ -124,7 +122,6 @@ def train_and_evaluate(inputs, model_path, model, params):
     if params.kfold != False: # Perform Cross Validation
         metrics,history = perform_cross_validation(features_train, labels_train, model, params,callbacks,class_weight)
     else: 
-
         if params.model_version.startswith('BERT'):
             # Ragged tensors cannot be run on GPU
             with tf.device('/cpu:0'):
@@ -134,7 +131,7 @@ def train_and_evaluate(inputs, model_path, model, params):
                     callbacks=callbacks,
                     epochs=params.num_epochs,
                     class_weight=class_weight)
-            loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
+            loss, accuracy, precision, recall = model.evaluate(test_ds)
 
         else:
             with tf.device('/cpu:0'):
@@ -144,12 +141,16 @@ def train_and_evaluate(inputs, model_path, model, params):
                     callbacks=callbacks,
                     epochs=params.num_epochs,
                     class_weight=class_weight)
-                
-            loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
-            #loss, accuracy, f1_m, precision, recall = model.evaluate(test_ds)
+            loss, accuracy, precision, recall = model.evaluate(test_ds)
 
-    for i in range(0,len(metrics["p_m"])):
-        test_history = {"loss": metrics["loss"][i], "binary_accuracy": metrics["accuracy"][i], "f1_m": metrics["f1_m"][i], "r_m": metrics["r_m"][i], "p_m":metrics["p_m"][i], "recall": metrics["recall"][i], "percision":metrics["precision"][i]}
+        metrics["loss"].append(loss)
+        metrics["accuracy"].append(accuracy)
+        metrics["f1"].append(f1_m(recall,precision))
+        metrics["precision"].append(precision)
+        metrics["recall"].append(recall)
+
+    for i in range(0,len(metrics['loss'])):
+        test_history = {"loss": metrics["loss"][i], "binary_accuracy": metrics["accuracy"][i], "f1": metrics["f1"][i], "recall": metrics["recall"][i], "percision":metrics["precision"][i]}
    
         json.dump(test_history,
                   open(f"{model_path}/{i}"
@@ -166,6 +167,6 @@ def train_and_evaluate(inputs, model_path, model, params):
         print("accuracy: ", metrics["accuracy"][i])
         print("precision: ", metrics["precision"][i])
         print("recall: ", metrics["recall"][i])
-        print("f1_m: ", metrics["f1_m"][i])
+        print("f1: ", metrics["f1"][i])
 
     return history
