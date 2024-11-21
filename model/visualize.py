@@ -4,7 +4,7 @@ import math
 import matplotlib.pyplot as plt
 
 
-def metrics_to_plot(history, params, model_path):
+def metrics_to_plot(history, params, model_path, kfold=""):
     # grab evaluation metrics on dev set over course of training
     history_dict = history.history
     print(history_dict)
@@ -16,7 +16,7 @@ def metrics_to_plot(history, params, model_path):
                                  f"l2reglambda:{params.l2_reg_lambda}_"
                                  f"lr:{params.learning_rate}_"
                                  f"batchsize:{params.batch_size}_"
-                                 f"dropout:{params.dropout_rate}.json", 'w'))
+                                 f"dropout:{params.dropout_rate}{kfold}.json", 'w'))
     epochs = range(1, len(history_dict['loss']) + 1)
 
     metrics = list(history_dict.keys())[:len(list(history_dict.keys())) // 2]
@@ -49,5 +49,5 @@ def metrics_to_plot(history, params, model_path):
                 f"l2reglambda:{params.l2_reg_lambda}_"
                 f"lr:{params.learning_rate}_"
                 f"batchsize:{params.batch_size}_"
-                f"dropout:{params.dropout_rate}.png")
+                f"dropout:{params.dropout_rate}{kfold}.png")
     plt.show()

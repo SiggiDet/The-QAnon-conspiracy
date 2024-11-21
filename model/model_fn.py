@@ -43,26 +43,6 @@ def custom_standardization(input_data):
                                     '')
     return return_val
 
-def recall_m(y_true, y_pred):
-    y_pred = tf.math.sigmoid(y_pred)
-    true_positives = tf.math.cumsum(tf.math.round(tf.clip_by_value(tf.math.multiply(y_true, y_pred), 0, 1)))
-    possible_positives = tf.math.cumsum(tf.math.round(tf.clip_by_value(y_true, 0, 1)))
-    recall = true_positives / (possible_positives + K.epsilon())
-    return recall
-
-def precision_m(y_true, y_pred):
-    y_pred = tf.math.sigmoid(y_pred)
-    true_positives = tf.math.cumsum(tf.math.round(tf.clip_by_value(tf.math.multiply(y_true, y_pred), 0, 1)))
-    predicted_positives = tf.math.cumsum(tf.math.round(tf.clip_by_value(y_pred, 0, 1)))
-    precision = true_positives / (predicted_positives + K.epsilon())
-    return precision
-
-def f1_m(y_true, y_pred):
-    y_pred = tf.math.sigmoid(y_pred)
-    precision = precision_m(y_true, y_pred)
-    recall = recall_m(y_true, y_pred)
-    return tf.math.multiply(tf.cast(2.0,"float64"),tf.math.divide(tf.math.multiply(precision,recall),tf.math.add(precision,tf.math.add(recall,K.epsilon()))))
-
 def oskarlogreg(params, vectorize_layer=None):
     print('no params.embeddings: model fn logreg model - 69420')
     inputs = Input(shape=(), dtype='string')
@@ -73,7 +53,7 @@ def oskarlogreg(params, vectorize_layer=None):
     model = Model(inputs, outputs)
     return model
 
-def word_mlp_model(params, vectorize_layer=None, dropout=False):
+def word_mlp_model(params, vectorize_layer=None):
     if params.embeddings == 'GloVe':
         print('params.embeddings: model fn mlp model')
         inputs = Input(shape=(params.embedding_size,), dtype='float64')
@@ -88,23 +68,23 @@ def word_mlp_model(params, vectorize_layer=None, dropout=False):
             # Use masking to handle the variable sequence lengths
             mask_zero=False)(X_inp)
         X_inp = layers.GlobalAveragePooling1D()(X_inp)
-    if dropout:
-        X_inp = layers.Dropout(0.1)(X_inp)
+    if params.dropout_rate > 0:
+        X_inp = layers.Dropout(params.dropout_rate)(X_inp)
     X = layers.Dense(params.h1_units,
-                           activation='relu',
+                           activation=params.h1_activation,
                            kernel_regularizer=tf.keras.regularizers.L2(params.l2_reg_lambda),
                            kernel_initializer=tf.keras.initializers.HeUniform())(X_inp)
     X = layers.BatchNormalization()(X)
-    if dropout:
-        X = layers.Dropout(0.1)(X)
+    if params.dropout_rate > 0:
+        X = layers.Dropout(params.dropout_rate)(X)
     X = layers.Dense(params.h2_units,
-                           activation='relu',
+                           activation=params.h2_activation,
                            kernel_regularizer=tf.keras.regularizers.L2(params.l2_reg_lambda),
                            kernel_initializer=tf.keras.initializers.HeUniform())(X)
     X = layers.BatchNormalization()(X)
-    if dropout:
-        X = layers.Dropout(0.1)(X)
-    outputs = layers.Dense(1, activation='sigmoid')(X)
+    if params.dropout_rate >0:
+        X = layers.Dropout(params.dropout_rate)(X)
+    outputs = layers.Dense(1, activation=params.output_activation)(X)
     model = Model(inputs, outputs)
     return model
 
@@ -140,11 +120,11 @@ def log_reg_classifier(params, vectorize_layer=None):
             )(X_inp)
 
         # Reduce sequence dimension
-    X_inp = layers.GlobalAveragePooling1D(name="pooling_layer")(X_inp)
+        X_inp = layers.GlobalAveragePooling1D(name="pooling_layer")(X_inp)
 
     #X_inp = layers.Flatten()(X_inp)
 
-    outputs = Dense(1, activation='sigmoid',name="output_layer")(X_inp)
+    outputs = Dense(1, activation=params.output_activation,name="output_layer")(X_inp)
 
     model = Model(inputs=inputs, outputs=outputs, name="log_Reg_model")
 
@@ -153,16 +133,24 @@ def log_reg_classifier(params, vectorize_layer=None):
 
 def create_model(params, vectorize_layer= None):
     if vectorize_layer is None:
+<<<<<<< HEAD
         
         inputs = Input(shape=(params.max_word_length,), dtype='float64', name="text_input")  # Input is raw text strings
+=======
+        inputs = Input(shape=(params.max_word_length,), dtype='float64', name="bagging")
+>>>>>>> 01355748270144c8a968f956b18399f83c0e8507
         X_inp = inputs
 
     else:
+<<<<<<< HEAD
 
         # Define the input layer for text data
         inputs = Input(shape=(), dtype='string', name="text_input")  # Input is raw text strings
 
         # Apply the vectorization layer
+=======
+        inputs = Input(shape=(), dtype='string', name="text_input")
+>>>>>>> 01355748270144c8a968f956b18399f83c0e8507
         X_inp = vectorize_layer(inputs)
 
         X_inp = Embedding(
@@ -211,16 +199,19 @@ def model_fn(inputs, params):
     if params.model_version == 'mlp':
         if params.embeddings == 'GloVe':
             params.embedding_size = 50
-            model = word_mlp_model(params, dropout=params.dropout)
+            model = word_mlp_model(params)
         else:
             print('model version is mlp: model_fn - 159')
             vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
-            model = word_mlp_model(params, vectorize_layer=vectorize_layer, dropout=params.dropout)
+            model = word_mlp_model(params, vectorize_layer=vectorize_layer)
 
+<<<<<<< HEAD
     elif params.model_version == 'oskarlogreg':
         vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
         model = oskarlogreg(params, vectorize_layer=vectorize_layer)
 
+=======
+>>>>>>> 01355748270144c8a968f956b18399f83c0e8507
     elif params.model_version == 'log_reg':
         print("creating log_reg classifier")
     
@@ -232,14 +223,42 @@ def model_fn(inputs, params):
             vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
             model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
 
+<<<<<<< HEAD
+=======
+    loss = None
+    if params.loss["name"] == "BinaryCrossentropy":
+        loss = BinaryCrossentropy(from_logits=params.loss["from_logits"],label_smoothing=params.loss["label_smoothing"])
+    elif params.loss["name"] == "BinaryFocalCrossentropy":
+        if not params.class_weight_balance:
+            loss = tf.keras.losses.BinaryFocalCrossentropy(apply_class_balancing=False,alpha=0.0,gamma=params.loss["gamma"],from_logits=params.loss["from_logits"],label_smoothing=params.loss["label_smoothing"])
+        else:
+            loss = tf.keras.losses.BinaryFocalCrossentropy(apply_class_balancing=True, alpha=params.class_weight_balance[1],gamma=params.loss["gamma"],from_logits=params.loss["from_logits"],label_smoothing=params.loss["label_smoothing"])
+    elif params.loss["name"] == "Poisson":
+        loss = tf.keras.losses.Poisson()
+    elif params.loss["name"] == "Dice":
+        loss = tf.keras.losses.Dice()
+    elif params.loss["name"] == "CosineSimilarity":
+        loss = tf.keras.losses.CosineSimilarity()
+    elif params.loss["name"] == "MSE":
+        loss = tf.keras.losses.MSE()
+    elif params.loss["name"] == "Tversky":
+        loss = tf.keras.losses.Tversky(alpa=params.loss["alpha"],beta=params.loss["beta"])
+
+    opt = None
+    if params.opt["name"] == "Adam":
+        opt = tf.keras.optimizers.Adam(learning_rate=params.learning_rate, clipnorm=params.opt["clipnorm"], beta_1=params.opt["beta_1"], beta_2=params.opt["beta_2"], amsgrad=params.opt["amsgrad"], use_ema=params.opt["use_ema"],ema_momentum=params.opt["ema_momentum"],ema_overwrite_frequency=params.opt["ema_overwrite_frequency"])
+    elif params.opt["name"] == "SGD":
+        opt = keras.optimizers.SGD(learning_rate=params.learning_rate, momentum=params.opt["momentum"], nesterov=params.opt["nesterov"], weight_decay=params.opt["weight_decay"], clipnorm=params.opt["clipnorm"],use_ema=params.opt["use_ema"],ema_momentum=params.opt["ema_momentum"],ema_overwrite_frequency=params.opt["ema_overwrite_frequency"])
+    elif params.opt["name"] == "AdamW":
+        opt = tf.keras.optimizers.AdamW(learning_rate=params.learning_rate, clipnorm=params.opt["clipnorm"], rho=params.opt["rho"], amsgrad=params.opt["amsgrad"], use_ema=params.opt["use_ema"],ema_momentum=params.opt["ema_momentum"],ema_overwrite_frequency=params.opt["ema_overwrite_frequency"])
+    elif params.opt["name"] == "Nadam":
+        opt = tf.keras.optimizers.Adam(learning_rate=params.learning_rate, clipnorm=params.opt["clipnorm"], beta_1=params.opt["beta_1"], beta_2=params.opt["beta_2"], use_ema=params.opt["use_ema"],ema_momentum=params.opt["ema_momentum"],ema_overwrite_frequency=params.opt["ema_overwrite_frequency"])
+>>>>>>> 01355748270144c8a968f956b18399f83c0e8507
 
     # compile model
-    model.compile(loss=BinaryCrossentropy(from_logits=False),
-                  optimizer=tf.keras.optimizers.Adam(learning_rate=params.learning_rate), #, clipnorm=1.0),
+    model.compile(loss=loss,
+                  optimizer=opt,
                   metrics=[BinaryAccuracy(threshold=0.5, dtype=None),
-                            f1_m,
-                            recall_m,
-                            precision_m,
                             keras.metrics.Precision(thresholds=0.5),
                             keras.metrics.Recall(thresholds=0.5),
                            ])
