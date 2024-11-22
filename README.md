@@ -95,4 +95,11 @@ pixi shell
 pixi run <command>
 ```
 
+## Data preperation
+Users_isQ_words 
 
+This dataset was created from the provided datasets that are mentioned in the Qanon_users_on_reddit chapter.  
+
+The train.py then collects the data by either specifying its location with the ‘-data’ parameter or simply by placing it in a directory called “data” in the root location where train.py is executed.  
+
+The train.py then collected the data from the dataset from input_fn function with additional arguments. These arguments are params that are retrieved from the params.json file and an embeddings_path which is provided by the GloVe pre-trained embeddings.  This step is crucial to building the model that the project used.  
