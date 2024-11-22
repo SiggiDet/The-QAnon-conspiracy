@@ -118,8 +118,8 @@ def input_fn(f_path, params, embeddings_path=None):
     df = pd.read_csv(f_path)
 
     if params.oversample or params.undersample:
-        minor = df[df['isUQ'] == 1]
-        major = df[df['isUQ'] == 0]
+        minor = df[df['isUQ'] == 0]
+        major = df[df['isUQ'] == 1]
         len_ma = len(major)
         len_mi = len(minor)
 
