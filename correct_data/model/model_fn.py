@@ -4,6 +4,9 @@ from keras.layers import Embedding, Input, Layer, TextVectorization, Dense
 from keras.models import Model, Sequential
 import string
 from nltk.corpus import stopwords
+import re
+import numpy as np
+import keras
 
 from keras import backend as K
 from keras.losses import BinaryCrossentropy
@@ -37,6 +40,16 @@ def custom_standardization(input_data):
                                     '[%s]' % re.escape(string.punctuation),
                                     '')
     return return_val
+
+def oskarlogreg(params, vectorize_layer=None):
+    print('no params.embeddings: model fn logreg model - 69420')
+    inputs = Input(shape=(), dtype='string')
+    vec_layer = vectorize_layer(inputs)
+    Em = layers.Embedding(input_dim=len(vectorize_layer.get_vocabulary()), output_dim=params.embedding_size,mask_zero=False)(vec_layer)
+    flat = layers.GlobalAveragePooling1D()(Em)
+    outputs = layers.Dense(1, activation='sigmoid')(flat)
+    model = Model(inputs, outputs)
+    return model
 
 def word_mlp_model(params, vectorize_layer=None):
     if params.embeddings == 'GloVe':
@@ -79,7 +92,7 @@ def preprocess_text(text):
 
 def log_reg_classifier(params, vectorize_layer=None):
     """
-    Implement a logistic regression classifier
+    Implement a logistic regression classifier for data stored in Keras.
     """
 
     if vectorize_layer is None:
@@ -134,15 +147,6 @@ def create_model(params, vectorize_layer=None):
             name="embedding_layer"
             )(X_inp)
 
-        # Reduce sequence dimension
-   
-    X_inp = layers.GlobalAveragePooling1D(name="pooling_layer")(X_inp)
-
-    outputs = Dense(1, activation='sigmoid',name="output_layer")(X_inp)
-
-    model = Model(inputs=inputs, outputs=outputs, name="Model")
-
-    return model
 
 def model_fn(inputs, params):
     """Compute logits of the model (output distribution)

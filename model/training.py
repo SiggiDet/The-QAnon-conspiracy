@@ -3,10 +3,9 @@ import os
 import pandas as pd
 import tensorflow as tf
 from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
-from sklearn.model_selection import KFold
+from sklearn.model_selection import StratifiedKFold
 import numpy as np
 import random
-
 
 from model.utils import read_glove_vecs, sentences_to_indices
 from model.read_data import prepare_average_word_embeddings, prepare_sequence_word_embeddings
@@ -119,49 +118,57 @@ def perform_months_evaluation(params,model,train_ds,val_ds,test_ds,callbacks,cla
     print(metrics)
     return metrics, history
       
-def perform_cross_validation(features_train, labels_train, model, params,callbacks,metrics):
+def perform_cross_validation(features_train, labels_train, model, params,callbacks,class_weight):
  
-    kfold = KFold(n_splits=params.kfold, shuffle=True, random_state=42)
+    kfold = StratifiedKFold(n_splits=params.kfold, shuffle=True, random_state=42)
 
     histories = []
     init_weights = model.get_weights()
 
     fold_num = 1
+    metrics = {
+        "loss": [],
+        "accuracy": [],
+        "f1": [],
+        "precision": [],
+        "recall": [],
+    }
+    
+    
+    # Fit model from one month to thext 
+    # create new model for each month 
 
-    for train_idx, val_idx in kfold.split(range(features_train.shape[0])):
+    # for month in months, module do evaluate
 
+    for train_idx, val_idx in kfold.split(features_train, labels_train):
         model.set_weights(init_weights)
 
-        # splitting the data twith tf.gather to train and val
+        # Creating  training and validation sets with tf.gather
         X_train_fold = tf.gather(features_train, train_idx)
         X_val_fold = tf.gather(features_train, val_idx)
         y_train_fold = tf.gather(labels_train, train_idx)
         y_val_fold = tf.gather(labels_train, val_idx)
 
-        # re-creating  objects of type tf.data.Datasets
         train_ds = tf.data.Dataset.from_tensor_slices((X_train_fold, y_train_fold)).batch(params.batch_size)
         val_ds = tf.data.Dataset.from_tensor_slices((X_val_fold, y_val_fold)).batch(params.batch_size)
-        test_ds = tf.data.Dataset.from_tensor_slices((X_val_fold, y_val_fold)).batch(params.batch_size)
 
-        loss, accuracy, f1, r_m, p_m, precision, recall,history = train_and_evaluate_assist(
-            params, model, train_ds, val_ds, test_ds, callbacks
+        loss, accuracy, precision, recall, history = train_and_evaluate_assist(
+            params, model, train_ds, val_ds, val_ds, callbacks,class_weight
         )
 
         histories.append(history)
-        # Log metrics for the current fold
-        print(f"Fold {fold_num} -- Loss: {loss}, Accuracy: {accuracy}, F1: {f1}, Precision: {precision}, Recall: {recall}")
+        
+        # Append metrics for later analysis
         metrics["loss"].append(loss)
         metrics["accuracy"].append(accuracy)
-        metrics["f1_m"].append(f1)
-        metrics["r_m"].append(r_m)
-        metrics["p_m"].append(p_m)
         metrics["precision"].append(precision)
         metrics["recall"].append(recall)
+        metrics["f1"].append(f1_m(recall,precision))
 
         fold_num += 1
 
     return metrics, histories
-
+    
 def train_and_evaluate(inputs, model_path, model, params):
     """Evaluate the model
 
@@ -216,8 +223,8 @@ def train_and_evaluate(inputs, model_path, model, params):
 
     elif params.months_eval != False:
         print("running months evaluation")
-        metrics,history = perform_cross_validation(features_train, labels_train, model, params,callbacks,metrics)
-        loss, accuracy, f1, r_m, p_m, precision, recall = metrics   
+        metrics,history = perform_months_evaluation(params,model,train_ds,val_ds,test_ds,callbacks,class_weight,curr_month=params.months_eval)
+
     else: 
         if params.model_version.startswith('BERT'):
             # Ragged tensors cannot be run on GPU
@@ -228,14 +235,7 @@ def train_and_evaluate(inputs, model_path, model, params):
                     callbacks=callbacks,
                     epochs=params.num_epochs,
                     class_weight=class_weight)
-            loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
-            metrics["loss"].append(loss)
-            metrics["accuracy"].append(accuracy)
-            metrics["f1_m"].append(f1)
-            metrics["r_m"].append(r_m)
-            metrics["p_m"].append(p_m)
-            metrics["precision"].append(precision)
-            metrics["recall"].append(recall)
+            loss, accuracy, precision, recall = model.evaluate(test_ds)
 
         else:
             with tf.device('/cpu:0'):
@@ -245,14 +245,13 @@ def train_and_evaluate(inputs, model_path, model, params):
                     callbacks=callbacks,
                     epochs=params.num_epochs,
                     class_weight=class_weight)
-            loss, accuracy, f1_m, r_m, p_m, precision, recall = model.evaluate(test_ds)
-            metrics["loss"].append(loss)
-            metrics["accuracy"].append(accuracy)
-            metrics["f1_m"].append(f1)
-            metrics["r_m"].append(r_m)
-            metrics["p_m"].append(p_m)
-            metrics["precision"].append(precision)
-            metrics["recall"].append(recall)
+            loss, accuracy, precision, recall = model.evaluate(test_ds)
+
+        metrics["loss"].append(loss)
+        metrics["accuracy"].append(accuracy)
+        metrics["f1"].append(f1_m(recall,precision))
+        metrics["precision"].append(precision)
+        metrics["recall"].append(recall)
 
     for i in range(0,len(metrics['loss'])):
         test_history = {"loss": metrics["loss"][i], "binary_accuracy": metrics["accuracy"][i], "f1": metrics["f1"][i], "recall": metrics["recall"][i], "percision":metrics["precision"][i]}

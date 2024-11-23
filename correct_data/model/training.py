@@ -1,34 +1,97 @@
 import json
 import os
+import pandas as pd
 import tensorflow as tf
 from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
 from sklearn.model_selection import StratifiedKFold
+import numpy as np
+import random
 
+from model.utils import read_glove_vecs, sentences_to_indices
 from model.read_data import prepare_average_word_embeddings, prepare_sequence_word_embeddings
 
 def f1_m(recall,precision):
     return 2*((precision*recall)/(precision+recall+(0.000000001)))
 
-
-def get_months_val(month_fpath):
-    df = pd.read_csv(month_fpath)
+def get_months_val(params,month_fpath):
+    df = pd.read_csv(month_fpath,skiprows=lambda i: i>0 and random.random() > 0.05)
     words_test = tf.convert_to_tensor(df["words"], dtype=tf.string)
     labels_test = tf.convert_to_tensor(df["isUQ"])
-    inputs = {
-        'test': [words_test, labels_test],
-    }
+    
 
+    embeddings_path = './data/glove.6B.'+str(params.embedding_size)+'d.txt'
     if params.embeddings == 'GloVe':
         print("preparing word embeddings")
         if params.model_version == 'mlp':
+            inputs = {
+                'test': [words_test, labels_test],
+                # just an empty sender does not use this variables for this case
+                'train': [words_test,labels_test], 
+                'val': [words_test,labels_test]
+            }
             inputs = prepare_average_word_embeddings(inputs, params, './data/glove.6B.'+str(params.embedding_size)+'d.txt')
         else:
-            inputs = prepare_sequence_word_embeddings(inputs, params, './data/glove.6B.'+str(params.embedding_size)+'d.txt')
+            inputs = {'test': [words_test, labels_test]}
+            maxLen = params.max_word_length
+            words_to_index, index_to_words, word_to_vec_map = read_glove_vecs(embeddings_path)
+            inputs['test'][0] = sentences_to_indices(inputs['test'][0], words_to_index, maxLen)
+            inputs['test'].append(tf.data.Dataset.from_tensor_slices((inputs['test'][0], inputs['test'][1])) \
+                .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
+            inputs['word_to_vec_map'] = word_to_vec_map
+            inputs['words_to_index'] = words_to_index
     else:
         inputs['test'].append(tf.data.Dataset.from_tensor_slices((words_test, labels_test)) \
             .shuffle(params.batch_size, reshuffle_each_iteration=True).batch(params.batch_size))
     return inputs['test'][0], inputs['test'][1], inputs['test'][2]
 
+def retrieve_all_months(submissions_data_dir:str,curr_month=None):
+    file_names = [f for f in os.listdir(submissions_data_dir) if os.path.isfile(os.path.join(submissions_data_dir, f))]
+
+    if curr_month != None:
+        file_names.remove(curr_month)
+
+    return file_names
+
+def perform_months_evaluation(params,model,train_ds,val_ds,test_ds,callbacks,class_weight,curr_month): 
+    # create manually a list of month
+
+    submissions_data_dir = "./data/months/"
+    all_months = retrieve_all_months(submissions_data_dir,curr_month=curr_month)
+
+
+    histories = []
+    metrics = {
+        "loss": [],
+        "accuracy": [],
+        "f1": [],
+        "precision": [],
+        "recall": [],
+    }
+
+    history = model.fit(
+        train_ds,
+        validation_data=val_ds,
+        callbacks=callbacks,
+        epochs=params.num_epochs,
+        class_weight=class_weight)
+
+    month_test_dataset = None # Initialising
+    
+    month_ds_arr = []
+    # iterate all months 
+    for m in all_months:
+        m_file_path = submissions_data_dir + m
+        month_features_test, month_label_test, month_test_dataset = get_months_val(params,m_file_path)
+        loss, accuracy, precision, recall = model.evaluate(month_test_dataset)
+        metrics["loss"].append(loss)
+        metrics["accuracy"].append(accuracy)
+        metrics["precision"].append(precision)
+        metrics["recall"].append(recall)
+        metrics["f1"].append(f1_m(recall,precision))
+
+    print(metrics)
+    return metrics, history
+      
 def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,class_weight):
 
     if params.model_version.startswith('BERT'):
@@ -54,58 +117,6 @@ def train_and_evaluate_assist(params,model,train_ds,val_ds,test_ds,callbacks,cla
     
     return loss,accuracy,precision, recall, history
 
-def retrieve_all_months(submissions_data_dir:str,curr_month=None):
-    file_names = [f for f in os.listdir(submissions_data_dir) if os.path.isfile(os.path.join(submissions_data_dir, f))]
-
-    if curr_month != None:
-        file_names.remove(curr_month)
-
-    return file_names
-    
-def perform_months_evaluation(model,curr_month,curr_month_input): 
-    # create manually a list of month
-    submissions_data_dir = "./data/HQ_Submissions_RC"
-    all_months = retrieve_all_months(submissions_data_dir,curr_month=curr_month)
-
-
-    histories = []
-    
-    fold_num = 1
-    metrics = {
-        "loss": [],
-        "accuracy": [],
-        "f1_m": [],
-        "precision": [],
-        "recall": [],
-        "r_m": [],
-        "p_m": [],
-    }
-    loss,accuracy,precision, recall, history =  train_and_evaluate_assist(params,model,train_ds,val_ds,month_test_dataset,callbacks,class_weight)
-    
-    # iterate all months 
-    for m in all_months:
-
-        m_file_path = submissions_data_dir + m
-        month_features_test, month_label_test, month_test_dataset = get_months_val(m_file_path)
-        
-        metrics = histry.evalute(month_test_dataset)
-
-
-
-        # Fit model from one month to the next -> 
-
-    model.evaluate()
-    
-    
-
-
-    for m in all_months:
-        # gather data from m 
-        
-        # gather metrics for each month 
-        #model.evaluate(m)
-        pass
-    
 def perform_cross_validation(features_train, labels_train, model, params,callbacks,class_weight):
  
     kfold = StratifiedKFold(n_splits=params.kfold, shuffle=True, random_state=42)
@@ -114,20 +125,6 @@ def perform_cross_validation(features_train, labels_train, model, params,callbac
     init_weights = model.get_weights()
 
     fold_num = 1
-    metrics = {
-        "loss": [],
-        "accuracy": [],
-        "f1_m": [],
-        "precision": [],
-        "recall": [],
-        "r_m": [],
-        "p_m": [],
-    }
-    
-    # Fit model from one month to thext 
-    # create new model for each month 
-
-    # for month in months, module do evaluate
 
     for train_idx, val_idx in kfold.split(features_train, labels_train):
         model.set_weights(init_weights)
@@ -209,6 +206,11 @@ def train_and_evaluate(inputs, model_path, model, params):
 
     if params.kfold != False: # Perform Cross Validation
         metrics,history = perform_cross_validation(features_train, labels_train, model, params,callbacks,class_weight)
+    
+    elif params.months_eval != False:
+        print("running months evaluation")
+        metrics,history = perform_months_evaluation(params,model,train_ds,val_ds,test_ds,callbacks,class_weight,curr_month=params.months_eval)
+
     else: 
         if params.model_version.startswith('BERT'):
             # Ragged tensors cannot be run on GPU
