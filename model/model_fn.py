@@ -94,7 +94,7 @@ def preprocess_text(text):
 
 def log_reg_classifier(params, vectorize_layer=None):
     """
-    Implement a logistic regression classifier for data stored in Keras.
+    Implement a logistic regression classifier
     """
 
     if vectorize_layer is None:
@@ -133,24 +133,11 @@ def log_reg_classifier(params, vectorize_layer=None):
 
 def create_model(params, vectorize_layer= None):
     if vectorize_layer is None:
-<<<<<<< HEAD
-        
-        inputs = Input(shape=(params.max_word_length,), dtype='float64', name="text_input")  # Input is raw text strings
-=======
         inputs = Input(shape=(params.max_word_length,), dtype='float64', name="bagging")
->>>>>>> 01355748270144c8a968f956b18399f83c0e8507
         X_inp = inputs
 
     else:
-<<<<<<< HEAD
-
-        # Define the input layer for text data
-        inputs = Input(shape=(), dtype='string', name="text_input")  # Input is raw text strings
-
-        # Apply the vectorization layer
-=======
         inputs = Input(shape=(), dtype='string', name="text_input")
->>>>>>> 01355748270144c8a968f956b18399f83c0e8507
         X_inp = vectorize_layer(inputs)
 
         X_inp = Embedding(
@@ -170,17 +157,6 @@ def create_model(params, vectorize_layer= None):
     outputs = Dense(1, activation='sigmoid',name="output_layer")(X_inp)
 
     model = Model(inputs=inputs, outputs=outputs, name="Model")
-
-    return model
-
-#https://github.com/christianversloot/machine-learning-articles/blob/main/how-to-use-k-fold-cross-validation-with-keras.md
-def cross_validation(params, vectorize_layer=None):
-
-
-    # Define the K-fold Cross Validator
-    kfold = KFold(n_splits=params.kfold, shuffle=True,random_state=42)
-    
-    model = create_model(params,vectorize_layer)
 
     return model
 
@@ -205,13 +181,6 @@ def model_fn(inputs, params):
             vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
             model = word_mlp_model(params, vectorize_layer=vectorize_layer)
 
-<<<<<<< HEAD
-    elif params.model_version == 'oskarlogreg':
-        vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
-        model = oskarlogreg(params, vectorize_layer=vectorize_layer)
-
-=======
->>>>>>> 01355748270144c8a968f956b18399f83c0e8507
     elif params.model_version == 'log_reg':
         print("creating log_reg classifier")
     
@@ -223,8 +192,6 @@ def model_fn(inputs, params):
             vectorize_layer = create_vectorized_layer(inputs['train'][0], params.max_features)
             model = log_reg_classifier(params,vectorize_layer=vectorize_layer)
 
-<<<<<<< HEAD
-=======
     loss = None
     if params.loss["name"] == "BinaryCrossentropy":
         loss = BinaryCrossentropy(from_logits=params.loss["from_logits"],label_smoothing=params.loss["label_smoothing"])
@@ -253,7 +220,6 @@ def model_fn(inputs, params):
         opt = tf.keras.optimizers.AdamW(learning_rate=params.learning_rate, clipnorm=params.opt["clipnorm"], rho=params.opt["rho"], amsgrad=params.opt["amsgrad"], use_ema=params.opt["use_ema"],ema_momentum=params.opt["ema_momentum"],ema_overwrite_frequency=params.opt["ema_overwrite_frequency"])
     elif params.opt["name"] == "Nadam":
         opt = tf.keras.optimizers.Adam(learning_rate=params.learning_rate, clipnorm=params.opt["clipnorm"], beta_1=params.opt["beta_1"], beta_2=params.opt["beta_2"], use_ema=params.opt["use_ema"],ema_momentum=params.opt["ema_momentum"],ema_overwrite_frequency=params.opt["ema_overwrite_frequency"])
->>>>>>> 01355748270144c8a968f956b18399f83c0e8507
 
     # compile model
     model.compile(loss=loss,

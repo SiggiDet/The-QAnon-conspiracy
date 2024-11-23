@@ -122,5 +122,3 @@ if __name__ == '__main__':
             print(i.summary())
         print(best_model.summary())
         print(tuner.results_summary())
-
-
