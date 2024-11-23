@@ -185,10 +185,7 @@ In the following example we provide a simple .json file that shows how to run th
 }
 ```
 
-## Data preperation
-Users_isQ_words 
-
-### Simple Execution
+### Simple Run
 
 To Run The code you simply need to type in the following command. 
 
@@ -196,8 +193,7 @@ To Run The code you simply need to type in the following command.
 python3 correct_data/train.py -p ./params_dir/ -d ./data/<path to data>
 ```
 
-> Note! that it is recommended to have params.json file in it's own directory since the ouput will be located placed in the same location as the params.jso
-
+> Note! that it is recommended to have params.json file in it's own directory since the ouput will be located placed in the same location as the ``params.json``
 
 
 ## tools
@@ -210,9 +206,9 @@ By training a model on just one month of Qposts and then using the rest of the m
 To setup this data_set we use ``split_data.py``. 
 
 ```bash
-python3 tools/split_data.py -p ./data/Hashed_Q_Submissions_Raw_Combined.csv -s ./data/months
+python3 tools/split_data.py -p ./data/dataspace_to_split.csv -s ./data/months
 ```
-> The csv file needs to have date_created section
+> The csv file needs to have `date_created` section and `words` section
 
 Run month and then evalute it by then using the rest of the months as validation data this needs to be provided in the  ``params.json`` file like so:
 
@@ -226,7 +222,6 @@ To run this implementation type in the following at the root location of the rep
 python3 correct_data/train.py -p . -d ./data/months/2016_10.csv
 ```
 
-````
 ## References
 
 - [1] Lillian Ma and Stephanie Vezich. Student project in CS230.
