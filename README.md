@@ -37,7 +37,7 @@ To combat the unbalanced dataset, we elected to try a few different approaches w
 For the following project you'll need to create a data in the root location of the project directory containing the referred datasets mentioned in the [Datasets chapter](#datasets--qanon_users_on_reddit).
 
 #### Pre-worded embeddings with GloVe
-If you wish to use GloVe pre-worded embeddings you can do so by adding the pre-worded embeddings from GLoVe to a directory called ``correct_data/`` in the project repository and set in the ``params.json`` file that will be called with the train.py. Example of such use case can be found in the [Example UseCase chapter]().
+If you wish to use GloVe pre-worded embeddings you can do so by adding the pre-worded embeddings from GLoVe to a directory called ``correct_data/`` in the project repository and set in the ``params.json`` file that will be called with the train.py. Example of such use case can be found in the [Example UseCase chapter](#simple_run).
 
 ## Dependencies
 To setup the project you'll need conda and python.
@@ -185,7 +185,7 @@ In the following example we provide a simple .json file that shows how to run th
 }
 ```
 
-### Simple Run
+# Simple Run
 
 To Run The code you simply need to type in the following command. 
 
