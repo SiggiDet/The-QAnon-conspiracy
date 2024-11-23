@@ -10,8 +10,33 @@
     "batch_size": 32,
     "num_epochs": 2,
     "early_stopping_patience": 10,
-    "dropout_rate": 0.1,
+    "dropout_rate": 0.0,
     "sample_rate": 1.0,
     "max_word_length": 60000,
-    "embeddings": "None"
+    "h2_activation": "relu",
+    "h1_activation": "relu",
+    "embeddings": "None",
+    "oversample": false,
+    "undersample": false,
+    "class_weight_balance": false,
+    "output_activation": "sigmoid",
+    "months_eval": false,
+    "kfold": false,
+    "tune": false,
+    "loss": {
+	"name": "BinaryCrossentropy",
+	"from_logits": false,
+	"label_smoothing": 0.0
+    },
+    "opt": {
+	"name": "Adam",
+        "clipnorm": 1.0,
+	"beta_1": 0.9,
+	"beta_2": 0.999,
+	"amsgrad": false,
+	"use_ema": false,
+	"ema_momentum": 0.99,
+	"ema_overwrite_frequency": "None"
+    }
 }
+
