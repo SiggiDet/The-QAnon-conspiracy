@@ -7,99 +7,227 @@
 **Course**
 *REI505M*
 
-## Project Description
-Final Project In the Course REI505M
-
-we work with data sets that were scraped from Reddit. The data contains posts to various 
-subreddits (a subreddit is a community of users with an interest in a particular topic) 
-before and after October 2017, the time when the first QAnon message was posted.
-
-In this project we work with data sets that were scraped from Reddit. The data contains
-posts to various subreddits (a subreddit is a community of users with an interest in a
-particular topic) before and after October 2017, the time when the first QAnon message
-was posted.
-The first data set is from [1]. The file Hashed_Q_Submissions_Raw_Combined.csv
-(900MB) contains anonymized posts of 2M submissions from 13.2K unique users who have
-been identified as QAnon followers in the period October 2016 to January 2021. Reddit
-banned 19 QAnon subbreddits in September 2018 which subsequently led to QAnon follow-
-ers migrating to other platforms. This date and the affected subreddits served as reference
-in identifying QAnon users (see [1] for details). The authors of [1] split the users into
-QAnon-enthusiastic users, the most active posters, and QAnon-interested, the remaining
-users. The definition of the two groups appears to be somewhat arbitrary and it is there-
-fore of interest to study if it is strongly supported by the data. This can e.g., be done by
-constructing a classifier to separate the two groups and analyzing the features most rele-
-vant for classification. Each post has several fields, the message itself (text string), user
-ID and metadata (number of upvotes, number of replies, date etc.) which could also be
-useful. NMF could also give some insight into the data, e.g., what other topics the QAnon
-2users are interested in (COVID-19, (anti-)vaccination etc.). This data set also includes
-Hashed_allAuthorStatus.csv and Hashed_subredditStats.csv containing information
-on the authors and subreddits, respectively. A description of the data and a link to it is
-given here: https://github.com/sTechLab/QAnon_users_on_Reddit. Other possibilities
-for analyzing this data set include tracking how the topics evolve over time.
-To work with text in the algorithms that we’ve seen so far, the Reddit posts need to
-be converted to vectorial form. Try something like CountVectorizer at first and logistic
-regression or SVM. The next step would be to use pre-trained word embeddings like GloVe
-or word2vec. Here each word is represented by a, say, 100-dimensional vector. A simple
-way to convert a single post to vectorial format would be to average embedding vectors
-corresponding to individual words in the post. After this, it would be interesting to try a
-method that embed sentences directly, e.g., Sentence-BERT (https://www.sbert.net/).
-Two Stanford students, Lillian Ma and Stephanie Vezich, carried out an interesting
-study [2] where they used the above dataset as ”positive” examples, i.e., posts from QAnon
-followers, and another dataset which they collected themselves, of non-QAnon followers, as
-”negative” examples. This enabled them to train a classifier to predict whether a post is a
-QAnon post or not which can subsequently be used to flag potentially harmful posts.
-Ma and Vezich took this a step further. They were interested in whether it is possible
-to identify posters that were susceptible to the QAnon conspiracy, before it came into
-existence. That is do posts on Reddit prior to October 28th 2017 (the day of the first post
-by ”Q”) by users which (later) turned out to be QAnon-enthusiastic or QAnon-interested,
-provide any clues of their later ”conversion” to QAnon? Ma and Vezich used recurrent
-neural networks in their study. Can you reproduce their results, to some extent, by using
-a logistic regression classifier? The data set from can be downloaded from here: https:
-//github.com/isvezich/cs230-political-extremism/tree/main
-There are many possible avenues of exploration, including the study of differences in
-phrasing between QAnon and non-QAnon users, classifying sentiment of QAnon and non-
-QAnon posts (e.g., using a language model from Huggingface) and automatic removal of
-bot posts during preprocessing. Does clustering provide insight into QAnon users? Do the
-links in the QAnon posts provide any clues? The list goes on!
-
-> Note: The datasets were originally obtained via an archiving service called
-> PushShift by querying specific subreddits and users.This service is no longer
-> publicly available but instead, a service called PullPush can be used
-> (https://www.pullpush.io/).
-
-## References
-- [1] Engel et al. Characterizing Reddit Participation of Users Who Engage in the QAnon
-Conspiracy Theories. Proc. ACM Hum.-Comput. Interact., Vol. 6, No. CSCW1, 53, 2022.
-Link: https://dl.acm.org/doi/pdf/10.1145/3512900
-
-- [2] Lillian Ma and Stephanie Vezich. Student project in CS230.
-Link: http://cs230.stanford.edu/projects_fall_2022/reports/22.pdf
+# Project Description 
+This project is a part of the final project for the course Machine learning, REI505M. The aim of this project was to To understand how Qanon befell people. To do this we had to find a way to idendity accurately and quickly people who engage in Qanon. FOrtunatly Qanons are not shy about giving the researchers their data. Enabling researchesr to start to build models to classify wether a person is a Qanon or not based on their posts on social media. This report dicusses ways to claissfy a user as Qanon and examines the evolution of Qanon posts. 
 
 
+# Datasets | QAnon_users_on_Reddit
+
+For this project three large datasets were used. These datasets consist of data from a bunch of reddit posts that were posted by either QAnon followers or QAnon enthusiasts and were provided by the [1] research project Datasets for QAnon on Reddit.
+
+- Hashed_Q_Comments_Raw_Combined:   contains about 10 million unique posts from October 28.2016 to January 23rd, 2021, and posted by 11 thousand users. 
+
+- Hashed_Q_Submissions_Raw_Combined: consists of 2.1 million posts from October 28.2016 and 23rd of January 2021. These reddit posts are from 50 thousand subreddits and were posted by about 13.2 thousand users. 
+
+- Hashed_allAuthorStatus: a dataset that consists of about 13.200 QAnon users.  
+
+- non-q-posts-v2.csv: a dataset that consists of posts by 61000 reddit users that where not associated with Qanon 
+
+> All data of the mentioned datasets contain hashed usernames for the sake of keeping the identity of the users private. 
+
+A more in-detail description and a link to these datasets can be found in the following github repositories: https://github.com/sTechLab/QAnon_users_on_Reddit and https://github.com/isvezich/cs230-political-extremism.
+
+Two datasets were created from the aforementioned datasets, **Users_isQ_words** and **Users_isQ_words_with_non_q**. The **Users_isQ_words** was constructed by combining the **Hashed_Q_Submissions_Raw_Combined** and **Hashed_Q_Comments_Raw_Combined datasets**. The Users_isQ_words dataset took the text and titles of posts and combined them to form the words column, from the submissions the only text from the user was already in a singular column, text, that was then also placed into the word's column. All rows with Nan values were then dropped. The datasets from Engels et al. unfortunately did not include posts that were not associated with Qanon, for that we had to turn to Ma & Vezich. They used a dataset of all reddit posts since 2006, publish on pushshift. Trouble with pushshift relegated us to using the dataset that they made available on their github containing posts, from non-Qanon users, from January 2017. This led to a wildly unbalanced dataset of 2692953 Qanon posts and 71818 non Qanon related posts.  
+
+To combat the unbalanced dataset, we elected to try a few different approaches when training the models; oversampling the minority dataset, undersampling the majority dataset, and adding a class weight parameter to the loss function of the models.
 
 ## Requirements
-The following Project Requires the following
 
--Pixi: Package management tool for developers, available  [here](https://pixi.sh/dev/)
+### Data Dependencies
+For the following project you'll need to create a data in the root location of the project directory containing the referred datasets mentioned in the [Datasets chapter](#datasets--qanon_users_on_reddit).
 
-### Set up environment
+#### Pre-worded embeddings with GloVe
+If you wish to use GloVe pre-worded embeddings you can do so by adding the pre-worded embeddings from GLoVe to a directory called ``correct_data/`` in the project repository and set in the ``params.json`` file that will be called with the train.py. Example of such use case can be found in the [Example UseCase chapter]().
 
+## Dependencies
+To setup the project you'll need conda and python.
+
+### Set up Conda environment
+
+To setup the environment that was used to run the project you'll need to follo
 ```bash
-cd hbv505m_sdj29 # Navigate to Project Directory
+# 
+cd The-QAnon-Conspiracy 
 
-pixi install
+# Setup conda environment
+conda env create -f environment.yml
 
-# To Run in Pixi's environment you can type the following commands
-pixi shell
-# or
-pixi run <command>
+# activate conda environment
+conda activate tf
+
+```
+
+### Gathering data
+
+Data needs to be added beforehand that is metnioned in the [Datasets chapter](#datasets--qanon_users_on_reddit) into the ``data`` directory at the root location on the repository
+
+
+### Setup 
+
+In the root directory run the following command
+```bash
+python3 setup.py
+```
+
+Next navigate to ``correct_data`` and run setup.py aswell
+```bash
+cd correct_data/
+python3 setup.py
+```
+
+### Additional tools
+Additional tools that where used in the project are located in the ``./tools/directory``.
+
+## Data
+All data that will be used should be moved into a directory called ``data/`` in the root of the repository. 
+
+## Parameters
+``train.py`` takes in two parameters, --path and --data.
+
+- ``-p``: Takes in the location of the `params.json` file, do not specify that params.json just the location of the directory where it is contained. 
+- ``-d``: Takes in the location of the dataset  to be used by the progarm.
+
+### params.json
+The user places it's parameters option that he wants to run the program with into the ``params.json`` file. An example of such use case can be found here:
+
+#### Running with mlp
+In the following example we provide a simple .json file that shows how to run the code with mlp
+
+```json
+{
+    "model_version": "mlp",
+    "max_features": 25000,
+    "sequence_length": 1024,
+    "h1_units": 256,
+    "h2_units": 128,
+    "l2_reg_lambda": 1e-3,
+    "embedding_size": 512,
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "num_epochs": 2,
+    "early_stopping_patience": 10,
+    "dropout_rate": 0.0,
+    "sample_rate": 1.0,
+    "max_word_length": 60000,
+    "h2_activation": "relu",
+    "h1_activation": "relu",
+    "embeddings": "None",
+    "oversample": false,
+    "undersample": false,
+    "class_weight_balance": false,
+    "output_activation": "sigmoid",
+    "months_eval": false,
+    "kfold": false,
+    "tune": false,
+    "loss": {
+	"name": "BinaryCrossentropy",
+	"from_logits": false,
+	"label_smoothing": 0.0
+    },
+    "opt": {
+	"name": "Adam",
+        "clipnorm": 1.0,
+	"beta_1": 0.9,
+	"beta_2": 0.999,
+	"amsgrad": false,
+	"use_ema": false,
+	"ema_momentum": 0.99,
+	"ema_overwrite_frequency": "None"
+    }
+}
+
+```
+
+#### With log regression classifier with  GloVe 
+In the following example we provide a simple .json file that shows how to run the code with logistic regression classifer with pre-trained embeddings from GloVe
+
+```json
+{
+    "model_version": "log_reg",
+    "max_features": 25000,
+    "sequence_length": 1024,
+    "h1_units": 256,
+    "h2_units": 128,
+    "l2_reg_lambda": 1e-3,
+    "embedding_size": 512,
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "num_epochs": 2,
+    "early_stopping_patience": 10,
+    "dropout_rate": 0.0,
+    "sample_rate": 1.0,
+    "max_word_length": 60000,
+    "h2_activation": "relu",
+    "h1_activation": "relu",
+    "embeddings": "None",
+    "oversample": false,
+    "undersample": false,
+    "class_weight_balance": false,
+    "output_activation": "sigmoid",
+    "months_eval": false,
+    "kfold": false,
+    "tune": false,
+    "loss": {
+	"name": "BinaryCrossentropy",
+	"from_logits": false,
+	"label_smoothing": 0.0
+    },
+    "opt": {
+	"name": "Adam",
+        "clipnorm": 1.0,
+	"beta_1": 0.9,
+	"beta_2": 0.999,
+	"amsgrad": false,
+	"use_ema": false,
+	"ema_momentum": 0.99,
+	"ema_overwrite_frequency": "None"
+    }
+}
 ```
 
 ## Data preperation
 Users_isQ_words 
 
-This dataset was created from the provided datasets that are mentioned in the Qanon_users_on_reddit chapter.  
+### Simple Execution
 
-The train.py then collects the data by either specifying its location with the ‘-data’ parameter or simply by placing it in a directory called “data” in the root location where train.py is executed.  
+To Run The code you simply need to type in the following command. 
 
-The train.py then collected the data from the dataset from input_fn function with additional arguments. These arguments are params that are retrieved from the params.json file and an embeddings_path which is provided by the GloVe pre-trained embeddings.  This step is crucial to building the model that the project used.  
+```bash
+python3 correct_data/train.py -p ./params_dir/ -d ./data/<path to data>
+```
+
+> Note! that it is recommended to have params.json file in it's own directory since the ouput will be located placed in the same location as the params.jso
+
+
+
+## tools
+
+Two tools where implemented
+
+### split_data
+By training a model on just one month of Qposts and then using the rest of the months as validation data, ie the month of 2017-11 will be evauated against 2017-12 then 2018-01 ...
+
+To setup this data_set we use ``split_data.py``. 
+
+```bash
+python3 tools/split_data.py -p ./data/Hashed_Q_Submissions_Raw_Combined.csv -s ./data/months
+```
+> The csv file needs to have date_created section
+
+Run month and then evalute it by then using the rest of the months as validation data this needs to be provided in the  ``params.json`` file like so:
+
+```bash
+    "months_eval": "2016_10",
+```
+> Here we want it to evaluate month 2016_10 and then using the rest of the months as validation data
+
+To run this implementation type in the following at the root location of the repository:
+```bash
+python3 correct_data/train.py -p . -d ./data/months/2016_10.csv
+```
+
+````
+## References
+
+- [1] Lillian Ma and Stephanie Vezich. Student project in CS230.
+Link: http://cs230.stanford.edu/projects_fall_2022/reports/22.pdf
