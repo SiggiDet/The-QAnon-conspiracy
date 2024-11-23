@@ -37,7 +37,7 @@ To combat the unbalanced dataset, we elected to try a few different approaches w
 For the following project you'll need to create a data in the root location of the project directory containing the referred datasets mentioned in the [Datasets chapter](#datasets--qanon_users_on_reddit).
 
 #### Pre-worded embeddings with GloVe
-If you wish to use GloVe pre-worded embeddings you can do so by adding the pre-worded embeddings from GLoVe to a directory called ``correct_data/`` in the project repository and set in the ``params.json`` file that will be called with the train.py. Example of such use case can be found in the [Example UseCase chapter](#simple_run).
+If you wish to use [2] GloVe pre-worded embeddings you can do so by adding the pre-worded embeddings from GLoVe to a directory called ``correct_data/`` in the project repository and set in the ``params.json`` file that will be called with the train.py. Example of such use case can be found in the [Example UseCase chapter](#simple_run).
 
 ## Dependencies
 To setup the project you'll need conda and python.
@@ -226,3 +226,5 @@ python3 correct_data/train.py -p . -d ./data/months/2016_10.csv
 
 - [1] Lillian Ma and Stephanie Vezich. Student project in CS230.
 Link: http://cs230.stanford.edu/projects_fall_2022/reports/22.pdf
+
+- [2] Jeffrey Pennington, Richard Socher, and Christopher D. Manning. 2014. GloVe: Global Vectors for Word Representation. [pdf] [bib] 
