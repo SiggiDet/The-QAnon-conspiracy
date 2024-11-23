@@ -31,6 +31,12 @@ Two datasets were created from the aforementioned datasets, **Users_isQ_words** 
 
 To combat the unbalanced dataset, we elected to try a few different approaches when training the models; oversampling the minority dataset, undersampling the majority dataset, and adding a class weight parameter to the loss function of the models.
 
+## MLP implementation
+
+The multilayer perceptron model was the first model implemented into the project. The implementation was drawn from a solution used in the provided Stanford [1] Student project in CS230. This model helped the project by serving as a baseline for implementing other models and comparing its outputs with this model for testing reasons. The model "is a simple feedforward neural network with 2 dense hidden layers and a single output layer". For our implementation we passed all embedding sizes, hidden layer sizes, optimizers and cost functions so that we could tune them later. 
+
+Further details on the MLP model can be read in the provided Stanford [1] Student project in CS230.  
+
 ## Requirements
 
 ### Data Dependencies
@@ -227,4 +233,7 @@ python3 correct_data/train.py -p . -d ./data/months/2016_10.csv
 - [1] Lillian Ma and Stephanie Vezich. Student project in CS230.
 Link: http://cs230.stanford.edu/projects_fall_2022/reports/22.pdf
 
-- [2] Jeffrey Pennington, Richard Socher, and Christopher D. Manning. 2014. GloVe: Global Vectors for Word Representation. [pdf] [bib] 
+- [2] Jeffrey Pennington, Richard Socher, and Christopher D. Manning. 2014. GloVe: Global Vectors for Word Representation. [pdf] [bib]
+- 
+- 
+- 
