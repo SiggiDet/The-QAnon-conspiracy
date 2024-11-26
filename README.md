@@ -229,11 +229,11 @@ python3 correct_data/train.py -p . -d ./data/months/2016_10.csv
 ```
 
 ## References
--  [1]Jeffrey Pennington, Richard Socher, and Christopher D. Manning. 2014. GloVe: Global Vectors for Word Representation. [pdf] [bib]
+-  [1] Zeng, Taixiang; Hua, Yiqing; Engel, Kristen (2022). Datasets for QAnon on Reddit research project.. figshare. Dataset. [https://doi.org/10.6084/m9.figshare.19251581.v1 ](https://doi.org/10.6084/m9.figshare.19251581.v1)
   
-- [2] Jeffrey Pennington, Richard Socher, and Christopher D. Manning. 2014. GloVe: Global Vectors for Word Representation. [pdf] [bib]
+- [2] Jeffrey Pennington, Richard Socher, and Christopher D. Manning. 2014. [GloVe: Global Vectors for Word Representation](https://nlp.stanford.edu/pubs/glove.pdf). [[pdf](https://nlp.stanford.edu/pubs/glove.pdf)] [[bib](https://nlp.stanford.edu/pubs/glove.bib)]
  
 
-- [3] Lillian Ma and Stephanie Vezich. Student project in CS230. Link: http://cs230.stanford.edu/projects_fall_2022/reports/22.pdf
+- [3] Lillian Ma and Stephanie Vezich. Student project in CS230. Link: [http://cs230.stanford.edu/projects_fall_2022/reports/22.pdf](http://cs230.stanford.edu/projects_fall_2022/reports/22.pdf)
 
   
